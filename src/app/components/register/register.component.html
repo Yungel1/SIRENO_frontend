@@ -1,0 +1,29 @@
+<!-- register.component.html -->
+
+<div class="register">
+    <form class="custom-form" method="post">
+      <h1>Registro</h1>
+      <input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        placeholder="Email"
+        required="required"
+      />
+      <input
+        type="text"
+        [(ngModel)]="usuario"
+        name="usuario"
+        placeholder="Usuario"
+        required="required"
+      />
+      <input
+        type="password"
+        [(ngModel)]="contrasena"
+        name="contraseña"
+        placeholder="Contraseña"
+        required="required"
+      />
+      <button type="submit" (click)="register()">Registrar</button>
+    </form>
+  </div>

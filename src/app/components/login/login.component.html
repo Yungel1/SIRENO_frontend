@@ -1,0 +1,22 @@
+<!-- login.component.html -->
+
+<div class="login">
+    <form class="custom-form" method="post">
+      <h1>Inicio de sesión</h1>
+      <input
+        type="text"
+        [(ngModel)]="usuario"
+        name="usuario"
+        placeholder="Usuario"
+        required="required"
+      />
+      <input
+        type="password"
+        [(ngModel)]="contrasena"
+        name="contraseña"
+        placeholder="Contraseña"
+        required="required"
+      />
+      <button type="submit" (click)="login()">Iniciar sesión</button>
+    </form>
+  </div>
