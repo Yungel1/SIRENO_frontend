@@ -1,7 +1,9 @@
+<a class='logout' (click)="onLogout()">Logout</a><br />
+
 <ul class="list-group">
-    <li 
-        *ngFor="let post of posts"
-        class="list-group-item">
-        {{ post.title }}
+    <li *ngFor="let rol of roles" class="lista-roles">
+        <button [class.selected]="rol === selectedRol" type="button" (click)="onSelect(rol)">
+            {{ rol.nombre }}
+        </button>
     </li>
-  </ul>
+</ul>

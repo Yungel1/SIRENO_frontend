@@ -30,6 +30,10 @@ export class UsuarioService {
     return this.cookies.get("token");
   }
 
+  deleteToken() {
+    return this.cookies.delete("token");
+  }
+
   getUsuarioInfo() {
     const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.getToken());
     return this.http.get(environment.apiUrl+"/usuario/getInfo",{headers});

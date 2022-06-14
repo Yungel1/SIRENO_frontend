@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import {Rol} from "../../models/rol.model";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +10,10 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class HomeComponent implements OnInit {
 
-  roles: string[] = [];
+  roles: Rol[] = [];
+  selectedRol?: Rol;
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService,private router: Router) { }
 
   ngOnInit() {
     this.getUserInfo();
@@ -18,12 +21,58 @@ export class HomeComponent implements OnInit {
 
   getUserInfo(): void {
     this.usuarioService.getUsuarioInfo().subscribe(usuario => {
-      JSON.stringify(usuario)
-      if(){
+      let usuarioJSON = JSON.parse(JSON.stringify(usuario));
 
+      let rol: Rol;
+
+      if(usuarioJSON["administrador"]){
+        rol = {
+          id: "administrador",
+          nombre: "Administrador"
+        }
+        this.roles.push(rol);
       }
-      this.roles = response;
+      if(usuarioJSON["estudiante"]){
+        rol = {
+          id: "estudiante",
+          nombre: "Estudiante"
+        }
+        this.roles.push(rol);
+      }
+      if(usuarioJSON["docente"]){
+        rol = {
+          id: "docente",
+          nombre: "Docente"
+        }
+
+        this.roles.push(rol);
+      }
     });
+  }
+
+  onSelect(rol: Rol): void {
+    this.selectedRol = rol;
+    this.rolPagina();
+  }
+
+  rolPagina(): void {
+
+    if(this.selectedRol!=null){
+      if(this.selectedRol.id=="administrador"){
+        this.router.navigate(['/administrador']);
+      }
+      if(this.selectedRol.id=="estudiante"){
+        this.router.navigate(['/estudiante']);
+      }
+      if(this.selectedRol.id=="docente"){
+        this.router.navigate(['/docente']);
+      }
+    }
+  }
+
+  onLogout(): void {
+    this.usuarioService.deleteToken();
+    this.router.navigate(['/login']);
   }
 
 }
