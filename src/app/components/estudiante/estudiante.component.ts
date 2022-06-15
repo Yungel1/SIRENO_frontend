@@ -42,11 +42,8 @@ export class EstudianteComponent implements OnInit {
             }
             console.log(campañaInfo)
             this.campanas.push(campañaInfo);
-            
           });
-      });
-      
-
+        });
       });
     });
   }
