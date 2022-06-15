@@ -12,6 +12,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { EstudianteComponent } from './components/estudiante/estudiante.component';
 import { EncuestaComponent } from './components/encuesta/encuesta.component';
+import { PreguntaRespuestaOpcionComponent } from './components/pregunta-respuesta-opcion/pregunta-respuesta-opcion.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { EncuestaComponent } from './components/encuesta/encuesta.component';
     RegisterComponent,
     HomeComponent,
     EstudianteComponent,
-    EncuestaComponent
+    EncuestaComponent,
+    PreguntaRespuestaOpcionComponent
   ],
   imports: [
     BrowserModule,

@@ -11,14 +11,14 @@ export class EncuestaService {
 
   constructor(private http: HttpClient, private usuarioService: UsuarioService) { }
 
-  getCampañaSituacion(idSituacion: string): Observable<any> {
+  getEncuestaCampaña(idCampaña: string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
-    return this.http.get(environment.apiUrl+"/situacion/getSituationCampaign?idSituacion="+idSituacion,{headers});
+    return this.http.get(environment.apiUrl+"/campanaencuesta/getCampaignPolls?idCampaña="+idCampaña,{headers});
   }
 
-  getCampañaInfo(id: string): Observable<any> {
+  getEncuestaInfo(id: string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
-    return this.http.get(environment.apiUrl+"/campana/getInfo?id="+id,{headers});
+    return this.http.get(environment.apiUrl+"/encuesta/getInfo?id="+id,{headers});
   }
 
 

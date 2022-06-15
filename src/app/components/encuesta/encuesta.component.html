@@ -1,9 +1,7 @@
 <ul class="list-group-campaña">
-    <li *ngFor="let campana of campanas" class="lista-campañas">
-        <button [class.selected]="campana === selectedCampana" type="button" (click)="onSelect(campana)">
-            <span class="nombreCampaña">{{campana.nombre}}</span>
-            <br>
-            <span class="descripcionCampaña">{{campana.descripcion}}</span>
+    <li *ngFor="let encuesta of encuestas" class="lista-campañas">
+        <button [class.selected]="encuesta === selectedEncuesta" type="button" (click)="onSelect(encuesta)">
+            <span class="nombreEncuesta">{{encuesta.nombre}}</span>
         </button>
     </li>
 </ul>

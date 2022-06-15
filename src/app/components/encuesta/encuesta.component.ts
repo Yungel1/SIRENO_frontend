@@ -4,60 +4,65 @@ import {Encuesta} from "../../models/encuesta.model";
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-estudiante',
-  templateUrl: './estudiante.component.html',
-  styleUrls: ['./estudiante.component.css']
+  selector: 'app-encuesta',
+  templateUrl: './encuesta.component.html',
+  styleUrls: ['./encuesta.component.css']
 })
 export class EncuestaComponent implements OnInit {
 
-  encuesta: Encuesta[] = [];
+  encuestas: Encuesta[] = [];
   selectedEncuesta?: Encuesta;
 
   constructor(private encuestaService: EncuestaService,private router: Router) { }
 
   ngOnInit() {
-    //this.getEncuestaInfo();
+    this.getEncuestaInfo();
   }
 
-  // getCampañaInfo(): void {
+  getEncuestaInfo(): void {
 
-  //   this.campañaService.getSituacionesUsuario().subscribe(situacionesID => {
-  //     let situacionIdJSON = JSON.parse(JSON.stringify(situacionesID));
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const idCampaña = urlParams.get('idcampana');
 
-  //     let campañaIdJSON;
-  //     let campañaJSON;
-  //     let campañaInfo: Campaña;
+    if(idCampaña!=null){
 
-  //     situacionIdJSON.forEach((situacion: { idSituacion: string; }) => {
+      this.encuestaService.getEncuestaCampaña(idCampaña).subscribe(encuestaId => {
+        let encuestaIdJSON = JSON.parse(JSON.stringify(encuestaId));
+  
+        let encuestaJSON;
+        let encuestaInfo: Encuesta;
+  
+        encuestaIdJSON.forEach((encuesta: { idEncuesta: string; }) => {
+  
+          this.encuestaService.getEncuestaInfo(encuesta.idEncuesta).subscribe(encuesta => {
+            encuestaJSON = JSON.parse(JSON.stringify(encuesta))[0];
 
-  //       this.campañaService.getCampañaSituacion(situacion.idSituacion).subscribe(campañaId => {
-  //         campañaIdJSON = JSON.parse(JSON.stringify(campañaId));
-  //         this.campañaService.getCampañaInfo(campañaIdJSON[0].idCampaña).subscribe(campaña => {
-  //           campañaJSON = JSON.parse(JSON.stringify(campaña))[0];
+            encuestaInfo = {
+              id: encuestaJSON.id,
+              nombre: encuestaJSON.nombre,
 
-  //           campañaInfo = {
-  //             id: campañaJSON.id,
-  //             nombre: campañaJSON.nombre,
-  //             descripcion: campañaJSON.descripcion
-  //           }
-  //           console.log(campañaInfo)
-  //           this.campanas.push(campañaInfo);
-            
-  //         });
-  //       });
-  //     });
-  //   });
-  // }
+            }
+            this.encuestas.push(encuestaInfo);
+              
+            });
 
-  // onSelect(campaña: Campaña): void {
-  //   this.selectedCampana = campaña;
-  //   this.campañaPagina();
-  // }
+        });
+      });
+    }
 
-  // campañaPagina(): void {
 
-  //   if(this.selectedCampana!=null){
-  //     this.router.navigate(['/encuestas?idcampana='+this.selectedCampana.id]);
-  //   }
-  // }
+  }
+
+  onSelect(encuesta: Encuesta): void {
+    this.selectedEncuesta = encuesta;
+    this.encuestaPagina();
+  }
+
+  encuestaPagina(): void {
+
+    if(this.selectedEncuesta!=null){
+      this.router.navigate(['/preguntas'],{ queryParams: {idencuesta: this.selectedEncuesta.id}});
+    }
+  }
 }

@@ -5,6 +5,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { EstudianteComponent } from './components/estudiante/estudiante.component';
 import { EncuestaComponent } from './components/encuesta/encuesta.component';
+import { PreguntaRespuestaOpcionComponent } from './components/pregunta-respuesta-opcion/pregunta-respuesta-opcion.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
@@ -13,6 +14,8 @@ const routes: Routes = [
   { path: "register", component: RegisterComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: "estudiante", component: EstudianteComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: "encuestas", component: EncuestaComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: "preguntas", component: PreguntaRespuestaOpcionComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  
 ];
 
 @NgModule({

@@ -1,0 +1,8 @@
+<ul class="list-group-preguntas">
+    <li *ngFor="let preguntaO of preguntasO" class="lista-campañas">
+        <button [class.selected]="preguntaO === selectedPreguntaO" type="button" (click)="onSelect(preguntaO)">
+            <span class="textoPregunta">{{preguntaO.textoPreg}}</span>
+
+        </button>
+    </li>
+</ul>
