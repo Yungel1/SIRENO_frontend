@@ -45,7 +45,7 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
         let opcionpreguntaInfo: OpcionPregunta;
         let preguntaOInfo: PreguntaOpcion;
   
-        preguntasIdJSON.forEach((pregunta: { idPregunta: string; }) => {
+        preguntasIdJSON.forEach((pregunta: { idPregunta: string; num_preg: string; }) => {
   
           this.preguntaRespuestaOpcionService.getPreguntaInfo(pregunta.idPregunta).subscribe(preguntaInfo => {
 
@@ -59,7 +59,7 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
 
                 let opcionespreguntaInfo: OpcionPregunta[]=[];
 
-                opcionespreguntaJSON.forEach((opcionpregunta: { id: string; idPregunta:string; } ) => {
+                opcionespreguntaJSON.forEach((opcionpregunta: { id: string; idPregunta:string;num_opc:string } ) => {
 
                   this.preguntaRespuestaOpcionService.getTexto("1",opcionpregunta.idPregunta,opcionpregunta.id).subscribe(textoOP => {
                     textoOPJSON = JSON.parse(JSON.stringify(textoOP))
@@ -67,6 +67,7 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
                     opcionpreguntaInfo = {
                       id: opcionpregunta.id,
                       texto: textoOPJSON.texto,
+                      num_opc: opcionpregunta.num_opc
                     }
 
                     opcionespreguntaInfo.push(opcionpreguntaInfo);
@@ -79,6 +80,7 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
                 preguntaOInfo = {
                   idPregunta: pregunta.idPregunta,
                   tipoPreg:preguntaJSON.tipoPreg,
+                  numPreg:pregunta.num_preg,
                   textoPreg: textoPreguntaJSON.texto,
                   opcionespregunta: opcionespreguntaInfo 
                 }
@@ -87,12 +89,21 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
 
 
               });
+              
             });
           });
         });
       });
     }
     
+  }
+
+  sortPreg() {
+    return this.preguntasO = this.preguntasO.sort((a, b) => a.numPreg > b.numPreg ? 1 : -1);
+  }
+
+  sortOpc(opciones:OpcionPregunta[]) {
+    return opciones = opciones.sort((a, b) => a.num_opc > b.num_opc ? 1 : -1);
   }
 
 

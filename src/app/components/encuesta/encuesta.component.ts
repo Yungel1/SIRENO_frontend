@@ -55,6 +55,10 @@ export class EncuestaComponent implements OnInit {
 
   }
 
+  sort() {
+    return this.encuestas = this.encuestas.sort((a, b) => a.nombre > b.nombre ? 1 : -1);
+  }
+
   onSelect(encuesta: Encuesta): void {
     this.selectedEncuesta = encuesta;
     this.encuestaPagina();

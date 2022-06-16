@@ -48,6 +48,10 @@ export class EstudianteComponent implements OnInit {
     });
   }
 
+  sort() {
+    return this.campanas = this.campanas.sort((a, b) => a.nombre > b.nombre ? 1 : -1);
+  }
+
   onSelect(campaña: Campaña): void {
     this.selectedCampana = campaña;
     this.campañaPagina();

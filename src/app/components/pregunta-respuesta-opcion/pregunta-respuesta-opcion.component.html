@@ -1,8 +1,8 @@
 <ul class="list-group-preguntas">
-    <li *ngFor="let preguntaO of preguntasO" class="lista-campañas">
+    <li *ngFor="let preguntaO of sortPreg()" class="lista-campañas">
         <p>{{preguntaO.textoPreg}}</p>
         <ul>
-            <li *ngFor="let opcion of preguntaO.opcionespregunta">
+            <li *ngFor="let opcion of sortOpc(preguntaO.opcionespregunta)">
                <input type="radio" name="{{preguntaO.idPregunta}}" (click)="getValue(opcion,preguntaO)"
                   value = {{opcion.id}}>{{opcion.texto}}
             </li>
