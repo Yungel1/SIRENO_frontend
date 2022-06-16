@@ -29,6 +29,8 @@ export class EstudianteComponent implements OnInit {
 
       situacionIdJSON.forEach((situacion: { idSituacion: string; }) => {
 
+        let idSituacion = situacion.idSituacion;
+
         this.campañaService.getCampañaSituacion(situacion.idSituacion).subscribe(campañaId => {
           
          let campañaIdJSON = JSON.parse(JSON.stringify(campañaId));
@@ -37,6 +39,7 @@ export class EstudianteComponent implements OnInit {
             campañaJSON = JSON.parse(JSON.stringify(campaña))[0];
             campañaInfo = {
               id: campañaIdJSON[0].idCampaña,
+              idSituacion: idSituacion,
               nombre: campañaJSON.nombre,
               descripcion: campañaJSON.descripcion
             }
@@ -62,7 +65,7 @@ export class EstudianteComponent implements OnInit {
    
     if(this.selectedCampana!=null){
    
-      this.router.navigate(['/encuestas'],{ queryParams: {idcampana: this.selectedCampana.id}});
+      this.router.navigate(['/encuestas'],{ queryParams: {idcampana: this.selectedCampana.id, idsituacion: this.selectedCampana.idSituacion}});
     }
   }
 }
