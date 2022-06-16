@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class PreguntaRespuestaOpcionComponent implements OnInit {
 
   preguntasO: PreguntaOpcion[] = [];
-  selectedPreguntaO?: PreguntaOpcion;
+  selectedOpcion?: OpcionPregunta;
 
   constructor(private preguntaRespuestaOpcionService: PreguntaRespuestaOpcionService,private router: Router) { }
 
@@ -79,7 +79,7 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
                 this.preguntasO.push(preguntaOInfo);
 
 
-              })
+              });
             });
           });
         });
@@ -89,8 +89,9 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
   }
 
 
-  onSelect(preguntaO:PreguntaOpcion): void {
-    console.log(this.preguntasO);
+  getValue(opcion:OpcionPregunta,pregunta:PreguntaOpcion): void {
+    this.selectedOpcion = opcion;
+    console.log(this.selectedOpcion,pregunta);
   }
 /*
   campañaPagina(): void {
