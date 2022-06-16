@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { PreguntaRespuestaOpcionService } from 'src/app/services/pregunta-respuesta-opcion.service';
 import {PreguntaOpcion} from "../../models/pregunta-opcion.model";
 import {OpcionPregunta} from "../../models/opcion-pregunta.model";
+import {Respuesta} from "../../models/respuesta.model";
 import { Router } from '@angular/router';
+import { CampañaService } from 'src/app/services/campaña.service';
 
 @Component({
   selector: 'app-pregunta-respuesta-opcion',
@@ -13,8 +15,13 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
 
   preguntasO: PreguntaOpcion[] = [];
   selectedOpcion?: OpcionPregunta;
+  selectedPregunta?: PreguntaOpcion;
+  selectedCampana: any;
+  idCampaña?: string | null;
+  idEncuesta?: string | null;
+  listaRespuestas: Respuesta[] = [];
 
-  constructor(private preguntaRespuestaOpcionService: PreguntaRespuestaOpcionService,private router: Router) { }
+  constructor(private campañaService: CampañaService,private preguntaRespuestaOpcionService: PreguntaRespuestaOpcionService,private router: Router) { }
 
   ngOnInit() {
     this.getPreguntaO();
@@ -24,15 +31,15 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const idEncuesta = urlParams.get('idencuesta');
+    this.idEncuesta = urlParams.get('idencuesta');
+    this.idCampaña = urlParams.get('idcampana');
 
-    if(idEncuesta!=null){
+    if(this.idEncuesta!=null){
 
-      this.preguntaRespuestaOpcionService.getPreguntasEncuesta(idEncuesta).subscribe(preguntasId => {
+      this.preguntaRespuestaOpcionService.getPreguntasEncuesta(this.idEncuesta).subscribe(preguntasId => {
         let preguntasIdJSON = JSON.parse(JSON.stringify(preguntasId));
   
         let opcionespreguntaJSON;
-        let preguntaJSON: { tipoPreg: any; };
         let textoPreguntaJSON: { texto: any; };
         let textoOPJSON;
         let opcionpreguntaInfo: OpcionPregunta;
@@ -42,7 +49,7 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
   
           this.preguntaRespuestaOpcionService.getPreguntaInfo(pregunta.idPregunta).subscribe(preguntaInfo => {
 
-            preguntaJSON = JSON.parse(JSON.stringify(preguntaInfo));
+            let preguntaJSON = JSON.parse(JSON.stringify(preguntaInfo));
 
             this.preguntaRespuestaOpcionService.getTexto("1",pregunta.idPregunta,undefined).subscribe(textoP => {
 
@@ -91,14 +98,64 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
 
   getValue(opcion:OpcionPregunta,pregunta:PreguntaOpcion): void {
     this.selectedOpcion = opcion;
-    console.log(this.selectedOpcion,pregunta);
+    this.selectedPregunta = pregunta;
+    this.insertarRespuesta();
   }
-/*
-  campañaPagina(): void {
 
-    if(this.selectedCampana!=null){
-      this.router.navigate(['/encuestas'],{ queryParams: {idcampana: this.selectedCampana.id}});
+  insertarRespuesta(): void {
+    if(this.selectedOpcion!=null&&this.selectedPregunta!=null&&this.idCampaña!=null&&this.idEncuesta!=null){
+
+      let respuesta = {
+        idCampaña: this.idCampaña,
+        idEncuesta: this.idEncuesta,
+        idPregunta: this.selectedPregunta.idPregunta,
+        idOpcionesPregunta: this.selectedOpcion.id,
+        texto: this.selectedOpcion.texto
+      }
+
+      let respuestaBorrar = this.listaRespuestas.find(function(res) {
+        return res.idPregunta === respuesta.idPregunta;
+      });
+
+      if(respuestaBorrar){
+        this.removeItem(this.listaRespuestas,respuestaBorrar)
+      }
+      this.listaRespuestas.push(respuesta);
+
     }
   }
-*/
+
+  guardar(): void {
+    
+    if(this.listaRespuestas.length==this.preguntasO.length){
+      this.listaRespuestas.forEach(respuesta => {
+        this.preguntaRespuestaOpcionService
+        .insertarRespuesta(respuesta.idCampaña,respuesta.idEncuesta,respuesta.idPregunta,respuesta.idOpcionesPregunta,respuesta.texto)
+        .subscribe(respuesta => {
+          console.log(respuesta);
+        });
+      });
+
+      this.campañaService.getSituacionesUsuario().subscribe(situacionesID => {
+        let situacionIdJSON = JSON.parse(JSON.stringify(situacionesID));
+
+        this.preguntaRespuestaOpcionService.ponerRespondida(situacionIdJSON.idSituacion,true);
+      });
+
+      this.router.navigate(['/estudiante'],{ queryParams: {idcampana: this.idCampaña}});
+    } else{
+      console.log("responde todas")
+    }
+
+
+    
+  }
+
+  removeItem<T>(arr: Array<T>, value: T): Array<T> { 
+    const index = arr.indexOf(value);
+    if (index > -1) {
+      arr.splice(index, 1);
+    }
+    return arr;
+  }
 }

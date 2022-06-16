@@ -1,12 +1,14 @@
-<div class="list-group-preguntas">
-    <div *ngFor="let preguntaO of preguntasO" class="lista-campañas">
+<ul class="list-group-preguntas">
+    <li *ngFor="let preguntaO of preguntasO" class="lista-campañas">
         <p>{{preguntaO.textoPreg}}</p>
-
-            <div *ngFor="let opcion of preguntaO.opcionespregunta">
-               <input type="radio" name={{preguntaO.idPregunta}} (click)="getValue(opcion,preguntaO)"
-                 [checked]="opcion == selectedOpcion"
-                  value = {{opcion}}>{{opcion.texto}}
-            </div>
-
-    </div>
-</div>
+        <ul>
+            <li *ngFor="let opcion of preguntaO.opcionespregunta">
+               <input type="radio" name="{{preguntaO.idPregunta}}" (click)="getValue(opcion,preguntaO)"
+                  value = {{opcion.id}}>{{opcion.texto}}
+            </li>
+        </ul>
+    </li>
+</ul>
+<button type="button" (click)="guardar()">
+    <span class="guardarRespuesta">Guardar</span>
+</button>

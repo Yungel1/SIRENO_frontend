@@ -34,11 +34,17 @@ export class PreguntaRespuestaOpcionService {
     return this.http.get(environment.apiUrl+"/texto/get?idIdioma="+idIdioma+"&idPregunta="+idPregunta+"&idOpcionesPregunta="+idOpcionesPregunta,{headers});
   }
 
-  insertarRespuesta(idEncuesta: string,idPregunta: string,idOpcionesPregunta:string,texto:string): Observable<any> {
+  insertarRespuesta(idCampaña:string, idEncuesta: string,idPregunta: string,idOpcionesPregunta:string,texto:string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
-    const payload = new HttpParams().set('idEncuesta',idEncuesta).set('idPregunta', idPregunta)
+    const payload = new HttpParams().set('idCampaña',idCampaña).set('idEncuesta',idEncuesta).set('idPregunta', idPregunta)
     .set('idOpcionesPregunta', idOpcionesPregunta).set('texto',texto);
     return this.http.post(environment.apiUrl+"/respuesta",payload,{headers});
+  }
+
+  ponerRespondida(idSituacion:string, respondida: boolean): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    const payload = new HttpParams().set('idSituacion',idSituacion).set('respondida',respondida);
+    return this.http.put(environment.apiUrl+"/usuariosituacion/update",payload,{headers});
   }
 
 
