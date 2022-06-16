@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EncuestaService } from 'src/app/services/encuesta.service';
 import {Encuesta} from "../../models/encuesta.model";
+import { CampañaService } from 'src/app/services/campaña.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,11 +15,13 @@ export class EncuestaComponent implements OnInit {
   selectedEncuesta?: Encuesta;
   idCampaña?: string | null;
   idSituacion?: string | null;
+  campanaNombre: string = "";
 
-  constructor(private encuestaService: EncuestaService,private router: Router) { }
+  constructor(private campañaService: CampañaService,private encuestaService: EncuestaService,private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit() { 
     this.getEncuestaInfo();
+    this.setNombreCampaña();
   }
 
   getEncuestaInfo(): void {
@@ -55,6 +58,17 @@ export class EncuestaComponent implements OnInit {
     }
 
 
+  }
+
+  setNombreCampaña(){
+    
+    if(this.idCampaña!=null){
+      this.campañaService.getCampañaInfo(this.idCampaña).subscribe(campaña => {
+        let campañaJSON = JSON.parse(JSON.stringify(campaña))[0];
+        this.campanaNombre = campañaJSON.nombre;
+  
+      });
+    }
   }
 
   sort() {

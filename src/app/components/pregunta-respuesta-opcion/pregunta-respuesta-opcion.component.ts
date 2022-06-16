@@ -5,6 +5,7 @@ import {OpcionPregunta} from "../../models/opcion-pregunta.model";
 import {Respuesta} from "../../models/respuesta.model";
 import { Router } from '@angular/router';
 import { CampañaService } from 'src/app/services/campaña.service';
+import { EncuestaService } from 'src/app/services/encuesta.service';
 
 @Component({
   selector: 'app-pregunta-respuesta-opcion',
@@ -21,11 +22,13 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
   idEncuesta?: string | null;
   idSituacion?: string | null;
   listaRespuestas: Respuesta[] = [];
+  encuestaNombre: string = "";
 
-  constructor(private campañaService: CampañaService,private preguntaRespuestaOpcionService: PreguntaRespuestaOpcionService,private router: Router) { }
+  constructor(private encuestaService: EncuestaService,private campañaService: CampañaService,private preguntaRespuestaOpcionService: PreguntaRespuestaOpcionService,private router: Router) { }
 
   ngOnInit() {
     this.getPreguntaO();
+    this.setNombreEncuesta();
   }
 
   getPreguntaO(): void {
@@ -106,6 +109,17 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
 
   sortOpc(opciones:OpcionPregunta[]) {
     return opciones = opciones.sort((a, b) => a.num_opc > b.num_opc ? 1 : -1);
+  }
+
+  setNombreEncuesta(){
+    
+    if(this.idEncuesta!=null){
+      this.encuestaService.getEncuestaInfo(this.idEncuesta).subscribe(encuesta => {
+        let encuestaJSON = JSON.parse(JSON.stringify(encuesta))[0];
+        this.encuestaNombre = encuestaJSON.nombre;
+  
+      });
+    }
   }
 
 
