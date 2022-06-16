@@ -13,6 +13,7 @@ export class EncuestaComponent implements OnInit {
   encuestas: Encuesta[] = [];
   selectedEncuesta?: Encuesta;
   idCampaña?: string | null;
+  idSituacion?: string | null;
 
   constructor(private encuestaService: EncuestaService,private router: Router) { }
 
@@ -25,6 +26,7 @@ export class EncuestaComponent implements OnInit {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     this.idCampaña = urlParams.get('idcampana');
+    this.idSituacion = urlParams.get('idsituacion');
 
     if(this.idCampaña!=null){
 
@@ -63,7 +65,7 @@ export class EncuestaComponent implements OnInit {
   encuestaPagina(): void {
 
     if(this.selectedEncuesta!=null&&this.idCampaña!=null){
-      this.router.navigate(['/preguntas'],{ queryParams: {idencuesta: this.selectedEncuesta.id,idcampana: this.idCampaña}});
+      this.router.navigate(['/preguntas'],{ queryParams: {idencuesta: this.selectedEncuesta.id,idcampana: this.idCampaña, idsituacion: this.idSituacion}});
     }
   }
 }

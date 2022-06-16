@@ -19,6 +19,7 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
   selectedCampana: any;
   idCampaña?: string | null;
   idEncuesta?: string | null;
+  idSituacion?: string | null;
   listaRespuestas: Respuesta[] = [];
 
   constructor(private campañaService: CampañaService,private preguntaRespuestaOpcionService: PreguntaRespuestaOpcionService,private router: Router) { }
@@ -33,6 +34,7 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
     const urlParams = new URLSearchParams(queryString);
     this.idEncuesta = urlParams.get('idencuesta');
     this.idCampaña = urlParams.get('idcampana');
+    this.idSituacion = urlParams.get('idsituacion');
 
     if(this.idEncuesta!=null){
 
@@ -134,21 +136,16 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
         .subscribe(respuesta => {
           console.log(respuesta);
         });
-      });
+      }); 
 
-      this.campañaService.getSituacionesUsuario().subscribe(situacionesID => {
-        let situacionIdJSON = JSON.parse(JSON.stringify(situacionesID));
+      if (this.idSituacion!=null && this.idSituacion!=undefined){
+        this.preguntaRespuestaOpcionService.ponerRespondida(this.idSituacion, true).subscribe();
+      };     
 
-        this.preguntaRespuestaOpcionService.ponerRespondida(situacionIdJSON.idSituacion,true);
-      });
-
-      this.router.navigate(['/estudiante'],{ queryParams: {idcampana: this.idCampaña}});
+      this.router.navigate(['/estudiante']);
     } else{
       console.log("responde todas")
-    }
-
-
-    
+    }    
   }
 
   removeItem<T>(arr: Array<T>, value: T): Array<T> { 
