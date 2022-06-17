@@ -21,5 +21,15 @@ export class EncuestaService {
     return this.http.get(environment.apiUrl+"/encuesta/getInfo?id="+id,{headers});
   }
 
+  getEncuestaCampañaInformes(idCampaña: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    return this.http.get(environment.apiUrl+"/campanaencuesta/getPollsgReports?idCampaña="+idCampaña,{headers});
+  }
+
+  getEncuestaInfoInformes(id: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    return this.http.get(environment.apiUrl+"/encuesta/getInfoInformes?id="+id,{headers});
+  }
+
 
 }

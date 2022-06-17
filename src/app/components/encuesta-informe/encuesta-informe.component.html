@@ -1,0 +1,11 @@
+<h2>{{campanaNombre}}</h2>
+<ul class="list-group-campaña">
+    <li *ngFor="let encuesta of sort()" class="lista-campañas">
+        <button [class.selected]="encuesta === selectedEncuesta" type="button" (click)="onSelect(encuesta)">
+            <span class="nombreEncuesta">{{encuesta.nombre}}</span>
+        </button>
+    </li>
+</ul>
+<button type="button" (click)="atras()">
+    <span class="atras">Atras</span>
+</button>

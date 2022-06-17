@@ -47,5 +47,25 @@ export class PreguntaRespuestaOpcionService {
     return this.http.put(environment.apiUrl+"/usuariosituacion/update",payload,{headers});
   }
 
+  getPreguntasEncuestaInforme(idEncuesta: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    return this.http.get(environment.apiUrl+"/encuestapregunta/getQuestionsReports?idEncuesta="+idEncuesta,{headers});
+  }
+
+  getPreguntaInfoInforme(id: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    return this.http.get(environment.apiUrl+"/pregunta/getInfoInforme?id="+id,{headers});
+  }
+
+  getOpcionesPreguntaInforme(idPregunta: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    return this.http.get(environment.apiUrl+"/opcionespregunta/getQuestionOptionsReports?idPregunta="+idPregunta,{headers});
+  }
+
+  getOpcionesPreguntaVecesRespondida(idEncuesta: string, idPregunta: string, idCampaña: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    return this.http.get(environment.apiUrl+"/respuesta/getMedia?idEncuesta="+idEncuesta+"&idPregunta="+idPregunta+"&idCampaña="+idCampaña,{headers});
+  }
+
 
 }

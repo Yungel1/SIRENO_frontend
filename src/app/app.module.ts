@@ -13,6 +13,9 @@ import { HomeComponent } from './components/home/home.component';
 import { EstudianteComponent } from './components/estudiante/estudiante.component';
 import { EncuestaComponent } from './components/encuesta/encuesta.component';
 import { PreguntaRespuestaOpcionComponent } from './components/pregunta-respuesta-opcion/pregunta-respuesta-opcion.component';
+import { DocenteComponent } from './components/docente/docente.component';
+import { EncuestaInformeComponent } from './components/encuesta-informe/encuesta-informe.component';
+import { PreguntaRespuestaOpcionInformeComponent } from './components/pregunta-respuesta-opcion-informe/pregunta-respuesta-opcion-informe.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { PreguntaRespuestaOpcionComponent } from './components/pregunta-respuest
     HomeComponent,
     EstudianteComponent,
     EncuestaComponent,
-    PreguntaRespuestaOpcionComponent
+    PreguntaRespuestaOpcionComponent,
+    DocenteComponent,
+    EncuestaInformeComponent,
+    PreguntaRespuestaOpcionInformeComponent
   ],
   imports: [
     BrowserModule,
