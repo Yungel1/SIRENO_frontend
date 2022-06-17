@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
 
   fileToUpload: File | null = null;
   fileName: string = '';
-  files: FileList | null = null;
+  file: File | null = null;
 
   constructor(private usuarioService: UsuarioService,private fileUploadService: FileUploadService) { }
 
@@ -59,19 +59,20 @@ export class RegisterComponent implements OnInit {
 
   onFileSelected(event: Event) {
 
-    this.files = (event.target as HTMLInputElement).files;
-    
+    let files = (event.target as HTMLInputElement).files;
+    if (files!=null){
+      this.file = files[0];
+      this.fileName = this.file.name;
+    }
+
   }
 
   onClick() {
 
-    if (this.files!=null){
-      const file:File = this.files[0];
-      this.fileName = file.name;
-      console.log(file)
-
-      if(file.type=="text/csv"){
-        this.fileUploadService.onFileSelected(file).subscribe();
+    if (this.file!=null){
+      console.log(this.file)
+      if(this.file.type=="text/csv"){
+        this.fileUploadService.onFileSelected(this.file).subscribe();
       }
     }
   }
