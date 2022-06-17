@@ -64,17 +64,31 @@ export class RegisterComponent implements OnInit {
       this.file = files[0];
       this.fileName = this.file.name;
     }
+    (event.target as HTMLInputElement).value = "";
 
   }
 
   onClick() {
 
     if (this.file!=null){
-      console.log(this.file)
       if(this.file.type=="text/csv"){
-        this.fileUploadService.onFileSelected(this.file).subscribe();
+        this.fileUploadService.onFileSelected(this.file).subscribe({
+          error: (error) => {
+            if(error.error instanceof ProgressEvent){
+              alert("Se ha editado el archivo, bórrelo e insértelo de nuevo");
+            }
+          }
+      })
       }
     }
+
+  }
+
+  onDelete() {
+
+    this.file = null;
+    this.fileName = "Vacío"
+
   }
 
 }
