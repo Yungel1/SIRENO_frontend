@@ -1,29 +1,81 @@
 <!-- register.component.html -->
 
 <div class="register">
-    <form class="custom-form" method="post">
-      <h1>Registro</h1>
-      <input
-        type="email"
-        [(ngModel)]="email"
-        name="email"
-        placeholder="Email"
-        required="required"
-      />
-      <input
-        type="text"
-        [(ngModel)]="usuario"
-        name="usuario"
-        placeholder="Usuario"
-        required="required"
-      />
-      <input
-        type="password"
-        [(ngModel)]="contrasena"
-        name="contraseña"
-        placeholder="Contraseña"
-        required="required"
-      />
-      <button type="submit" (click)="register()">Registrar</button>
-    </form>
-  </div>
+  <form class="custom-form" method="post">
+    <h1>Registro</h1>
+    <input
+      type="email"
+      [(ngModel)]="email"
+      name="email"
+      placeholder="Email"
+      required="required"
+    />
+    <input
+      type="text"
+      [(ngModel)]="usuario"
+      name="usuario"
+      placeholder="Usuario"
+      required="required"
+    />
+    <input
+      type="password"
+      [(ngModel)]="contrasena"
+      name="contraseña"
+      placeholder="Contraseña"
+      required="required"
+    />
+    <br>
+    <input
+    type="checkbox"
+    [(ngModel)]="estudiante"
+    name="estudiante"
+    required="required"
+    >Estudiante
+    <br>
+    <input
+    type="checkbox"
+    [(ngModel)]="administrador"
+    name="estudiante"
+    required="required"
+    />Administrador
+    <br>
+    <input
+    type="checkbox"
+    [(ngModel)]="docente"
+    name="estudiante"
+    required="required"
+    (change)="cambioCheckBox()"
+    />Docente
+    <input
+    type="text"
+    [(ngModel)]="idDepartamento"
+    name="idDepartamento"
+    placeholder="ID departamento"
+    required="required"
+    [disabled]="isDisabled"
+    />
+    <button type="submit" (click)="register()">Registrar</button>
+  </form>
+</div>
+<br>
+<div class="div-file">
+  <h1>Insertar CSV</h1>
+  <input type="file" class="file-input"
+      accept=".csv" 
+      (change)="onFileSelected($event)" #fileUpload>
+</div>
+
+<div class="file-upload">
+
+  {{fileName || "No file uploaded yet."}}
+
+    <button mat-mini-fab color="primary" class="upload-btn"
+      (click)="fileUpload.click()">
+      <mat-icon>attach_file</mat-icon>
+    </button>
+    
+    <button mat-mini-fab color="primary" class="upload-btn"
+      (click)="onClick()">
+      Cargar
+    </button>
+</div>

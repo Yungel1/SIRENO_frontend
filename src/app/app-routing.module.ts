@@ -6,6 +6,7 @@ import { HomeComponent } from './components/home/home.component';
 import { EstudianteComponent } from './components/estudiante/estudiante.component';
 import { EncuestaComponent } from './components/encuesta/encuesta.component';
 import { PreguntaRespuestaOpcionComponent } from './components/pregunta-respuesta-opcion/pregunta-respuesta-opcion.component';
+import { AdministradorComponent } from './components/administrador/administrador.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: "estudiante", component: EstudianteComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: "encuestas", component: EncuestaComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: "preguntas", component: PreguntaRespuestaOpcionComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: "administrador", component: AdministradorComponent, pathMatch: "full", canActivate: [AuthGuard] },
   
 ];
 

@@ -16,10 +16,16 @@ export class UsuarioService {
     return this.http.post(environment.apiUrl+"/login", payload);
   }
 
-  register(email:string, usuario: string, contraseña: string): Observable<any> {
+  register(email:string, usuario: string, contraseña: string, estudiante: string, docente: string, administrador: string, idDepartamento: string): Observable<any> {
 
     const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.getToken());
-    const payload = new HttpParams().set('email',email).set('usuario', usuario).set('contraseña', contraseña);
+
+
+    const payload = new HttpParams().set('email',email).set('usuario', usuario).set('contraseña', contraseña)
+    .set('estudiante',estudiante).set('docente',docente).set('administrador',administrador).set('idDepartamento',idDepartamento);
+    if(docente=="0"){
+      payload.delete("idDepartamento");
+    }
     return this.http.post(environment.apiUrl+"/register", payload, {headers});
   }
 
