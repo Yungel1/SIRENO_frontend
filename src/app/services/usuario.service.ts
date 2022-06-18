@@ -45,4 +45,9 @@ export class UsuarioService {
     return this.http.get(environment.apiUrl+"/usuario/getInfo",{headers});
   }
 
+  borrarUsuario(usuario: string) {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.getToken());
+    return this.http.delete(environment.apiUrl+"/usuario/delete?usuario="+usuario,{headers});
+  }
+
 }
