@@ -1,0 +1,14 @@
+<h2>{{encuestaNombre}}</h2>
+<ul class="list-group-preguntas">
+    <li *ngFor="let preguntaO of sortPreg()" class="lista-preguntas">
+        <p>{{preguntaO.textoPreg}}</p>
+        <ul>
+            <li *ngFor="let opcion of sortOpc(preguntaO.opcionespregunta)">
+                <p>{{opcion.texto}} = {{opcion.veces_respondida}}</p>
+            </li>
+        </ul>
+    </li>
+</ul>
+<button type="button" (click)="atras()">
+    <span class="atras">Atras</span>
+</button>

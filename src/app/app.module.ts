@@ -16,6 +16,9 @@ import { EncuestaComponent } from './components/encuesta/encuesta.component';
 import { PreguntaRespuestaOpcionComponent } from './components/pregunta-respuesta-opcion/pregunta-respuesta-opcion.component';
 import { AdministradorComponent } from './components/administrador/administrador.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DocenteComponent } from './components/docente/docente.component';
+import { EncuestaInformeComponent } from './components/encuesta-informe/encuesta-informe.component';
+import { PreguntaRespuestaOpcionInformeComponent } from './components/pregunta-respuesta-opcion-informe/pregunta-respuesta-opcion-informe.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     EstudianteComponent,
     EncuestaComponent,
     PreguntaRespuestaOpcionComponent,
-    AdministradorComponent
+    AdministradorComponent,
+    DocenteComponent,
+    EncuestaInformeComponent,
+    PreguntaRespuestaOpcionInformeComponent
   ],
   imports: [
     BrowserModule,

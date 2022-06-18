@@ -26,5 +26,16 @@ export class CampañaService {
     return this.http.get(environment.apiUrl+"/campana/getInfo?id="+id,{headers});
   }
 
+  getCampañasInformes(): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    return this.http.get(environment.apiUrl+"/situacion/getCampaingReports",{headers});
+  }
+
+  getCampañaInfoInformes(id: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    return this.http.get(environment.apiUrl+"/campana/getInfoInformes?id="+id,{headers});
+  }
+  
+
 
 }

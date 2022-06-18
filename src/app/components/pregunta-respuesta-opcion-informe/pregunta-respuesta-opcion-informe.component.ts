@@ -8,11 +8,11 @@ import { CampañaService } from 'src/app/services/campaña.service';
 import { EncuestaService } from 'src/app/services/encuesta.service';
 
 @Component({
-  selector: 'app-pregunta-respuesta-opcion',
-  templateUrl: './pregunta-respuesta-opcion.component.html',
-  styleUrls: ['./pregunta-respuesta-opcion.component.css']
+  selector: 'app-pregunta-respuesta-opcion-informe',
+  templateUrl: './pregunta-respuesta-opcion-informe.component.html',
+  styleUrls: ['./pregunta-respuesta-opcion-informe.component.css']
 })
-export class PreguntaRespuestaOpcionComponent implements OnInit {
+export class PreguntaRespuestaOpcionInformeComponent implements OnInit {
 
   preguntasO: PreguntaOpcion[] = [];
   selectedOpcion?: OpcionPregunta;
@@ -20,7 +20,6 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
   selectedCampana: any;
   idCampaña?: string | null;
   idEncuesta?: string | null;
-  idSituacion?: string | null;
   listaRespuestas: Respuesta[] = [];
   encuestaNombre: string = "";
 
@@ -37,28 +36,25 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
     const urlParams = new URLSearchParams(queryString);
     this.idEncuesta = urlParams.get('idencuesta');
     this.idCampaña = urlParams.get('idcampana');
-    this.idSituacion = urlParams.get('idsituacion');
 
     if(this.idEncuesta!=null){
 
-      this.preguntaRespuestaOpcionService.getPreguntasEncuesta(this.idEncuesta).subscribe(preguntasId => {
+      this.preguntaRespuestaOpcionService.getPreguntasEncuestaInforme(this.idEncuesta).subscribe(preguntasId => {
         let preguntasIdJSON = JSON.parse(JSON.stringify(preguntasId));
   
         let opcionespreguntaJSON;
         let textoPreguntaJSON: { texto: any; };
-        let textoOPJSON;
-        let opcionpreguntaInfo: OpcionPregunta;
         let preguntaOInfo: PreguntaOpcion;
   
         preguntasIdJSON.forEach((pregunta: { idPregunta: string; num_preg: string; }) => {
   
-          this.preguntaRespuestaOpcionService.getPreguntaInfo(pregunta.idPregunta).subscribe(preguntaInfo => {
+          this.preguntaRespuestaOpcionService.getPreguntaInfoInforme(pregunta.idPregunta).subscribe(preguntaInfo => {
 
             let preguntaJSON = JSON.parse(JSON.stringify(preguntaInfo));
 
             this.preguntaRespuestaOpcionService.getTexto("1",pregunta.idPregunta,undefined).subscribe(textoP => {
 
-              this.preguntaRespuestaOpcionService.getOpcionesPregunta(pregunta.idPregunta).subscribe(opcionespregunta => {
+              this.preguntaRespuestaOpcionService.getOpcionesPreguntaInforme(pregunta.idPregunta).subscribe(opcionespregunta => {
 
                 opcionespreguntaJSON = JSON.parse(JSON.stringify(opcionespregunta));
 
@@ -67,17 +63,33 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
                 opcionespreguntaJSON.forEach((opcionpregunta: { id: string; idPregunta:string;num_opc:string } ) => {
 
                   this.preguntaRespuestaOpcionService.getTexto("1",opcionpregunta.idPregunta,opcionpregunta.id).subscribe(textoOP => {
-                    textoOPJSON = JSON.parse(JSON.stringify(textoOP))
 
-                    opcionpreguntaInfo = {
+                    let textoOPJSON = JSON.parse(JSON.stringify(textoOP));
+
+                    let opcionpreguntaInfo = {
                       id: opcionpregunta.id,
                       texto: textoOPJSON.texto,
                       num_opc: opcionpregunta.num_opc,
                       veces_respondida: "0",
                     }
 
-                    opcionespreguntaInfo.push(opcionpreguntaInfo);
+                    if(this.idEncuesta!=null && this.idCampaña!=null){
 
+                      this.preguntaRespuestaOpcionService.getOpcionesPreguntaVecesRespondida(this.idEncuesta, opcionpregunta.idPregunta, this.idCampaña).subscribe(opcPregRespNum => {
+                        
+                        let opcPregRespNumInfo = JSON.parse(JSON.stringify(opcPregRespNum));
+
+                        opcPregRespNumInfo.forEach((opcPregRespMedia: { idOpcPreg: string; media:string } ) => {
+                          
+                          if (opcPregRespMedia.idOpcPreg == opcionpregunta.id){
+                            
+                            opcionpreguntaInfo["veces_respondida"] = opcPregRespMedia.media;
+                          }
+                        });
+                      })
+                    }  
+
+                    opcionespreguntaInfo.push(opcionpreguntaInfo);    
                   })
                 });
 
@@ -123,55 +135,9 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
     }
   }
 
-
-  getValue(opcion:OpcionPregunta,pregunta:PreguntaOpcion): void {
-    this.selectedOpcion = opcion;
-    this.selectedPregunta = pregunta;
-    this.insertarRespuesta();
-  }
-
-  insertarRespuesta(): void {
-    if(this.selectedOpcion!=null&&this.selectedPregunta!=null&&this.idCampaña!=null&&this.idEncuesta!=null){
-
-      let respuesta = {
-        idCampaña: this.idCampaña,
-        idEncuesta: this.idEncuesta,
-        idPregunta: this.selectedPregunta.idPregunta,
-        idOpcionesPregunta: this.selectedOpcion.id,
-        texto: this.selectedOpcion.texto
-      }
-
-      let respuestaBorrar = this.listaRespuestas.find(function(res) {
-        return res.idPregunta === respuesta.idPregunta;
-      });
-
-      if(respuestaBorrar){
-        this.removeItem(this.listaRespuestas,respuestaBorrar)
-      }
-      this.listaRespuestas.push(respuesta);
-
-    }
-  }
-
-  guardar(): void {
+  atras(): void {
     
-    if(this.listaRespuestas.length==this.preguntasO.length){
-      this.listaRespuestas.forEach(respuesta => {
-        this.preguntaRespuestaOpcionService
-        .insertarRespuesta(respuesta.idCampaña,respuesta.idEncuesta,respuesta.idPregunta,respuesta.idOpcionesPregunta,respuesta.texto)
-        .subscribe(respuesta => {
-          console.log(respuesta);
-        });
-      }); 
-
-      if (this.idSituacion!=null && this.idSituacion!=undefined){
-        this.preguntaRespuestaOpcionService.ponerRespondida(this.idSituacion, true).subscribe();
-      };     
-
-      this.router.navigate(['/estudiante']);
-    } else{
-      console.log("responde todas")
-    }    
+    this.router.navigate(['/encuestasInformes'],{ queryParams: {idcampana: this.idCampaña}});
   }
 
   removeItem<T>(arr: Array<T>, value: T): Array<T> { 
@@ -181,4 +147,5 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
     }
     return arr;
   }
+
 }
