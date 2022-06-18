@@ -101,3 +101,75 @@
 <br>
 
 
+<div class="campaña">
+    <form class="campaña-form" method="post" ngNativeValidate #formcampana>
+        <h1>Crear campaña</h1>
+        <input
+        type="text"
+        [(ngModel)]="campana.nombre"
+        name="nombre"
+        placeholder="Nombre campaña"
+        required="required"
+        />
+        <input
+        type="text"
+        [(ngModel)]="campana.fechaIni"
+        name="fechaIni"
+        placeholder="Fecha inicio 'AAAA-MM-DD'"
+        required="required"
+        />
+        <input
+        type="text"
+        [(ngModel)]="campana.fechaFin"
+        name="fechaFin"
+        placeholder="Fecha fin 'AAAA-MM-DD'"
+        required="required"
+        />
+        <input
+        type="text"
+        [(ngModel)]="campana.descripcion"
+        name="descripcion"
+        placeholder="Descripción"
+        required="required"
+        />
+        <input
+        type="checkbox"
+        [(ngModel)]="anonima"
+        name="anonima"
+        placeholder=""
+        />Anonima
+        <input
+        type="checkbox"
+        [(ngModel)]="con_registro"
+        name="campaña"
+        placeholder="ID campaña"
+        />Con registro
+        <button type="submit" (click)="formcampana.checkValidity() ? onCrearCampana() : null">Insertar</button>
+    </form>
+</div>
+<br>
+<div class="pregunta">
+    <form class="pregunta-form" method="post" ngNativeValidate #formpregunta>
+        <h1>Crear pregunta</h1>
+        <input
+        type="text"
+        [(ngModel)]="idEncuesta"
+        name="idEncuesta"
+        placeholder="ID Encuesta"
+        required="required"
+        />
+        <input
+        type="text"
+        [(ngModel)]="num_preg"
+        name="num_preg"
+        placeholder="Posición de la pregunta"
+        required="required"
+        />
+        <br>
+        <label for="tipoPreg">Tipo de pregunta: </label>
+        <select id="tipoPreg" name="tipoPreg" [(ngModel)]="tipoPreg" required="required">
+            <option value="eleccion_unica">Elección única</option>
+        </select>
+        <button type="submit" (click)="formpregunta.checkValidity() ? onCrearPregunta() : null">Insertar</button>
+    </form>
+</div>
