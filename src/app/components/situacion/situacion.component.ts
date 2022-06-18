@@ -18,6 +18,10 @@ export class SituacionComponent implements OnInit {
   gradoID: string = "";
   departamentoID: string = "";
   asignaturaID: string = "";
+  asignaturaDeleteID: string = "";
+  gradoDeleteID: string = "";
+  centroGradoID: string = "";
+  departamentoAsignaturaID: string = "";
 
   constructor(private fileUploadService: FileUploadService, private situacionService: SituacionService) { }
 

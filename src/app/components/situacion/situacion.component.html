@@ -83,12 +83,22 @@
         />
         <input
         type="text"
-        [(ngModel)]="centroID"
+        [(ngModel)]="centroGradoID"
         name="centroGrado"
         placeholder="ID centro"
         required="required"
         />
         <button type="submit" (click)="form.checkValidity() ? onCrearGrado() : null">Insertar</button>
+    </form>
+    <br>
+    <form class="grado-form" method="post" ngNativeValidate #form>
+        <input
+        type="text"
+        [(ngModel)]="gradoDeleteID"
+        name="gradoEliminar"
+        placeholder="ID grado"
+        required="required"
+        />
         <button type="submit" (click)="form.checkValidity() ? onEliminarGrado() : null">Eliminar</button>
     </form>
 </div>
@@ -105,12 +115,22 @@
         />
         <input
         type="text"
-        [(ngModel)]="departamentoID"
+        [(ngModel)]="departamentoAsignaturaID"
         name="departamentoAsignatura"
         placeholder="ID departamento"
         required="required"
         />
         <button type="submit" (click)="form.checkValidity() ? onCrearAsignatura() : null">Insertar</button>
+    </form>
+    <br>
+    <form class="grado-form" method="post" ngNativeValidate #form>
+        <input
+        type="text"
+        [(ngModel)]="asignaturaDeleteID"
+        name="asignatura"
+        placeholder="ID asignatura"
+        required="required"
+        />
         <button type="submit" (click)="form.checkValidity() ? onEliminarAsignatura() : null">Eliminar</button>
     </form>
 </div>
