@@ -35,4 +35,69 @@
     </table>
 </div>
 <br>
+<br>
+<h1>Isertar encuestas</h1>
+<div class="div-encuesta">
+    <form class="encuesta-form" method="post" ngNativeValidate #formencuesta>
+        <input
+        type="text"
+        [(ngModel)]="encuestaNombre"
+        name="encuestaNombre"
+        placeholder="Nombre de la encuesta"
+        required="required"
+        />
+        <button type="submit" (click)="formencuesta.checkValidity() ? onCrearEncuesta() : null">Insertar</button>
+    </form>
+</div>
+<br>
+<div class="div-lista-campañas">
+    <h1>Lista de campañas - Insertar/Cambiar Encuesta - Eliminar Encuesta</h1>
+    <table style="width:100%">
+        <tr>
+            <th>ID Campaña</th>
+            <th>Nombre</th>
+            <th>Fecha Inicial</th>
+            <th>Fecha Final</th>
+            <th>Descripción</th>
+            <th>Anonima</th>
+            <th>Con registro</th>
+            <th>ID Encuesta</th>
+            <th>Cambiar encuesta</th>
+            <th>Eliminar encuesta</th>
+        </tr>
+        <tr *ngFor="let campana of sortCampanas();let index = index;trackBy:trackByIndex;" class="lista-canpanas">
+
+            <td>{{campana.id}}</td>
+            <td>{{campana.nombre}}</td>
+            <td>{{campana.fechaIni}}</td>
+            <td>{{campana.fechaFin}}</td>
+            <td>{{campana.descripcion}}</td>
+            <td>{{campana.anonima}}</td>
+            <td>{{campana.con_registro}}</td>   
+            <td>{{campana.idEncuesta}}</td>
+            
+            <td>
+                <form class="campana-form" method="post" ngNativeValidate #formcampanas>
+                    <input
+                    type="text"
+                    [(ngModel)]="encuestas[index]"
+                    name="encuesta"
+                    placeholder="ID Encuesta"
+                    required="required"
+                    />
+                    <button [class.selected]="campana === selectedCampana" type="button" (click)="formcampanas.checkValidity() ? onInsertarEncuestaCampana(campana,encuestas[index]) : null">
+                    <span class="insertarCampaña">Cambiar Campaña</span>
+                    </button>
+                </form>
+            </td>
+            <td>
+                <button [class.selected]="campana === selectedCampana" type="button" (click)="onDeleteCampana(campana)">
+                    <span class="borrarSituacion">Borrar</span>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+<br>
+
 

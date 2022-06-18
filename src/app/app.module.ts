@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatIconModule} from '@angular/material/icon';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthGuard } from './guards/auth.guard';
+import { DatePipe } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -47,7 +48,7 @@ import { SituacionComponent } from './components/situacion/situacion.component';
     MatIconModule,
     BrowserAnimationsModule,
   ],
-  providers: [CookieService,AuthGuard],
+  providers: [CookieService,AuthGuard,DatePipe,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

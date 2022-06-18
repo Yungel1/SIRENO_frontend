@@ -31,5 +31,25 @@ export class EncuestaService {
     return this.http.get(environment.apiUrl+"/encuesta/getInfoInformes?id="+id,{headers});
   }
 
+  insertarEncuesta(nombre: string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    const payload = new HttpParams().set('nombre',nombre);
+
+    return this.http.post(environment.apiUrl+"/encuesta", payload, {headers});
+  }
+
+  eliminarEncuesta(id: string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+
+    return this.http.delete(environment.apiUrl+"/encuesta/delete?id="+id, {headers});
+  }
+
+  getEncuestas(): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    return this.http.get(environment.apiUrl+"/encuesta/getAll",{headers});
+  }
+
 
 }

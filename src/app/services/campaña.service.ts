@@ -36,6 +36,41 @@ export class CampañaService {
     return this.http.get(environment.apiUrl+"/campana/getInfoInformes?id="+id,{headers});
   }
   
+  getCampañas(): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    return this.http.get(environment.apiUrl+"/campana/getAllInfo",{headers});
+  }
+
+  insertarEncuestaCampaña(idCampaña:string,idEncuesta: string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    const payload = new HttpParams().set('idEncuesta',idEncuesta).set('idCampaña',idCampaña);
+
+    return this.http.post(environment.apiUrl+"/campanaencuesta", payload, {headers});
+  }
+
+  actualizarEncuestaCampaña(idCampaña:string,idEncuesta: string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    const payload = new HttpParams().set('idEncuesta',idEncuesta).set('idCampaña',idCampaña);
+
+    return this.http.put(environment.apiUrl+"/campanaencuesta/updateCampaignPoll", payload, {headers});
+  }
+
+
+  getEncuestaCampaña(idCampaña:string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    return this.http.get(environment.apiUrl+"/campanaencuesta/getCampaignPoll?idCampaña="+idCampaña,{headers});
+  }
+
+  eliminarCampana(idCampaña:string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+
+    return this.http.delete(environment.apiUrl+"/campana/delete?id="+idCampaña, {headers});
+  }
+
 
 
 }
