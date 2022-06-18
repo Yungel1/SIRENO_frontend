@@ -4,5 +4,5 @@ export interface Situacion {
     idDocente: string
     idGrupo: string
     idAsignatura: string
-    idCampaña: string
+    idCampana: string
 }

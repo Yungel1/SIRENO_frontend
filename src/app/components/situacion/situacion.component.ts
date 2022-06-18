@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { SituacionService } from 'src/app/services/situacion.service';
+import { Situacion } from 'src/app/models/situacion.model';
 
 @Component({
   selector: 'app-situacion',
@@ -12,6 +13,9 @@ export class SituacionComponent implements OnInit {
   fileToUpload: File | null = null;
   fileName: string = '';
   file: File | null = null;
+
+  situaciones: Situacion[] = [];
+  selectedSituacion?: Situacion;
 
   grupoID: string = "";
   centroID: string = "";
@@ -26,6 +30,7 @@ export class SituacionComponent implements OnInit {
   constructor(private fileUploadService: FileUploadService, private situacionService: SituacionService) { }
 
   ngOnInit(): void {
+    this.getSituacionInfo();
   }
 
   onFileSelected(event: Event) {
@@ -44,12 +49,15 @@ export class SituacionComponent implements OnInit {
     if (this.file!=null){
       if(this.file.type=="text/csv"){
         this.fileUploadService.onFileSelected(this.file).subscribe({
+          next: () => {
+            this.ngOnInit();
+          },
           error: (error) => {
             if(error.error instanceof ProgressEvent){
               alert("Se ha editado el archivo, bórrelo e insértelo de nuevo");
             }
           }
-      })
+        })
       }
     }
 
@@ -60,6 +68,24 @@ export class SituacionComponent implements OnInit {
     this.file = null;
     this.fileName = "Inserte CSV"
 
+  }
+
+  getSituacionInfo(){
+
+    this.situacionService.getSituaciones().subscribe( situaciones => {
+      this.situaciones = JSON.parse(JSON.stringify(situaciones));
+    });
+  }
+
+  sortSituaciones() {
+    return this.situaciones = this.situaciones.sort((a, b) => a.id > b.id ? 1 : -1);
+  }
+
+  onDeleteSituacion(situacion: Situacion) {
+    this.situacionService.eliminarSituacion(situacion.id).subscribe( data => {
+      console.log(data);
+      this.ngOnInit();
+    });
   }
 
   onCrearGrupo() {

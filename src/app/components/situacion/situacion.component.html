@@ -26,6 +26,34 @@
     </button>
 </div>
 <br>
+<div class="div-situaciones">
+    <h1>Lista de situaciones</h1>
+    <table style="width:100%">
+        <tr>
+            <th>ID Grado</th>
+            <th>ID Docente</th>
+            <th>ID Grupo</th>
+            <th>ID Asignatura</th>
+            <th>ID Campaña</th>
+            <th>Borrar Situación</th>
+        </tr>
+        <tr *ngFor="let situacion of sortSituaciones()" class="lista-situaciones">
+              
+            <td>{{situacion.idGrado}}</td>
+            <td>{{situacion.idDocente}}</td>
+            <td>{{situacion.idGrupo}}</td>
+            <td>{{situacion.idAsignatura}}</td>
+            <td>{{situacion.idCampana}}</td>   
+            
+            <td>
+                <button [class.selected]="situacion === selectedSituacion" type="button" (click)="onDeleteSituacion(situacion)">
+                <span class="borrarSituacion">Borrar</span>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+<br>
 <div class="grupo">
     <form class="grupo-form" method="post" ngNativeValidate #form>
         <h1>Crear grupo</h1>
