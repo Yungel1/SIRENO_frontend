@@ -53,4 +53,39 @@ export class SituacionService {
     return this.http.post(environment.apiUrl+"/asignatura", payload, {headers});
   }
 
+  eliminarGrupo(id:string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+
+    return this.http.delete(environment.apiUrl+"/grupo/delete?id="+id, {headers});
+  }
+
+  eliminarGrado(id:string,idCentro: string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+
+    return this.http.delete(environment.apiUrl+"/grado/delete?id="+id+"&idCentro="+idCentro, {headers});
+  }
+
+  eliminarCentro(id:string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+
+    return this.http.delete(environment.apiUrl+"/centro/delete?id="+id, {headers});
+  }
+
+  eliminarDepartamento(id:string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+
+    return this.http.delete(environment.apiUrl+"/departamento/delete?id="+id, {headers});
+  }
+
+  eliminarAsignatura(id:string,idDepartamento: string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+
+    return this.http.post(environment.apiUrl+"/asignatura/delete?id="+id+"&idCentro="+idDepartamento, {headers});
+  }
+
 }

@@ -37,6 +37,7 @@
         required
         />
         <button type="submit" (click)="form.checkValidity() ? onCrearGrupo() : null">Insertar</button>
+        <button type="submit" (click)="form.checkValidity() ? onEliminarGrupo() : null">Eliminar</button>
     </form>
 </div>
 <br>
@@ -51,6 +52,7 @@
         required
         />
         <button type="submit" (click)="form.checkValidity() ? onCrearCentro() : null">Insertar</button>
+        <button type="submit" (click)="form.checkValidity() ? onEliminarCentro() : null">Eliminar</button>
     </form>
 </div>
 <br>
@@ -65,6 +67,7 @@
         required="required"
         />
         <button type="submit" (click)="form.checkValidity() ? onCrearDepartamento() : null">Insertar</button>
+        <button type="submit" (click)="form.checkValidity() ? onEliminarDepartamento() : null">Eliminar</button>
     </form>
 </div>
 <br>
@@ -86,6 +89,7 @@
         required="required"
         />
         <button type="submit" (click)="form.checkValidity() ? onCrearGrado() : null">Insertar</button>
+        <button type="submit" (click)="form.checkValidity() ? onEliminarGrado() : null">Eliminar</button>
     </form>
 </div>
 <br>
@@ -107,6 +111,7 @@
         required="required"
         />
         <button type="submit" (click)="form.checkValidity() ? onCrearAsignatura() : null">Insertar</button>
+        <button type="submit" (click)="form.checkValidity() ? onEliminarAsignatura() : null">Eliminar</button>
     </form>
 </div>
 
