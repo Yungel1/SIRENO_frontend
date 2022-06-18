@@ -1,6 +1,29 @@
 <h2>Administrador</h2>
-<button type="button" (click)="onClick()">
-    Registrar
-</button>
+<div>
+    <button type="button" (click)="onRegister()">
+        Registrar
+    </button>
+    <button type="button" (click)="onSituacion()">
+        Situación
+    </button>
+    <button type="button" (click)="onGrupo()">
+        Grupo
+    </button>
+    <button type="button" (click)="onGrado()">
+        Grado
+    </button>
+    <button type="button" (click)="onAsignatura()">
+        Asignatura
+    </button>
+    <button type="button" (click)="onEncuesta()">
+        Encuesta
+    </button>
+    <button type="button" (click)="onPregunta()">
+        Pregunta
+    </button>
+    <button type="button" (click)="onOpcPregunta()">
+        Opcion-Pregunta
+    </button>
+</div>
 <br>
-<app-register [hidden]=hidden></app-register>
+<app-register [hidden]=hiddenRegister></app-register>
