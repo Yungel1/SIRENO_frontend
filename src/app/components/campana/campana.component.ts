@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SituacionService } from 'src/app/services/situacion.service';
+import { CampañaService } from 'src/app/services/campaña.service';
 import { Situacion } from 'src/app/models/situacion.model';
+import { CampañaInfo } from 'src/app/models/campañaInfo.model';
+import { PreguntaRespuestaOpcionService } from 'src/app/services/pregunta-respuesta-opcion.service';
+import {PreguntaOpcion} from "../../models/pregunta-opcion.model";
+import {OpcionPregunta} from "../../models/opcion-pregunta.model";
 
 @Component({
   selector: 'app-campana',
@@ -14,7 +19,35 @@ export class CampanaComponent implements OnInit {
 
   campanas: string[] = [];
 
-  constructor(private situacionService: SituacionService) { }
+  campana: CampañaInfo = {
+    id: "",
+    nombre: "",
+    fechaIni: "",
+    fechaFin: "",
+    descripcion: "",
+    anonima: "0",
+    con_registro: "0",
+    idEncuesta: "",
+  };
+  anonima: boolean = false;
+  con_registro: boolean = false;
+
+
+  tipoPregs: string[] = ["respuesta_unica"]
+  pregunta: PreguntaOpcion = {
+    idPregunta: "",
+    tipoPreg:"",
+    numPreg:"",
+    textoPreg:"",
+    opcionespregunta:[]
+  };
+
+  idEncuesta: string = "";
+  num_preg: string = "";
+  tipoPreg : string = "";
+
+
+  constructor(private situacionService: SituacionService,private campañaService: CampañaService,private preguntaRespuestaOpcionService:PreguntaRespuestaOpcionService) { }
 
   ngOnInit(): void {
     this.getSituacionInfo();
@@ -55,5 +88,36 @@ export class CampanaComponent implements OnInit {
 
   trackByIndex(index: number, obj: any): any {
     return index;
+  }
+
+  onCrearCampana(){
+
+    let anonima;
+    let con_registro;
+
+    anonima = this.convertir0o1(this.anonima);
+    con_registro = this.convertir0o1(this.con_registro);
+
+    this.campañaService.crearCampaña(this.campana.nombre,this.campana.fechaIni,this.campana.fechaFin,this.campana.descripcion,
+      anonima,con_registro).subscribe( data => {
+      console.log(data);
+      this.ngOnInit();
+    });
+
+  }
+
+  onCrearPregunta(){
+
+    console.log(this.idEncuesta,this.num_preg,this.tipoPreg);
+
+  }
+
+  convertir0o1(valor: boolean): string{
+    
+    if(valor==true){
+      return '1';
+    }
+    return '0';
+
   }
 }

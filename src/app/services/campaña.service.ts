@@ -35,6 +35,15 @@ export class CampañaService {
     const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
     return this.http.get(environment.apiUrl+"/campana/getInfoInformes?id="+id,{headers});
   }
+
+  crearCampaña(nombre: string,fechaIni: string,fechaFin: string,descripcion: string,anonima: string,con_registro: string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    const payload = new HttpParams().set('nombre',nombre).set('fechaIni',fechaIni).set("fechaFin",fechaFin)
+    .set("descripcion",descripcion).set("anonima",anonima).set("con_registro",con_registro);
+
+    return this.http.post(environment.apiUrl+"/campana", payload, {headers});
+  }
   
 
 
