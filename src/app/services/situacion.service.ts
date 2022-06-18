@@ -102,4 +102,12 @@ export class SituacionService {
     return this.http.delete(environment.apiUrl+"/situacion/delete?id="+id, {headers});
   }
 
+  insertarCampañaSituacion(idSituacion: string, idCampaña:string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    const payload = new HttpParams().set('idSituacion',idSituacion).set('idCampaña',idCampaña);
+
+    return this.http.post(environment.apiUrl+"/insertarcampanasituacion", payload, {headers});
+  }
+
 }
