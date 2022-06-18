@@ -60,11 +60,11 @@ export class SituacionService {
     return this.http.delete(environment.apiUrl+"/grupo/delete?id="+id, {headers});
   }
 
-  eliminarGrado(id:string,idCentro: string): Observable<any> {
+  eliminarGrado(id:string): Observable<any> {
 
     const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
 
-    return this.http.delete(environment.apiUrl+"/grado/delete?id="+id+"&idCentro="+idCentro, {headers});
+    return this.http.delete(environment.apiUrl+"/grado/delete?id="+id, {headers});
   }
 
   eliminarCentro(id:string): Observable<any> {
@@ -81,11 +81,11 @@ export class SituacionService {
     return this.http.delete(environment.apiUrl+"/departamento/delete?id="+id, {headers});
   }
 
-  eliminarAsignatura(id:string,idDepartamento: string): Observable<any> {
+  eliminarAsignatura(id:string): Observable<any> {
 
     const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
 
-    return this.http.post(environment.apiUrl+"/asignatura/delete?id="+id+"&idCentro="+idDepartamento, {headers});
+    return this.http.delete(environment.apiUrl+"/asignatura/delete?id="+id, {headers});
   }
 
   getSituaciones(): Observable<any> {

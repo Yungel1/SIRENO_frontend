@@ -55,7 +55,7 @@
 </div>
 <br>
 <div class="grupo">
-    <form class="grupo-form" method="post" ngNativeValidate #form>
+    <form class="grupo-form" method="post" ngNativeValidate #formgrupo>
         <h1>Crear grupo</h1>
         <input
         type="text"
@@ -64,13 +64,13 @@
         placeholder="ID grupo"
         required
         />
-        <button type="submit" (click)="form.checkValidity() ? onCrearGrupo() : null">Insertar</button>
-        <button type="submit" (click)="form.checkValidity() ? onEliminarGrupo() : null">Eliminar</button>
+        <button type="submit" (click)="formgrupo.checkValidity() ? onCrearGrupo() : null">Insertar</button>
+        <button type="submit" (click)="formgrupo.checkValidity() ? onEliminarGrupo() : null">Eliminar</button>
     </form>
 </div>
 <br>
 <div class="centro">
-    <form class="centro-form" method="post" ngNativeValidate #form>
+    <form class="centro-form" method="post" ngNativeValidate #formcentro>
         <h1>Crear centro</h1>
         <input
         type="text"
@@ -79,13 +79,13 @@
         placeholder="ID centro"
         required
         />
-        <button type="submit" (click)="form.checkValidity() ? onCrearCentro() : null">Insertar</button>
-        <button type="submit" (click)="form.checkValidity() ? onEliminarCentro() : null">Eliminar</button>
+        <button type="submit" (click)="formcentro.checkValidity() ? onCrearCentro() : null">Insertar</button>
+        <button type="submit" (click)="formcentro.checkValidity() ? onEliminarCentro() : null">Eliminar</button>
     </form>
 </div>
 <br>
 <div class="departamento">
-    <form class="departamento-form" method="post" ngNativeValidate #form>
+    <form class="departamento-form" method="post" ngNativeValidate #formdepartamento>
         <h1>Crear departamento</h1>
         <input
         type="text"
@@ -94,13 +94,13 @@
         placeholder="ID departamento"
         required="required"
         />
-        <button type="submit" (click)="form.checkValidity() ? onCrearDepartamento() : null">Insertar</button>
-        <button type="submit" (click)="form.checkValidity() ? onEliminarDepartamento() : null">Eliminar</button>
+        <button type="submit" (click)="formdepartamento.checkValidity() ? onCrearDepartamento() : null">Insertar</button>
+        <button type="submit" (click)="formdepartamento.checkValidity() ? onEliminarDepartamento() : null">Eliminar</button>
     </form>
 </div>
 <br>
 <div class="grado">
-    <form class="grado-form" method="post" ngNativeValidate #form>
+    <form class="grado-form" method="post" ngNativeValidate #formgrado>
         <h1>Crear grado</h1>
         <input
         type="text"
@@ -116,10 +116,10 @@
         placeholder="ID centro"
         required="required"
         />
-        <button type="submit" (click)="form.checkValidity() ? onCrearGrado() : null">Insertar</button>
+        <button type="submit" (click)="formgrado.checkValidity() ? onCrearGrado() : null">Insertar</button>
     </form>
     <br>
-    <form class="grado-form" method="post" ngNativeValidate #form>
+    <form class="grado-delete-form" method="post" ngNativeValidate #formgradodelete>
         <input
         type="text"
         [(ngModel)]="gradoDeleteID"
@@ -127,12 +127,12 @@
         placeholder="ID grado"
         required="required"
         />
-        <button type="submit" (click)="form.checkValidity() ? onEliminarGrado() : null">Eliminar</button>
+        <button type="submit" (click)="formgradodelete.checkValidity() ? onEliminarGrado() : null">Eliminar</button>
     </form>
 </div>
 <br>
 <div class="asignatura">
-    <form class="asignatura-form" method="post" ngNativeValidate #form>
+    <form class="asignatura-form" method="post" ngNativeValidate #formasignatura>
         <h1>Crear asignatura</h1>
         <input
         type="text"
@@ -148,10 +148,10 @@
         placeholder="ID departamento"
         required="required"
         />
-        <button type="submit" (click)="form.checkValidity() ? onCrearAsignatura() : null">Insertar</button>
+        <button type="submit" (click)="formasignatura.checkValidity() ? onCrearAsignatura() : null">Insertar</button>
     </form>
     <br>
-    <form class="grado-form" method="post" ngNativeValidate #form>
+    <form class="asignatura-delete-form" method="post" ngNativeValidate #formasignaturadelete>
         <input
         type="text"
         [(ngModel)]="asignaturaDeleteID"
@@ -159,7 +159,7 @@
         placeholder="ID asignatura"
         required="required"
         />
-        <button type="submit" (click)="form.checkValidity() ? onEliminarAsignatura() : null">Eliminar</button>
+        <button type="submit" (click)="formasignaturadelete.checkValidity() ? onEliminarAsignatura() : null">Eliminar</button>
     </form>
 </div>
 

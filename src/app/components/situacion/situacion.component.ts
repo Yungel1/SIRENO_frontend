@@ -97,7 +97,7 @@ export class SituacionComponent implements OnInit {
 
   onCrearGrado() {
   
-    this.situacionService.insertarGrado(this.gradoID,this.centroID).subscribe( data => {
+    this.situacionService.insertarGrado(this.gradoID,this.centroGradoID).subscribe( data => {
       console.log(data);
     });
   }
@@ -111,7 +111,7 @@ export class SituacionComponent implements OnInit {
 
   onCrearAsignatura() {
   
-    this.situacionService.insertarAsignatura(this.asignaturaID,this.departamentoID).subscribe( data => {
+    this.situacionService.insertarAsignatura(this.asignaturaID,this.departamentoAsignaturaID).subscribe( data => {
       console.log(data);
     });
   }
@@ -132,7 +132,7 @@ export class SituacionComponent implements OnInit {
 
   onEliminarGrado() {
   
-    this.situacionService.eliminarGrado(this.gradoID,this.centroID).subscribe( data => {
+    this.situacionService.eliminarGrado(this.gradoDeleteID).subscribe( data => {
       console.log(data);
     });
   }
@@ -146,7 +146,7 @@ export class SituacionComponent implements OnInit {
 
   onEliminarAsignatura() {
   
-    this.situacionService.eliminarAsignatura(this.asignaturaID,this.departamentoID).subscribe( data => {
+    this.situacionService.eliminarAsignatura(this.asignaturaDeleteID).subscribe( data => {
       console.log(data);
     });
   }
