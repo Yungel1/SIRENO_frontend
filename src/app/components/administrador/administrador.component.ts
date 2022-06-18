@@ -9,13 +9,8 @@ import { Router } from '@angular/router';
 export class AdministradorComponent implements OnInit {
 
   hiddenRegister: boolean = true;
-  hiddenSituation: boolean = true;
-  hiddenGroup: boolean = true;
-  hiddenGrade: boolean = true;
-  hiddenCourse: boolean = true;
-  hiddenEncuesta: boolean = true;
-  hiddenPregunta: boolean = true;
-  hiddenOpcPregunta: boolean = true;
+  hiddenSituacion: boolean = true;
+  hiddenCampana: boolean = true;
 
   constructor(private router: Router) { }
 
@@ -23,61 +18,21 @@ export class AdministradorComponent implements OnInit {
   }
 
   onRegister(){
-    if (this.hiddenRegister){
-      this.hiddenRegister = false;
-    } else{
-      this.hiddenRegister = true;
-    }
-  }
 
+    this.hiddenRegister = false;
+    this.hiddenSituacion = true
+    this.hiddenCampana = true;
+  }
   onSituacion(){
-    if (this.hiddenSituation){
-      this.hiddenSituation = false;
-    } else{
-      this.hiddenSituation = true;
-    }
+    this.hiddenRegister = true;
+    this.hiddenSituacion = false
+    this.hiddenCampana = true;
   }
-  onGrupo(){
-    if (this.hiddenGroup){
-      this.hiddenGroup = false;
-    } else{
-      this.hiddenGroup = true;
-    }
+  onCampana(){
+    this.hiddenRegister = true;
+    this.hiddenSituacion = true
+    this.hiddenCampana = false;
   }
-  onGrado(){
-    if (this.hiddenGrade){
-      this.hiddenGrade = false;
-    } else{
-      this.hiddenGrade = true;
-    }
-  }
-  onAsignatura(){
-    if (this.hiddenCourse){
-      this.hiddenCourse = false;
-    } else{
-      this.hiddenCourse = true;
-    }
-  }
-  onEncuesta(){
-    if (this.hiddenEncuesta){
-      this.hiddenEncuesta = false;
-    } else{
-      this.hiddenEncuesta = true;
-    }
-  }
-  onPregunta(){
-    if (this.hiddenPregunta){
-      this.hiddenPregunta = false;
-    } else{
-      this.hiddenPregunta = true;
-    }
-  }
-  onOpcPregunta(){
-    if (this.hiddenOpcPregunta){
-      this.hiddenOpcPregunta = false;
-    } else{
-      this.hiddenOpcPregunta = true;
-    }
-  }
+  
 
 }

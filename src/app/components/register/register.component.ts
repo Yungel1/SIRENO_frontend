@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { FileUploadService } from 'src/app/services/file-upload.service';
 
 @Component({
   selector: 'app-register',
@@ -18,11 +17,7 @@ export class RegisterComponent implements OnInit {
   idDepartamento: string = "";
   isDisabled: boolean = true;
 
-  fileToUpload: File | null = null;
-  fileName: string = '';
-  file: File | null = null;
-
-  constructor(private usuarioService: UsuarioService,private fileUploadService: FileUploadService) { }
+  constructor(private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
   }
@@ -55,40 +50,6 @@ export class RegisterComponent implements OnInit {
     this.usuarioService.register(this.email,this.usuario,this.contrasena,estudiante,docente,administrador,this.idDepartamento).subscribe( data => {
       console.log(data);
     });
-  }
-
-  onFileSelected(event: Event) {
-
-    let files = (event.target as HTMLInputElement).files;
-    if (files!=null){
-      this.file = files[0];
-      this.fileName = this.file.name;
-    }
-    (event.target as HTMLInputElement).value = "";
-
-  }
-
-  onClick() {
-
-    if (this.file!=null){
-      if(this.file.type=="text/csv"){
-        this.fileUploadService.onFileSelected(this.file).subscribe({
-          error: (error) => {
-            if(error.error instanceof ProgressEvent){
-              alert("Se ha editado el archivo, bórrelo e insértelo de nuevo");
-            }
-          }
-      })
-      }
-    }
-
-  }
-
-  onDelete() {
-
-    this.file = null;
-    this.fileName = "Vacío"
-
   }
 
 }

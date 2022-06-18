@@ -1,0 +1,112 @@
+<!-- register.component.html -->
+<div class="div-file">
+<h1>Insertar situaciones mediante CSV</h1>
+<input type="file" class="file-input"
+    accept=".csv" 
+    (change)="onFileSelected($event)" #fileUpload>
+</div>
+
+<div class="file-upload">
+
+{{fileName || "Inserte CSV"}}
+
+    <button mat-mini-fab color="primary" class="upload-btn"
+    (click)="fileUpload.click()">
+    <mat-icon>attach_file</mat-icon>
+    </button>
+    
+    <button mat-mini-fab color="primary" class="upload-btn"
+    (click)="onDelete()">
+    Borrar
+    </button>
+
+    <button mat-mini-fab color="primary" class="upload-btn"
+    (click)="onClick()">
+    Cargar
+    </button>
+</div>
+<br>
+<div class="grupo">
+    <form class="grupo-form" method="post" ngNativeValidate #form>
+        <h1>Crear grupo</h1>
+        <input
+        type="text"
+        [(ngModel)]="grupoID"
+        name="grupo"
+        placeholder="ID grupo"
+        required
+        />
+        <button type="submit" (click)="form.checkValidity() ? onCrearGrupo() : null">Insertar</button>
+    </form>
+</div>
+<br>
+<div class="centro">
+    <form class="centro-form" method="post" ngNativeValidate #form>
+        <h1>Crear centro</h1>
+        <input
+        type="text"
+        [(ngModel)]="centroID"
+        name="centro"
+        placeholder="ID centro"
+        required
+        />
+        <button type="submit" (click)="form.checkValidity() ? onCrearCentro() : null">Insertar</button>
+    </form>
+</div>
+<br>
+<div class="departamento">
+    <form class="departamento-form" method="post" ngNativeValidate #form>
+        <h1>Crear departamento</h1>
+        <input
+        type="text"
+        [(ngModel)]="departamentoID"
+        name="departamento"
+        placeholder="ID departamento"
+        required="required"
+        />
+        <button type="submit" (click)="form.checkValidity() ? onCrearDepartamento() : null">Insertar</button>
+    </form>
+</div>
+<br>
+<div class="grado">
+    <form class="grado-form" method="post" ngNativeValidate #form>
+        <h1>Crear grado</h1>
+        <input
+        type="text"
+        [(ngModel)]="gradoID"
+        name="grado"
+        placeholder="ID grado"
+        required="required"
+        />
+        <input
+        type="text"
+        [(ngModel)]="centroID"
+        name="centroGrado"
+        placeholder="ID centro"
+        required="required"
+        />
+        <button type="submit" (click)="form.checkValidity() ? onCrearGrado() : null">Insertar</button>
+    </form>
+</div>
+<br>
+<div class="asignatura">
+    <form class="asignatura-form" method="post" ngNativeValidate #form>
+        <h1>Crear asignatura</h1>
+        <input
+        type="text"
+        [(ngModel)]="asignaturaID"
+        name="asignatura"
+        placeholder="ID asignatura"
+        required="required"
+        />
+        <input
+        type="text"
+        [(ngModel)]="departamentoID"
+        name="departamentoAsignatura"
+        placeholder="ID departamento"
+        required="required"
+        />
+        <button type="submit" (click)="form.checkValidity() ? onCrearAsignatura() : null">Insertar</button>
+    </form>
+</div>
+

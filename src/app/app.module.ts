@@ -19,6 +19,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DocenteComponent } from './components/docente/docente.component';
 import { EncuestaInformeComponent } from './components/encuesta-informe/encuesta-informe.component';
 import { PreguntaRespuestaOpcionInformeComponent } from './components/pregunta-respuesta-opcion-informe/pregunta-respuesta-opcion-informe.component';
+import { CampanaComponent } from './components/campana/campana.component';
+import { SituacionComponent } from './components/situacion/situacion.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { PreguntaRespuestaOpcionInformeComponent } from './components/pregunta-r
     AdministradorComponent,
     DocenteComponent,
     EncuestaInformeComponent,
-    PreguntaRespuestaOpcionInformeComponent
+    PreguntaRespuestaOpcionInformeComponent,
+    CampanaComponent,
+    SituacionComponent
   ],
   imports: [
     BrowserModule,

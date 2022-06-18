@@ -56,30 +56,3 @@
     <button type="submit" (click)="register()">Registrar</button>
   </form>
 </div>
-<br>
-<div class="div-file">
-  <h1>Insertar CSV</h1>
-  <input type="file" class="file-input"
-      accept=".csv" 
-      (change)="onFileSelected($event)" #fileUpload>
-</div>
-
-<div class="file-upload">
-
-  {{fileName || "Vacío"}}
-
-    <button mat-mini-fab color="primary" class="upload-btn"
-      (click)="fileUpload.click()">
-      <mat-icon>attach_file</mat-icon>
-    </button>
-    
-    <button mat-mini-fab color="primary" class="upload-btn"
-    (click)="onDelete()">
-    Borrar
-    </button>
-
-    <button mat-mini-fab color="primary" class="upload-btn"
-      (click)="onClick()">
-      Cargar
-    </button>
-</div>
