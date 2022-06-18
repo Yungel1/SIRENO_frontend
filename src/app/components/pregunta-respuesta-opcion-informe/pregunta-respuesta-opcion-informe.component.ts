@@ -127,7 +127,7 @@ export class PreguntaRespuestaOpcionInformeComponent implements OnInit {
   setNombreEncuesta(){
     
     if(this.idEncuesta!=null){
-      this.encuestaService.getEncuestaInfo(this.idEncuesta).subscribe(encuesta => {
+      this.encuestaService.getEncuestaInfoInformes(this.idEncuesta).subscribe(encuesta => {
         let encuestaJSON = JSON.parse(JSON.stringify(encuesta))[0];
         this.encuestaNombre = encuestaJSON.nombre;
   
