@@ -10,6 +10,7 @@ export class RegisterComponent implements OnInit {
 
   email: string = "";
   usuario: string = "";
+  usuarioDelete: string = "";
   contrasena: string = "";
   estudiante: boolean = false;
   docente: boolean = false;
@@ -48,6 +49,13 @@ export class RegisterComponent implements OnInit {
     docente = this.convertir0o1(this.docente);
 
     this.usuarioService.register(this.email,this.usuario,this.contrasena,estudiante,docente,administrador,this.idDepartamento).subscribe( data => {
+      console.log(data);
+    });
+  }
+
+  borrarUsuario(): void {
+
+    this.usuarioService.borrarUsuario(this.usuarioDelete).subscribe( data => {
       console.log(data);
     });
   }

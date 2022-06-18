@@ -56,3 +56,17 @@
     <button type="submit" (click)="register()">Registrar</button>
   </form>
 </div>
+<br>
+<div class="delete-user">
+  <form class="delete-user-form" method="post">
+    <h1>Eliminar usuario</h1>
+    <input
+      type="text"
+      [(ngModel)]="usuarioDelete"
+      name="usuarioDelete"
+      placeholder="Usuario"
+      required="required"
+    />
+    <button type="submit" (click)="borrarUsuario()">Borrar</button>
+  </form>
+</div>
