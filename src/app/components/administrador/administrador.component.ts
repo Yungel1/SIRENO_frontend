@@ -8,13 +8,20 @@ import { Router } from '@angular/router';
 })
 export class AdministradorComponent implements OnInit {
 
+  hidden: boolean = true;
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  onClick(tipo: string){
-    this.router.navigate(['/'+tipo]);
+  onClick(){
+    if (this.hidden){
+      this.hidden = false;
+    } else{
+      this.hidden = true;
+    }
+    //this.router.navigate(['/'+tipo]);
   }
 
 }
