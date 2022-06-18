@@ -52,7 +52,7 @@ export class PreguntaRespuestaOpcionInformeComponent implements OnInit {
 
             let preguntaJSON = JSON.parse(JSON.stringify(preguntaInfo));
 
-            this.preguntaRespuestaOpcionService.getTexto("1",pregunta.idPregunta,undefined).subscribe(textoP => {
+            this.preguntaRespuestaOpcionService.getTextoInfrome("1",pregunta.idPregunta,undefined).subscribe(textoP => {
 
               this.preguntaRespuestaOpcionService.getOpcionesPreguntaInforme(pregunta.idPregunta).subscribe(opcionespregunta => {
 
@@ -62,7 +62,7 @@ export class PreguntaRespuestaOpcionInformeComponent implements OnInit {
 
                 opcionespreguntaJSON.forEach((opcionpregunta: { id: string; idPregunta:string;num_opc:string } ) => {
 
-                  this.preguntaRespuestaOpcionService.getTexto("1",opcionpregunta.idPregunta,opcionpregunta.id).subscribe(textoOP => {
+                  this.preguntaRespuestaOpcionService.getTextoInfrome("1",opcionpregunta.idPregunta,opcionpregunta.id).subscribe(textoOP => {
 
                     let textoOPJSON = JSON.parse(JSON.stringify(textoOP));
 

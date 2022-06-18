@@ -34,6 +34,14 @@ export class PreguntaRespuestaOpcionService {
     return this.http.get(environment.apiUrl+"/texto/get?idIdioma="+idIdioma+"&idPregunta="+idPregunta+"&idOpcionesPregunta="+idOpcionesPregunta,{headers});
   }
 
+  getTextoInfrome(idIdioma:string,idPregunta: string,idOpcionesPregunta?:string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    if(idOpcionesPregunta==undefined){
+      return this.http.get(environment.apiUrl+"/texto/getInforme?idIdioma="+idIdioma+"&idPregunta="+idPregunta,{headers});
+    }
+    return this.http.get(environment.apiUrl+"/texto/getInforme?idIdioma="+idIdioma+"&idPregunta="+idPregunta+"&idOpcionesPregunta="+idOpcionesPregunta,{headers});
+  }
+
   insertarRespuesta(idCampaña:string, idEncuesta: string,idPregunta: string,idOpcionesPregunta:string,texto:string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
     const payload = new HttpParams().set('idCampaña',idCampaña).set('idEncuesta',idEncuesta).set('idPregunta', idPregunta)
