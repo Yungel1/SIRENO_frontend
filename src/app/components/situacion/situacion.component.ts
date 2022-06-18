@@ -93,4 +93,39 @@ export class SituacionComponent implements OnInit {
     });
   }
 
+  onEliminarGrupo() {
+    
+    this.situacionService.eliminarGrupo(this.grupoID).subscribe( data => {
+      console.log(data);
+    });
+  }
+
+  onEliminarGrado() {
+  
+    this.situacionService.eliminarGrado(this.gradoID,this.centroID).subscribe( data => {
+      console.log(data);
+    });
+  }
+
+  onEliminarDepartamento() {
+  
+    this.situacionService.eliminarDepartamento(this.departamentoID).subscribe( data => {
+      console.log(data);
+    });
+  }
+
+  onEliminarAsignatura() {
+  
+    this.situacionService.eliminarAsignatura(this.asignaturaID,this.departamentoID).subscribe( data => {
+      console.log(data);
+    });
+  }
+
+  onEliminarCentro() {
+  
+    this.situacionService.eliminarCentro(this.centroID).subscribe( data => {
+      console.log(data);
+    });
+  }
+
 }
