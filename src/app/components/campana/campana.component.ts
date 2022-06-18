@@ -12,7 +12,7 @@ export class CampanaComponent implements OnInit {
   situaciones: Situacion[] = [];
   selectedSituacion?: Situacion;
 
-  campana: string = "";
+  campanas: string[] = [];
 
   constructor(private situacionService: SituacionService) { }
 
@@ -22,8 +22,23 @@ export class CampanaComponent implements OnInit {
 
   getSituacionInfo(){
 
+    let situacionInfo: Situacion; 
+
     this.situacionService.getSituaciones().subscribe( situaciones => {
-      this.situaciones = JSON.parse(JSON.stringify(situaciones));
+      let situacionesJSON = JSON.parse(JSON.stringify(situaciones));
+      this.situaciones = [];
+      situacionesJSON.forEach((situacion: { id: string; idGrado: string; idDocente: string; idGrupo: string; idAsignatura: string; idCampaña: string; }) => {
+        situacionInfo = {
+          id: situacion.id,
+          idGrado: situacion.idGrado,
+          idDocente: situacion.idDocente,
+          idGrupo: situacion.idGrupo,
+          idAsignatura: situacion.idAsignatura,
+          idCampana: situacion.idCampaña,
+        }
+
+        this.situaciones.push(situacionInfo);
+      })
     });
   }
 
@@ -32,7 +47,13 @@ export class CampanaComponent implements OnInit {
   }
 
   onInsertarCampana(situacion: Situacion,idCampana: string) {
-    console.log(situacion,idCampana)
+    this.situacionService.insertarCampañaSituacion(situacion.id,idCampana).subscribe( data => {
+      console.log(data);
+      this.ngOnInit();
+    });
   }
 
+  trackByIndex(index: number, obj: any): any {
+    return index;
+  }
 }

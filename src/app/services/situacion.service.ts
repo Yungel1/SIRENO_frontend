@@ -105,9 +105,9 @@ export class SituacionService {
   insertarCampañaSituacion(idSituacion: string, idCampaña:string): Observable<any> {
 
     const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
-    const payload = new HttpParams().set('idSituacion',idSituacion).set('idCampaña',idCampaña);
+    const payload = new HttpParams().set('id',idSituacion).set('idCampaña',idCampaña);
 
-    return this.http.post(environment.apiUrl+"/insertarcampanasituacion", payload, {headers});
+    return this.http.put(environment.apiUrl+"/situacion/insertarcampanasituacion", payload, {headers});
   }
 
 }

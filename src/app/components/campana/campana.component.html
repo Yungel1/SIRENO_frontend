@@ -1,5 +1,5 @@
 <div class="div-situaciones">
-    <h1>Lista de situaciones</h1>
+    <h1>Lista de situaciones - Insertar/Cambiar Campaña</h1>
     <table style="width:100%">
         <tr>
             <th>ID Grado</th>
@@ -7,9 +7,9 @@
             <th>ID Grupo</th>
             <th>ID Asignatura</th>
             <th>ID Campaña</th>
-            <th>Añadir campaña</th>
+            <th>Cambiar campaña</th>
         </tr>
-        <tr *ngFor="let situacion of sortSituaciones()" class="lista-situaciones">
+        <tr *ngFor="let situacion of sortSituaciones();let index = index;trackBy:trackByIndex;" class="lista-situaciones">
               
             <td>{{situacion.idGrado}}</td>
             <td>{{situacion.idDocente}}</td>
@@ -21,16 +21,18 @@
                 <form class="situacion-form" method="post" ngNativeValidate #form>
                     <input
                     type="text"
-                    [ngModel]="campana"
+                    [(ngModel)]="campanas[index]"
                     name="campaña"
                     placeholder="ID Campaña"
                     required="required"
                     />
-                    <button [class.selected]="situacion === selectedSituacion" type="button" (click)="form.checkValidity() ? onInsertarCampana(situacion,campana) : null">
-                    <span class="insertarCampaña">Insertar Campaña</span>
+                    <button [class.selected]="situacion === selectedSituacion" type="button" (click)="form.checkValidity() ? onInsertarCampana(situacion,campanas[index]) : null">
+                    <span class="insertarCampaña">Cambiar Campaña</span>
                     </button>
                 </form>
             </td>
         </tr>
     </table>
 </div>
+<br>
+
