@@ -95,4 +95,11 @@ export class SituacionService {
     return this.http.get(environment.apiUrl+"/situacion/getAll", {headers});
   }
 
+  eliminarSituacion(id: string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+
+    return this.http.delete(environment.apiUrl+"/situacion/delete?id="+id, {headers});
+  }
+
 }
