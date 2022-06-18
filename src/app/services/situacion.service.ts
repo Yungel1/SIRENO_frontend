@@ -88,4 +88,11 @@ export class SituacionService {
     return this.http.post(environment.apiUrl+"/asignatura/delete?id="+id+"&idCentro="+idDepartamento, {headers});
   }
 
+  getSituaciones(): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+
+    return this.http.get(environment.apiUrl+"/situacion/getAll", {headers});
+  }
+
 }
