@@ -87,5 +87,11 @@ export class PreguntaRespuestaOpcionService {
     return this.http.post(environment.apiUrl+"/encuestapregunta",payload,{headers});
   }
 
+  onAñadirTextoPregunta(idPregunta:string,texto:string,idIdioma:string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    const payload = new HttpParams().set('idEncuesta',idPregunta).set('texto',texto).set('idIdioma',idIdioma);
+    return this.http.post(environment.apiUrl+"/texto",payload,{headers});
+  }
+
 
 }

@@ -1,16 +1,17 @@
 <h2>Administrador</h2>
 <div>
+    <button type="button" (click)="onCampana()">
+        Campañas
+    </button>
     <button type="button" (click)="onRegister()">
         Registrar
     </button>
     <button type="button" (click)="onSituacion()">
         Situaciones
     </button>
-    <button type="button" (click)="onCampana()">
-        Campañas
-    </button>
 </div>
 <br>
+<app-campana [hidden]=hiddenCampana></app-campana>
 <app-register [hidden]=hiddenRegister></app-register>
 <app-situacion [hidden]=hiddenSituacion></app-situacion>
-<app-campana [hidden]=hiddenCampana></app-campana>
+
