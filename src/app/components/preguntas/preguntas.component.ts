@@ -56,6 +56,7 @@ export class PreguntasComponent implements OnInit {
     if(this.idEncuesta!=null){
 
       this.preguntaRespuestaOpcionService.getPreguntas(this.idEncuesta).subscribe(preguntasId => {
+
         let preguntasIdJSON = JSON.parse(JSON.stringify(preguntasId));
   
         let opcionespreguntaJSON;
@@ -65,7 +66,7 @@ export class PreguntasComponent implements OnInit {
         let preguntaOInfo: PreguntaOpcion;
   
         preguntasIdJSON.forEach((pregunta: { idPregunta: string; num_preg: string; }) => {
-  
+ 
           this.preguntaRespuestaOpcionService.getPreguntaInfoInforme(pregunta.idPregunta).subscribe(preguntaInfo => {
 
             let preguntaJSON = JSON.parse(JSON.stringify(preguntaInfo));
@@ -79,7 +80,6 @@ export class PreguntasComponent implements OnInit {
                 let opcionespreguntaInfo: OpcionPregunta[]=[];
 
                 opcionespreguntaJSON.forEach((opcionpregunta: { id: string; idPregunta:string;num_opc:string } ) => {
-                  console.log(opcionpregunta);
 
                   this.preguntaRespuestaOpcionService.getTextoAdmin("1",opcionpregunta.idPregunta,opcionpregunta.id).subscribe(textoOP => {
                     textoOPJSON = JSON.parse(JSON.stringify(textoOP))
