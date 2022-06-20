@@ -22,6 +22,7 @@ import { EncuestaInformeComponent } from './components/encuesta-informe/encuesta
 import { PreguntaRespuestaOpcionInformeComponent } from './components/pregunta-respuesta-opcion-informe/pregunta-respuesta-opcion-informe.component';
 import { CampanaComponent } from './components/campana/campana.component';
 import { SituacionComponent } from './components/situacion/situacion.component';
+import { PreguntasComponent } from './components/preguntas/preguntas.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SituacionComponent } from './components/situacion/situacion.component';
     EncuestaInformeComponent,
     PreguntaRespuestaOpcionInformeComponent,
     CampanaComponent,
-    SituacionComponent
+    SituacionComponent,
+    PreguntasComponent
   ],
   imports: [
     BrowserModule,

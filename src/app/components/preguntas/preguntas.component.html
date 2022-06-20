@@ -1,0 +1,57 @@
+<h2>{{encuestaNombre}}</h2>
+<br>
+<div class="pregunta">
+    <form class="pregunta-form" method="post" ngNativeValidate #formpregunta>
+        <h1>Crear pregunta</h1>
+        <input
+        type="text"
+        [(ngModel)]="num_preg"
+        name="num_preg"
+        placeholder="Posición de la pregunta"
+        required="required"
+        />
+        <input
+        type="text"
+        [(ngModel)]="num_preg"
+        name="num_preg"
+        placeholder="Texto"
+        required="required"
+        />
+        <br>
+        <label for="tipoPreg">Tipo de pregunta: </label>
+        <select id="tipoPreg" name="tipoPreg" [(ngModel)]="tipoPreg" required="required">
+            <option value="eleccion_unica">Elección única</option>
+        </select>
+        <button type="submit" (click)="formpregunta.checkValidity() ? onCrearPregunta() : null">Insertar</button>
+    </form>
+</div>
+<br>
+<div class="div-lista-encuestas">
+    <h1>Lista de preguntas</h1>
+    <table style="width:100%">
+        <tr>
+            <th>Texto</th>
+            <th>Posición pregunta</th>
+            <th>Tipo pregunta</th>
+            <th>Mostrar opciones</th>
+            <th>Eliminar pregunta</th>
+        </tr>
+        <tr *ngFor="let pregunta of sortPreg()" class="lista-preguntas">
+
+            <td>{{pregunta.textoPreg}}</td>
+            <td>{{pregunta.numPreg}}</td>
+            <td>{{pregunta.tipoPreg}}</td>
+            
+            <td>
+                <button [class.selected]="pregunta === selectedPregunta" type="button" (click)="onMostrarOpciones(pregunta)">
+                    <span class="crearPreguntas">Mostrar Opciones</span>
+                </button>
+            </td>
+            <td>
+                <button [class.selected]="pregunta === selectedPregunta" type="button" (click)="onEliminarPregunta(pregunta)">
+                    <span class="borrarEncuesta">Borrar</span>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>

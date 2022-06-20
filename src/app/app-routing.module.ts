@@ -10,6 +10,7 @@ import { AdministradorComponent } from './components/administrador/administrador
 import { DocenteComponent } from './components/docente/docente.component';
 import { EncuestaInformeComponent } from './components/encuesta-informe/encuesta-informe.component';
 import { PreguntaRespuestaOpcionInformeComponent } from './components/pregunta-respuesta-opcion-informe/pregunta-respuesta-opcion-informe.component';
+import { PreguntasComponent } from './components/preguntas/preguntas.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: "preguntas", component: PreguntaRespuestaOpcionComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: "administrador", component: AdministradorComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: "preguntasInformes", component: PreguntaRespuestaOpcionInformeComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: "preguntasencuesta", component: PreguntasComponent, pathMatch: "full", canActivate: [AuthGuard] },
   
 ];
 

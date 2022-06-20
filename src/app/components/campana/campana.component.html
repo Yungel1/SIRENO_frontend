@@ -1,106 +1,3 @@
-<div class="div-situaciones">
-    <h1>Lista de situaciones - Insertar/Cambiar Campaña</h1>
-    <table style="width:100%">
-        <tr>
-            <th>ID Grado</th>
-            <th>ID Docente</th>
-            <th>ID Grupo</th>
-            <th>ID Asignatura</th>
-            <th>ID Campaña</th>
-            <th>Cambiar campaña</th>
-        </tr>
-        <tr *ngFor="let situacion of sortSituaciones();let index = index;trackBy:trackByIndex;" class="lista-situaciones">
-              
-            <td>{{situacion.idGrado}}</td>
-            <td>{{situacion.idDocente}}</td>
-            <td>{{situacion.idGrupo}}</td>
-            <td>{{situacion.idAsignatura}}</td>
-            <td>{{situacion.idCampana}}</td>   
-            
-            <td>
-                <form class="situacion-form" method="post" ngNativeValidate #form>
-                    <input
-                    type="text"
-                    [(ngModel)]="campanas[index]"
-                    name="campaña"
-                    placeholder="ID Campaña"
-                    required="required"
-                    />
-                    <button [class.selected]="situacion === selectedSituacion" type="button" (click)="form.checkValidity() ? onInsertarCampana(situacion,campanas[index]) : null">
-                    <span class="insertarCampaña">Cambiar Campaña</span>
-                    </button>
-                </form>
-            </td>
-        </tr>
-    </table>
-</div>
-<br>
-<br>
-<h1>Isertar encuestas</h1>
-<div class="div-encuesta">
-    <form class="encuesta-form" method="post" ngNativeValidate #formencuesta>
-        <input
-        type="text"
-        [(ngModel)]="encuestaNombre"
-        name="encuestaNombre"
-        placeholder="Nombre de la encuesta"
-        required="required"
-        />
-        <button type="submit" (click)="formencuesta.checkValidity() ? onCrearEncuesta() : null">Insertar</button>
-    </form>
-</div>
-<br>
-<div class="div-lista-campañas">
-    <h1>Lista de campañas - Insertar/Cambiar Encuesta - Eliminar Encuesta</h1>
-    <table style="width:100%">
-        <tr>
-            <th>ID Campaña</th>
-            <th>Nombre</th>
-            <th>Fecha Inicial</th>
-            <th>Fecha Final</th>
-            <th>Descripción</th>
-            <th>Anonima</th>
-            <th>Con registro</th>
-            <th>ID Encuesta</th>
-            <th>Cambiar encuesta</th>
-            <th>Eliminar encuesta</th>
-        </tr>
-        <tr *ngFor="let campana of sortCampanas();let index = index;trackBy:trackByIndex;" class="lista-canpanas">
-
-            <td>{{campana.id}}</td>
-            <td>{{campana.nombre}}</td>
-            <td>{{campana.fechaIni}}</td>
-            <td>{{campana.fechaFin}}</td>
-            <td>{{campana.descripcion}}</td>
-            <td>{{campana.anonima}}</td>
-            <td>{{campana.con_registro}}</td>   
-            <td>{{campana.idEncuesta}}</td>
-            
-            <td>
-                <form class="campana-form" method="post" ngNativeValidate #formcampanas>
-                    <input
-                    type="text"
-                    [(ngModel)]="encuestas[index]"
-                    name="encuesta"
-                    placeholder="ID Encuesta"
-                    required="required"
-                    />
-                    <button [class.selected]="campana === selectedCampana" type="button" (click)="formcampanas.checkValidity() ? onInsertarEncuestaCampana(campana,encuestas[index]) : null">
-                    <span class="insertarCampaña">Cambiar Campaña</span>
-                    </button>
-                </form>
-            </td>
-            <td>
-                <button [class.selected]="campana === selectedCampana" type="button" (click)="onDeleteCampana(campana)">
-                    <span class="borrarSituacion">Borrar</span>
-                </button>
-            </td>
-        </tr>
-    </table>
-</div>
-<br>
-
-
 <div class="campaña">
     <form class="campaña-form" method="post" ngNativeValidate #formcampana>
         <h1>Crear campaña</h1>
@@ -148,28 +45,98 @@
     </form>
 </div>
 <br>
-<div class="pregunta">
-    <form class="pregunta-form" method="post" ngNativeValidate #formpregunta>
-        <h1>Crear pregunta</h1>
+<br>
+<div class="div-lista-campañas">
+    <h1>Lista de campañas - Insertar/Cambiar Encuesta - Eliminar Encuesta</h1>
+    <table style="width:100%">
+        <tr>
+            <th>ID Campaña</th>
+            <th>Nombre</th>
+            <th>Fecha Inicial</th>
+            <th>Fecha Final</th>
+            <th>Descripción</th>
+            <th>Anonima</th>
+            <th>Con registro</th>
+            <th>ID Encuesta</th>
+            <th>Cambiar encuesta</th>
+            <th>Eliminar encuesta</th>
+        </tr>
+        <tr *ngFor="let campana of sortCampanas();let index = index;trackBy:trackByIndex;" class="lista-canpanas">
+
+            <td>{{campana.id}}</td>
+            <td>{{campana.nombre}}</td>
+            <td>{{campana.fechaIni}}</td>
+            <td>{{campana.fechaFin}}</td>
+            <td>{{campana.descripcion}}</td>
+            <td>{{campana.anonima}}</td>
+            <td>{{campana.con_registro}}</td>   
+            <td>{{campana.idEncuesta}}</td>
+            
+            <td>
+                <form class="campana-form" method="post" ngNativeValidate #formcampanas>
+                    <input
+                    type="text"
+                    [(ngModel)]="encuestas[index]"
+                    name="encuesta"
+                    placeholder="ID Encuesta"
+                    required="required"
+                    />
+                    <button [class.selected]="campana === selectedCampana" type="button" (click)="formcampanas.checkValidity() ? onInsertarEncuestaCampana(campana,encuestas[index]) : null">
+                    <span class="insertarCampaña">Cambiar Encuesta</span>
+                    </button>
+                </form>
+            </td>
+            <td>
+                <button [class.selected]="campana === selectedCampana" type="button" (click)="onDeleteCampana(campana)">
+                    <span class="borrarSituacion">Borrar</span>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+<br>
+<br>
+<h1>Crear encuesta</h1>
+<div class="div-encuesta">
+    <form class="encuesta-form" method="post" ngNativeValidate #formencuesta>
         <input
         type="text"
-        [(ngModel)]="idEncuesta"
-        name="idEncuesta"
-        placeholder="ID Encuesta"
+        [(ngModel)]="encuestaNombre"
+        name="encuestaNombre"
+        placeholder="Nombre de la encuesta"
         required="required"
         />
-        <input
-        type="text"
-        [(ngModel)]="num_preg"
-        name="num_preg"
-        placeholder="Posición de la pregunta"
-        required="required"
-        />
-        <br>
-        <label for="tipoPreg">Tipo de pregunta: </label>
-        <select id="tipoPreg" name="tipoPreg" [(ngModel)]="tipoPreg" required="required">
-            <option value="eleccion_unica">Elección única</option>
-        </select>
-        <button type="submit" (click)="formpregunta.checkValidity() ? onCrearPregunta() : null">Insertar</button>
+        <button type="submit" (click)="formencuesta.checkValidity() ? onCrearEncuesta() : null">Insertar</button>
     </form>
 </div>
+<br>
+<br>
+<div class="div-lista-encuestas">
+    <h1>Lista de encuestas</h1>
+    <table style="width:100%">
+        <tr>
+            <th>ID Encuesta</th>
+            <th>Nombre</th>
+            <th>Añadir preguntas</th>
+            <th>Eliminar encuesta</th>
+        </tr>
+        <tr *ngFor="let encuesta of sortEncuestas()" class="lista-encuestas">
+
+            <td>{{encuesta.id}}</td>
+            <td>{{encuesta.nombre}}</td>
+            
+            <td>
+                <button [class.selected]="encuesta === selectedEncuesta" type="button" (click)="onCrearPreguntas(encuesta)">
+                    <span class="crearPreguntas">Añadir Preguntas</span>
+                </button>
+            </td>
+            <td>
+                <button [class.selected]="encuesta === selectedEncuesta" type="button" (click)="onEliminarEncuesta(encuesta)">
+                    <span class="borrarEncuesta">Borrar</span>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+<br>
+<br>

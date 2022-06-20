@@ -27,6 +27,8 @@ export class SituacionComponent implements OnInit {
   centroGradoID: string = "";
   departamentoAsignaturaID: string = "";
 
+  campanas: string[] = [];
+
   constructor(private fileUploadService: FileUploadService, private situacionService: SituacionService) { }
 
   ngOnInit(): void {
@@ -68,6 +70,17 @@ export class SituacionComponent implements OnInit {
     this.file = null;
     this.fileName = "Inserte CSV"
 
+  }
+
+  trackByIndex(index: number, obj: any): any {
+    return index;
+  }
+
+  onInsertarCampana(situacion: Situacion,idCampana: string) {
+    this.situacionService.insertarCampañaSituacion(situacion.id,idCampana).subscribe( data => {
+      console.log(data);
+      this.ngOnInit();
+    });
   }
 
   getSituacionInfo(){

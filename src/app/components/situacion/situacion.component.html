@@ -35,15 +35,31 @@
             <th>ID Grupo</th>
             <th>ID Asignatura</th>
             <th>ID Campaña</th>
+            <th>Cambiar Campaña</th>
             <th>Borrar Situación</th>
         </tr>
-        <tr *ngFor="let situacion of sortSituaciones()" class="lista-situaciones">
+        <tr *ngFor="let situacion of sortSituaciones();let index = index;trackBy:trackByIndex;" class="lista-situaciones">
               
             <td>{{situacion.idGrado}}</td>
             <td>{{situacion.idDocente}}</td>
             <td>{{situacion.idGrupo}}</td>
             <td>{{situacion.idAsignatura}}</td>
-            <td>{{situacion.idCampana}}</td>   
+            <td>{{situacion.idCampana}}</td> 
+            
+            <td>
+                <form class="situacion-form" method="post" ngNativeValidate #form>
+                    <input
+                    type="text"
+                    [(ngModel)]="campanas[index]"
+                    name="campaña"
+                    placeholder="ID Campaña"
+                    required="required"
+                    />
+                    <button [class.selected]="situacion === selectedSituacion" type="button" (click)="form.checkValidity() ? onInsertarCampana(situacion,campanas[index]) : null">
+                    <span class="insertarCampaña">Cambiar Campaña</span>
+                    </button>
+                </form>
+            </td>
             
             <td>
                 <button [class.selected]="situacion === selectedSituacion" type="button" (click)="onDeleteSituacion(situacion)">

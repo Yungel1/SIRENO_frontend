@@ -9,6 +9,8 @@ import { CampañaInfo } from 'src/app/models/campañaInfo.model';
 import { PreguntaRespuestaOpcionService } from 'src/app/services/pregunta-respuesta-opcion.service';
 import {PreguntaOpcion} from "../../models/pregunta-opcion.model";
 import {OpcionPregunta} from "../../models/opcion-pregunta.model";
+import { Encuesta } from 'src/app/models/encuesta.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-campana',
@@ -21,12 +23,13 @@ export class CampanaComponent implements OnInit {
   canpanasInfo: CampañaInfo[] = [];
   selectedSituacion?: Situacion;
   selectedCampana?: CampañaInfo;
+  selectedEncuesta?: Encuesta;
   encuestaId: string = "";
   encuestaNombre: string = "";
   encuestas: string[] = [];
   campanas: string[] = [];
 
-  constructor(private situacionService: SituacionService, private encuestaService: EncuestaService,  private campanaService: CampañaService, private datePipe: DatePipe,private preguntaRespuestaOpcionService:PreguntaRespuestaOpcionService) { }
+  constructor(private router: Router,private situacionService: SituacionService, private encuestaService: EncuestaService,  private campanaService: CampañaService, private datePipe: DatePipe,private preguntaRespuestaOpcionService:PreguntaRespuestaOpcionService) { }
   
   campana: CampañaInfo = {
     id: "",
@@ -51,39 +54,18 @@ export class CampanaComponent implements OnInit {
     opcionespregunta:[]
   };
 
-  idEncuesta: string = "";
-  num_preg: string = "";
-  tipoPreg : string = "";
+
+
+  encuesta: Encuesta = {
+    id: "",
+    nombre:"",
+  };
+
+  encuestasInfo: Encuesta[] = [];
 
   ngOnInit(): void {
-    this.getSituacionInfo();
     this.getCampanaInfo();
-  }
-
-  getSituacionInfo(){
-
-    let situacionInfo: Situacion; 
-
-    this.situacionService.getSituaciones().subscribe( situaciones => {
-      let situacionesJSON = JSON.parse(JSON.stringify(situaciones));
-      this.situaciones = [];
-      situacionesJSON.forEach((situacion: { id: string; idGrado: string; idDocente: string; idGrupo: string; idAsignatura: string; idCampaña: string; }) => {
-        situacionInfo = {
-          id: situacion.id,
-          idGrado: situacion.idGrado,
-          idDocente: situacion.idDocente,
-          idGrupo: situacion.idGrupo,
-          idAsignatura: situacion.idAsignatura,
-          idCampana: situacion.idCampaña,
-        }
-
-        this.situaciones.push(situacionInfo);
-      })
-    });
-  }
-
-  sortSituaciones() {
-    return this.situaciones = this.situaciones.sort((a, b) => a.id > b.id ? 1 : -1);
+    this.getEncuestaInfo();
   }
 
   onInsertarEncuestaCampana(campana: CampañaInfo,idEncuesta: string) {
@@ -161,13 +143,15 @@ export class CampanaComponent implements OnInit {
   
     this.encuestaService.insertarEncuesta(this.encuestaNombre).subscribe( data => {
       console.log(data);
+      this.ngOnInit();
     });
   }
 
-  onEliminarEncuesta() {
+  onEliminarEncuesta(encuesta: Encuesta) {
     
-    this.encuestaService.eliminarEncuesta(this.encuestaId).subscribe( data => {
+    this.encuestaService.eliminarEncuesta(encuesta.id).subscribe( data => {
       console.log(data);
+      this.ngOnInit();
     });
   }
 
@@ -191,10 +175,40 @@ export class CampanaComponent implements OnInit {
 
   }
 
-  onCrearPregunta(){
+  getEncuestaInfo(){
 
-    console.log(this.idEncuesta,this.num_preg,this.tipoPreg);
+    let encuestaInfo: Encuesta;
 
+    this.encuestaService.getEncuestas().subscribe( encuestas => {
+      let encuestasJSON  = JSON.parse(JSON.stringify(encuestas));
+      this.encuestasInfo = [];
+      encuestasJSON.forEach((encuesta: { id: string; nombre: string; }) => {
+
+        encuestaInfo = {
+          id: encuesta.id,
+          nombre: encuesta.nombre,
+        };
+
+        this.encuestasInfo.push(encuestaInfo);
+      })        
+    });
+
+  }
+
+  sortEncuestas() {
+    return this.encuestasInfo = this.encuestasInfo.sort((a, b) => a.nombre > b.nombre ? 1 : -1);
+  }
+
+  onCrearPreguntas(encuesta: Encuesta): void {
+    this.selectedEncuesta = encuesta;
+    this.preguntasPagina();
+  }
+
+  preguntasPagina(): void {
+
+    if(this.selectedEncuesta!=null&&this.selectedEncuesta.id!=null){
+      this.router.navigate(['/preguntasencuesta'],{ queryParams: {idencuesta: this.selectedEncuesta.id}});
+    }
   }
 
   convertir0o1(valor: boolean): string{
