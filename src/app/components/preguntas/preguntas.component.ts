@@ -15,10 +15,21 @@ export class PreguntasComponent implements OnInit {
   idEncuesta: string | null = "";
 
   num_preg: string = "";
+  texto: string = "";
+  num_opc: string = "";
+  textoOpc: string = "";
   tipoPreg : string = "";
   preguntasO: PreguntaOpcion[] = [];
   selectedOpcion?: OpcionPregunta;
-  selectedPregunta?: PreguntaOpcion;
+  selectedPregunta: PreguntaOpcion = {
+    idPregunta: "",
+    tipoPreg:"",
+    numPreg:"",
+    textoPreg: "",
+    opcionespregunta: []
+  };
+
+  hidden: boolean = true;
 
   constructor(private encuestaService: EncuestaService,private preguntaRespuestaOpcionService: PreguntaRespuestaOpcionService) { }
 
@@ -47,8 +58,23 @@ export class PreguntasComponent implements OnInit {
 
   onCrearPregunta(){
 
-    console.log(this.idEncuesta,this.num_preg,this.tipoPreg);
-
+    if(this.idEncuesta!=null){
+      this.preguntaRespuestaOpcionService.checkNumPreg(this.idEncuesta,this.num_preg).subscribe(data => {
+        this.preguntaRespuestaOpcionService.insertarPregunta(this.tipoPreg).subscribe(preguntaId => {
+          if(this.idEncuesta!=null){
+            this.preguntaRespuestaOpcionService.relacionarEncuestaPregunta(this.idEncuesta,preguntaId,this.num_preg).subscribe(dataPregunta => {
+              console.log(preguntaId,this.texto)
+              console.log(dataPregunta);
+              this.preguntaRespuestaOpcionService.añadirTextoPregunta(preguntaId,this.texto,"1").subscribe(dataTexto => {
+                console.log(dataTexto);
+                this.ngOnInit();
+              });
+            });
+          }
+        });
+      })
+    }
+    
   }
 
   getPreguntaO(): void {
@@ -65,6 +91,8 @@ export class PreguntasComponent implements OnInit {
         let opcionpreguntaInfo: OpcionPregunta;
         let preguntaOInfo: PreguntaOpcion;
   
+        this.preguntasO = [];
+
         preguntasIdJSON.forEach((pregunta: { idPregunta: string; num_preg: string; }) => {
  
           this.preguntaRespuestaOpcionService.getPreguntaInfoInforme(pregunta.idPregunta).subscribe(preguntaInfo => {
@@ -108,6 +136,9 @@ export class PreguntasComponent implements OnInit {
 
                 this.preguntasO.push(preguntaOInfo);
 
+                if(this.selectedPregunta.idPregunta==preguntaOInfo.idPregunta){
+                  this.selectedPregunta = preguntaOInfo;
+                }
 
               });
               
@@ -128,11 +159,35 @@ export class PreguntasComponent implements OnInit {
   }
 
   onMostrarOpciones(pregunta:PreguntaOpcion) {
-    console.log(pregunta.opcionespregunta)
+    this.selectedPregunta = pregunta;
+    this.hidden = false;
   }
 
   onEliminarPregunta(pregunta:PreguntaOpcion) {
-    console.log(pregunta.idPregunta)
+    this.preguntaRespuestaOpcionService.eliminarPregunta(pregunta.idPregunta).subscribe( data => {
+      console.log(data);
+      this.ngOnInit();
+    });
+  }
+
+  onEliminarOpcion(opcion:OpcionPregunta) {
+    this.preguntaRespuestaOpcionService.eliminarOpcion(opcion.id).subscribe( data => {
+      console.log(data);
+      this.ngOnInit();
+    });
+  }
+
+  onCrearOpcion(){
+
+    this.preguntaRespuestaOpcionService.checkNumOpc(this.selectedPregunta.idPregunta,this.num_opc).subscribe(data => {
+      this.preguntaRespuestaOpcionService.insertarOpcion(this.selectedPregunta.idPregunta,this.num_opc).subscribe(opcionId => {
+        this.preguntaRespuestaOpcionService.añadirTextoOpcion(this.selectedPregunta.idPregunta,opcionId,this.textoOpc,"1").subscribe(dataTexto => {
+          console.log(dataTexto);
+          this.ngOnInit();
+        })
+      })
+    })
+    
   }
 
 }

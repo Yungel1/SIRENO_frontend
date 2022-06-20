@@ -12,8 +12,8 @@
         />
         <input
         type="text"
-        [(ngModel)]="num_preg"
-        name="num_preg"
+        [(ngModel)]="texto"
+        name="texto"
         placeholder="Texto"
         required="required"
         />
@@ -49,9 +49,52 @@
             </td>
             <td>
                 <button [class.selected]="pregunta === selectedPregunta" type="button" (click)="onEliminarPregunta(pregunta)">
-                    <span class="borrarEncuesta">Borrar</span>
+                    <span class="borrarPregunta">Borrar</span>
                 </button>
             </td>
         </tr>
     </table>
+</div>
+<br>
+<div [hidden]=hidden>
+    <h1>{{selectedPregunta.textoPreg}}</h1>
+    <table style="width:100%">
+        <tr>
+            <th>Texto</th>
+            <th>Posición opción</th>
+            <th>Eliminar opción</th>
+        </tr>
+        <tr *ngFor="let opcion of sortOpc(selectedPregunta.opcionespregunta)" class="lista-opciones">
+
+            <td>{{opcion.texto}}</td>
+            <td>{{opcion.num_opc}}</td>
+            
+            <td>
+                <button [class.selected]="opcion === selectedOpcion" type="button" (click)="onEliminarOpcion(opcion)">
+                    <span class="borrarOpcion">Borrar</span>
+                </button>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <div class="opciones">
+        <form class="opcion-form" method="post" ngNativeValidate #formopcion>
+            <h1>Crear opción</h1>
+            <input
+            type="text"
+            [(ngModel)]="num_opc"
+            name="num_opc"
+            placeholder="Posición de la opción"
+            required="required"
+            />
+            <input
+            type="text"
+            [(ngModel)]="textoOpc"
+            name="texto_opc"
+            placeholder="Texto"
+            required="required"
+            />
+            <button type="submit" (click)="formopcion.checkValidity() ? onCrearOpcion() : null">Insertar</button>
+        </form>
+    </div>
 </div>

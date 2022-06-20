@@ -88,28 +88,63 @@ export class PreguntaRespuestaOpcionService {
     return this.http.get(environment.apiUrl+"/respuesta/getMedia?idEncuesta="+idEncuesta+"&idPregunta="+idPregunta+"&idCampaña="+idCampaña,{headers});
   }
 
-  onCrearPregunta(tipoPreg: string): Observable<any> {
+  insertarPregunta(tipoPreg: string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
     const payload = new HttpParams().set('tipoPreg',tipoPreg);
-    return this.http.post(environment.apiUrl+"/pregunta",payload,{headers});
+    return this.http.post(environment.apiUrl+"/pregunta/insertargetid",payload,{headers});
   }
 
-  onRelacionarEncuestaPregunta(idEncuesta: string,idPregunta:string,num_preg:string): Observable<any> {
+  relacionarEncuestaPregunta(idEncuesta: string,idPregunta:string,num_preg:string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
     const payload = new HttpParams().set('idEncuesta',idEncuesta).set('idPregunta',idPregunta).set('num_preg',num_preg);
     return this.http.post(environment.apiUrl+"/encuestapregunta",payload,{headers});
   }
 
-  onAñadirTextoPregunta(idPregunta:string,texto:string,idIdioma:string): Observable<any> {
+  añadirTextoPregunta(idPregunta:string,texto:string,idIdioma:string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
-    const payload = new HttpParams().set('idEncuesta',idPregunta).set('texto',texto).set('idIdioma',idIdioma);
+    const payload = new HttpParams().set('idPregunta',idPregunta).set('texto',texto).set('idIdioma',idIdioma);
     return this.http.post(environment.apiUrl+"/texto",payload,{headers});
   }
-  
+
+  añadirTextoOpcion(idPregunta:string,idOpcionesPregunta:string,texto:string,idIdioma:string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    const payload = new HttpParams().set('idPregunta',idPregunta).set('texto',texto).set('idIdioma',idIdioma).set('idOpcionesPregunta',idOpcionesPregunta);
+    return this.http.post(environment.apiUrl+"/texto",payload,{headers});
+  }
+
   getPreguntas(idEncuesta: string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
     return this.http.get(environment.apiUrl+"/encuestapregunta/getQuestions?idEncuesta="+idEncuesta,{headers});
   }
 
+  checkNumPreg(idEncuesta: string,num_preg:string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    return this.http.get(environment.apiUrl+"/encuestapregunta/getNumPreg?idEncuesta="+idEncuesta+"&num_preg="+num_preg,{headers});
+  }
+
+  eliminarPregunta(id:string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+
+    return this.http.delete(environment.apiUrl+"/pregunta/delete?id="+id, {headers});
+  }
+
+  eliminarOpcion(id:string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+
+    return this.http.delete(environment.apiUrl+"/opcionespregunta/delete?id="+id, {headers});
+  }
+
+  checkNumOpc(idPregunta: string,num_opc:string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    return this.http.get(environment.apiUrl+"/opcionespregunta/getNumOpc?idPregunta="+idPregunta+"&num_opc="+num_opc,{headers});
+  }
+
+  insertarOpcion(idPregunta: string,num_opc:string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    const payload = new HttpParams().set('idPregunta',idPregunta).set('num_opc',num_opc);
+    return this.http.post(environment.apiUrl+"/opcionespregunta/insertargetid",payload,{headers});
+  }
 
 }
