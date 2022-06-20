@@ -110,4 +110,20 @@ export class SituacionService {
     return this.http.put(environment.apiUrl+"/situacion/insertarcampanasituacion", payload, {headers});
   }
 
+  insertarActualizarActivacion(idDocente:string, idGrupo:string, idGrado:string, idAsignatura:string, idCampañaAntiguo:string, idCampañaNuevo:string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    const payload = new HttpParams().set('idDocente',idDocente).set('idGrupo',idGrupo).set('idGrado',idGrado)
+    .set('idAsignatura',idAsignatura).set('idCampañaNuevo',idCampañaNuevo).set('idCampañaAntiguo',idCampañaAntiguo);
+
+    return this.http.post(environment.apiUrl+"/activacion/insertaractualizar", payload, {headers});
+  }
+
+  eliminarActivacion(idDocente:string, idGrupo:string, idGrado:string, idAsignatura:string, idCampaña:string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+
+    return this.http.delete(environment.apiUrl+"/activacion/delete?idDocente="+idDocente+"&idGrupo="+idGrupo+"&idGrado="+idGrado+"&idAsignatura="+idAsignatura+"&idCampaña="+idCampaña, {headers});
+  }
+
 }

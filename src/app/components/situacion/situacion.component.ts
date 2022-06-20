@@ -77,10 +77,14 @@ export class SituacionComponent implements OnInit {
   }
 
   onInsertarCampana(situacion: Situacion,idCampana: string) {
-    this.situacionService.insertarCampañaSituacion(situacion.id,idCampana).subscribe( data => {
-      console.log(data);
-      this.ngOnInit();
-    });
+
+    this.situacionService.insertarActualizarActivacion(situacion.idDocente,situacion.idGrupo,situacion.idGrado,situacion.idAsignatura,situacion.idCampana,idCampana).subscribe(dataAct => {
+      console.log(dataAct);
+      this.situacionService.insertarCampañaSituacion(situacion.id,idCampana).subscribe( data => {
+        console.log(data);
+        this.ngOnInit();
+      });
+    })
   }
 
   getSituacionInfo(){
@@ -110,10 +114,14 @@ export class SituacionComponent implements OnInit {
   }
 
   onDeleteSituacion(situacion: Situacion) {
-    this.situacionService.eliminarSituacion(situacion.id).subscribe( data => {
-      console.log(data);
-      this.ngOnInit();
-    });
+    this.situacionService.eliminarActivacion(situacion.idDocente,situacion.idGrupo,situacion.idGrado,situacion.idAsignatura,situacion.idCampana).subscribe( dataAct => {
+      console.log(dataAct);
+      this.situacionService.eliminarSituacion(situacion.id).subscribe( data => {
+        console.log(data);
+        this.ngOnInit();
+      });
+    })
+
   }
 
   onCrearGrupo() {
