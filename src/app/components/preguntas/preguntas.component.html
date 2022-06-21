@@ -26,6 +26,24 @@
     </form>
 </div>
 <br>
+<form class="preguntalista-form" method="post" ngNativeValidate #formlistapregunta>
+    <label for="listPreg">Listado de todas las preguntas: </label>
+    <select id="listPreg" name="listPreg" [(ngModel)]="pregId" required="required">
+        <option *ngFor="let pregunta of sortAllPreg()" class="lista-preguntasAll"
+                value={{pregunta.idPregunta}}> {{pregunta.textoPreg}}
+        </option>
+    </select>
+    <input
+    type="text"
+    [(ngModel)]="numPreg"
+    name="numPreg"
+    placeholder="Posición de la pregunta"
+    required="required"
+    />
+    <button type="submit" (click)="formlistapregunta.checkValidity() ? onInsertarPreguntaEncuesta() : null">Insertar</button>
+</form>
+<br>
+<br>
 <div class="div-lista-encuestas">
     <h1>Lista de preguntas</h1>
     <table style="width:100%">

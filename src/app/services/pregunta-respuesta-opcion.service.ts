@@ -147,4 +147,10 @@ export class PreguntaRespuestaOpcionService {
     return this.http.post(environment.apiUrl+"/opcionespregunta/insertargetid",payload,{headers});
   }
 
+  getPreguntasAll(): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+    return this.http.get(environment.apiUrl+"/pregunta/get",{headers});
+  }
+
+
 }
