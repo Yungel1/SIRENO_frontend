@@ -165,8 +165,8 @@ export class PreguntasComponent implements OnInit {
     this.hidden = false;
   }
 
-  onEliminarPregunta(pregunta:PreguntaOpcion) {
-    this.preguntaRespuestaOpcionService.eliminarPregunta(pregunta.idPregunta).subscribe( data => {
+  onEliminarPregunta() {
+    this.preguntaRespuestaOpcionService.eliminarPregunta(this.pregId).subscribe( data => {
       console.log(data);
       this.ngOnInit();
     });
