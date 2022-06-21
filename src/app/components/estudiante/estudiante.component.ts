@@ -21,7 +21,7 @@ export class EstudianteComponent implements OnInit {
 
   getCampañaInfo(): void {
 
-    this.campañaService.getSituacionesUsuario().subscribe({next: (situacionesID) => {
+    this.campañaService.getSituacionesUsuario().subscribe( (situacionesID) => {
       let situacionIdJSON = JSON.parse(JSON.stringify(situacionesID));
      
       let campañaJSON;
@@ -45,15 +45,12 @@ export class EstudianteComponent implements OnInit {
             }
 
             this.campanas.push(campañaInfo);
+            
           });
         });
       });
-    },
-    error: (e) => {
-      alert(e.error.message);
-      this.router.navigate(['/']);
-    }
-    });
+    });  
+
   }
 
   sort() {
