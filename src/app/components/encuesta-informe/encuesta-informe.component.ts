@@ -32,7 +32,7 @@ export class EncuestaInformeComponent implements OnInit {
 
     if(this.idCampaña!=null){
 
-      this.encuestaService.getEncuestaCampañaInformes(this.idCampaña).subscribe(encuestaId => {
+      this.encuestaService.getEncuestaCampañaInformes(this.idCampaña).subscribe({next: encuestaId => {
         let encuestaIdJSON = JSON.parse(JSON.stringify(encuestaId));
   
         let encuestaJSON;
@@ -53,6 +53,11 @@ export class EncuestaInformeComponent implements OnInit {
             });
 
         });
+      },
+      error: (e) => {
+        alert(e.error.message);
+        this.router.navigate(['/docente']);
+      }
       });
     }
 

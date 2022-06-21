@@ -52,7 +52,7 @@ export class EstudianteComponent implements OnInit {
         error: (e) => {
           cont++;
           if (cont==situacionIdJSON.length){
-            alert("No tienes ninguna campaña seleccionada");
+            alert("No tienes ninguna campaña asociada");
             this.router.navigate(['/']);
           }
         }

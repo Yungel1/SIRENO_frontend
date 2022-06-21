@@ -39,7 +39,7 @@ export class PreguntaRespuestaOpcionInformeComponent implements OnInit {
 
     if(this.idEncuesta!=null){
 
-      this.preguntaRespuestaOpcionService.getPreguntasEncuestaInforme(this.idEncuesta).subscribe(preguntasId => {
+      this.preguntaRespuestaOpcionService.getPreguntasEncuestaInforme(this.idEncuesta).subscribe({next: preguntasId => {
         let preguntasIdJSON = JSON.parse(JSON.stringify(preguntasId));
   
         let opcionespreguntaJSON;
@@ -54,7 +54,7 @@ export class PreguntaRespuestaOpcionInformeComponent implements OnInit {
 
             this.preguntaRespuestaOpcionService.getTextoInforme("1",pregunta.idPregunta,undefined).subscribe(textoP => {
 
-              this.preguntaRespuestaOpcionService.getOpcionesPreguntaInforme(pregunta.idPregunta).subscribe(opcionespregunta => {
+              this.preguntaRespuestaOpcionService.getOpcionesPreguntaInforme(pregunta.idPregunta).subscribe({next: opcionespregunta => {
 
                 opcionespreguntaJSON = JSON.parse(JSON.stringify(opcionespregunta));
 
@@ -106,11 +106,20 @@ export class PreguntaRespuestaOpcionInformeComponent implements OnInit {
                 this.preguntasO.push(preguntaOInfo);
 
 
-              });
-              
+              },
+              error: (e) => {
+                alert("La encuesta no está definida correctamente, contacta con un administrador");
+                this.router.navigate(['/encuestasInformes'],{ queryParams: {idcampana: this.idCampaña}});
+              }
+              });              
             });
           });
         });
+      },
+      error: (e) => {
+        alert(e.error.message);
+        this.router.navigate(['/encuestasInformes'],{ queryParams: {idcampana: this.idCampaña}});
+      }
       });
     }
     
