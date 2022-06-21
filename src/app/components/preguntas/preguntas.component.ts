@@ -170,10 +170,14 @@ export class PreguntasComponent implements OnInit {
   }
 
   onEliminarPregunta() {
-    this.preguntaRespuestaOpcionService.eliminarPregunta(this.pregId).subscribe( data => {
+    this.preguntaRespuestaOpcionService.eliminarPregunta(this.pregId).subscribe({next: data => {
       console.log(data);
       this.ngOnInit();
       this.hidden = true;
+    },
+    error: (e) => {
+      alert(e.error.message);
+    }
     });
   }
 
