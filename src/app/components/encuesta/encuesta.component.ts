@@ -54,6 +54,10 @@ export class EncuestaComponent implements OnInit {
             });
 
         });
+        if(this.encuestas.length==0){
+          alert("No tienes ninguna encuesta asociada a la campaña");
+          this.router.navigate(['/estudiante']);
+        }
       });
     }
 

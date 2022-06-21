@@ -99,6 +99,10 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
             });
           });
         });
+        if(this.preguntasO.length==0){
+          alert("Esta encuesta no tiene preguntas");
+          this.router.navigate(['/encuestas'],{ queryParams: {idcampana: this.selectedCampana.id, idsituacion: this.selectedCampana.idSituacion}});
+        }
       });
     }
     

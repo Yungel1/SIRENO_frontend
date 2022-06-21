@@ -23,6 +23,7 @@ import { PreguntaRespuestaOpcionInformeComponent } from './components/pregunta-r
 import { CampanaComponent } from './components/campana/campana.component';
 import { SituacionComponent } from './components/situacion/situacion.component';
 import { PreguntasComponent } from './components/preguntas/preguntas.component';
+import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,7 @@ import { PreguntasComponent } from './components/preguntas/preguntas.component';
     MatIconModule,
     BrowserAnimationsModule,
   ],
-  providers: [CookieService,AuthGuard,DatePipe,],
+  providers: [CookieService,AuthGuard,DatePipe,{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

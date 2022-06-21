@@ -48,6 +48,10 @@ export class EstudianteComponent implements OnInit {
           });
         });
       });
+      if(this.campanas.length==0){
+        alert("No tienes ninguna campaña asociada");
+        this.router.navigate(['/']);
+      }
     });
   }
 

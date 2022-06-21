@@ -18,9 +18,14 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.usuarioService.login(this.usuario,this.contrasena).subscribe( data => {
-      this.usuarioService.setToken(data.token);
-      this.router.navigate(['/']);
+    this.usuarioService.login(this.usuario,this.contrasena).subscribe({ 
+      next: (data) => {
+        this.usuarioService.setToken(data.token);
+        this.router.navigate(['/']);
+      },
+      error: (e) => {
+        alert(e.error.message);
+      }
     });
   }
 
