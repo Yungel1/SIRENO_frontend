@@ -23,6 +23,7 @@ export class EstudianteComponent implements OnInit {
 
     this.campañaService.getSituacionesUsuario().subscribe( (situacionesID) => {
       let situacionIdJSON = JSON.parse(JSON.stringify(situacionesID));
+      let cont = 0;
      
       let campañaJSON;
       let campañaInfo: Campaña;
@@ -31,9 +32,9 @@ export class EstudianteComponent implements OnInit {
 
         let idSituacion = situacion.idSituacion;
 
-        this.campañaService.getCampañaSituacion(situacion.idSituacion).subscribe(campañaId => {
+        this.campañaService.getCampañaSituacion(situacion.idSituacion).subscribe({next: campañaId => {
           
-         let campañaIdJSON = JSON.parse(JSON.stringify(campañaId));
+          let campañaIdJSON = JSON.parse(JSON.stringify(campañaId));
          
           this.campañaService.getCampañaInfo(campañaIdJSON[0].idCampaña).subscribe(campaña => {
             campañaJSON = JSON.parse(JSON.stringify(campaña))[0];
@@ -47,6 +48,14 @@ export class EstudianteComponent implements OnInit {
             this.campanas.push(campañaInfo);
             
           });
+        },
+        error: (e) => {
+          cont++;
+          if (cont==situacionIdJSON.length){
+            alert("No tienes ninguna campaña seleccionada");
+            this.router.navigate(['/']);
+          }
+        }
         });
       });
     });  
