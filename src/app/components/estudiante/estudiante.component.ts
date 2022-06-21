@@ -23,11 +23,6 @@ export class EstudianteComponent implements OnInit {
 
     this.campañaService.getSituacionesUsuario().subscribe({next: (situacionesID) => {
       let situacionIdJSON = JSON.parse(JSON.stringify(situacionesID));
-
-      if(situacionIdJSON.length==0){
-        alert("No tienes ninguna campaña asociada");
-        this.router.navigate(['/']);
-      }
      
       let campañaJSON;
       let campañaInfo: Campaña;
