@@ -48,7 +48,8 @@ export class HomeComponent implements OnInit {
         this.roles.push(rol);
       }
       if(this.roles.length==0){
-        alert("No tienes ningún rol asignado, contacte con un administrador")
+        alert("No tienes ningún rol asignado, contacte con un administrador");
+        this.usuarioService.deleteToken();
         this.router.navigate(['/login']);
       }
     });
