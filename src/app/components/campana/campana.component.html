@@ -10,25 +10,28 @@
         />
         <input
         type="text"
-        [(ngModel)]="campana.fechaIni"
-        name="fechaIni"
-        placeholder="Fecha inicio 'AAAA-MM-DD'"
-        required="required"
-        />
-        <input
-        type="text"
-        [(ngModel)]="campana.fechaFin"
-        name="fechaFin"
-        placeholder="Fecha fin 'AAAA-MM-DD'"
-        required="required"
-        />
-        <input
-        type="text"
         [(ngModel)]="campana.descripcion"
         name="descripcion"
         placeholder="Descripción"
         required="required"
         />
+        <br>
+        <span>Fecha inicio: </span>
+        <input
+        type="date"
+        [(ngModel)]="campana.fechaIni"
+        name="fechaIni"
+        required="required"
+        />
+        <br>
+        <span>Fecha fin: </span>
+        <input
+        type="date"
+        [(ngModel)]="campana.fechaFin"
+        name="fechaFin"
+        required="required"
+        />
+        <br>
         <input
         type="checkbox"
         [(ngModel)]="anonima"
@@ -41,10 +44,10 @@
         name="campaña"
         placeholder="ID campaña"
         />Con registro
+        <br>
         <button type="submit" (click)="formcampana.checkValidity() ? onCrearCampana() : null">Insertar</button>
     </form>
 </div>
-<br>
 <br>
 <div class="div-lista-campañas">
     <h1>Lista de campañas - Insertar/Cambiar Encuesta - Eliminar Encuesta</h1>

@@ -58,7 +58,7 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
 
             this.preguntaRespuestaOpcionService.getTexto("1",pregunta.idPregunta,undefined).subscribe(textoP => {
 
-              this.preguntaRespuestaOpcionService.getOpcionesPregunta(pregunta.idPregunta).subscribe(opcionespregunta => {
+              this.preguntaRespuestaOpcionService.getOpcionesPregunta(pregunta.idPregunta).subscribe({next: opcionespregunta => {
 
                 opcionespreguntaJSON = JSON.parse(JSON.stringify(opcionespregunta));
 
@@ -94,7 +94,12 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
                 this.preguntasO.push(preguntaOInfo);
 
 
-              });
+              },
+              error: (e) => {
+                alert("La encuesta no está definida correctamente, contacta con un administrador");
+                this.router.navigate(['/encuestas'],{ queryParams: {idcampana: this.idCampaña, idsituacion: this.idSituacion}});
+              }
+            });
               
             });
           });
@@ -175,7 +180,7 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
 
       this.router.navigate(['/estudiante']);
     } else{
-      console.log("responde todas")
+      alert("Responde todas las preguntas para poder guardar");
     }    
   }
 

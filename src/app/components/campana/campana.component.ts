@@ -69,7 +69,7 @@ export class CampanaComponent implements OnInit {
   }
 
   onInsertarEncuestaCampana(campana: CampañaInfo,idEncuesta: string) {
-    this.campanaService.getEncuestaCampaña(campana.id).subscribe(idEncuestaJson => {
+    this.campanaService.getEncuestaCampaña(campana.id).subscribe({next:idEncuestaJson => {
       let idEncuestaJSON  = JSON.parse(JSON.stringify(idEncuestaJson));
       if (idEncuestaJSON.length==0){
         this.campanaService.insertarEncuestaCampaña(campana.id,idEncuesta).subscribe( data => {
@@ -83,6 +83,10 @@ export class CampanaComponent implements OnInit {
           this.ngOnInit();
         });
       }
+    },
+    error: (e) => {
+      alert(e.error.message);
+    }
     });
   }
 
@@ -133,9 +137,13 @@ export class CampanaComponent implements OnInit {
   }
 
   onInsertarCampana(situacion: Situacion,idCampana: string) {
-    this.situacionService.insertarCampañaSituacion(situacion.id,idCampana).subscribe( data => {
+    this.situacionService.insertarCampañaSituacion(situacion.id,idCampana).subscribe({next: data => {
       console.log(data);
       this.ngOnInit();
+    },
+    error: (e) => {
+      alert(e.error.message);
+    }
     });
   }
 
@@ -168,9 +176,13 @@ export class CampanaComponent implements OnInit {
     con_registro = this.convertir0o1(this.con_registro);
 
     this.campanaService.crearCampaña(this.campana.nombre,this.campana.fechaIni,this.campana.fechaFin,this.campana.descripcion,
-      anonima,con_registro).subscribe( data => {
+      anonima,con_registro).subscribe({next: data => {
       console.log(data);
       this.ngOnInit();
+    },
+    error: (e) => {
+      alert(e.error.message);
+    }
     });
 
   }
