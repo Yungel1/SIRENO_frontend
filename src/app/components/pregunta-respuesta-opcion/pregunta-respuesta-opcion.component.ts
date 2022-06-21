@@ -171,14 +171,13 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
         .insertarRespuesta(respuesta.idCampaña,respuesta.idEncuesta,respuesta.idPregunta,respuesta.idOpcionesPregunta,respuesta.texto)
         .subscribe(respuesta => {
           console.log(respuesta);
+          if (this.idSituacion!=null && this.idSituacion!=undefined){
+            this.preguntaRespuestaOpcionService.ponerRespondida(this.idSituacion, true).subscribe(dataRespondida => {
+              this.router.navigate(['/estudiante']);
+            });
+          };   
         });
       }); 
-
-      if (this.idSituacion!=null && this.idSituacion!=undefined){
-        this.preguntaRespuestaOpcionService.ponerRespondida(this.idSituacion, true).subscribe();
-      };     
-
-      this.router.navigate(['/estudiante']);
     } else{
       alert("Responde todas las preguntas para poder guardar");
     }    
