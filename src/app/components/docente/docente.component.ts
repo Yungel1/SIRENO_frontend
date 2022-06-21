@@ -22,7 +22,7 @@ export class DocenteComponent implements OnInit {
 
   getCampañaInfo(): void {
 
-    this.campañaService.getCampañasInformes().subscribe(campañaId => {
+    this.campañaService.getCampañasInformes().subscribe({next: campañaId => {
 
       let campañaJSON;
       let campañaInfo: Campaña;
@@ -41,6 +41,11 @@ export class DocenteComponent implements OnInit {
           this.campanas.push(campañaInfo);
         });
       });
+    },
+    error: (e) => {
+      alert("No tienes ninguna campaña asociada");
+      this.router.navigate(['/']);
+    }
     });
   };
   
