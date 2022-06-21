@@ -63,6 +63,7 @@ export class EncuestaComponent implements OnInit {
       },
       error: (e) => {
         alert(e.error.message);
+        this.router.navigate(['/estudiante']);
       }
       });
     }

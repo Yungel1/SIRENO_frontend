@@ -107,6 +107,7 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
       },
       error: (e) => {
         alert(e.error.message);
+        this.router.navigate(['/encuestas'],{ queryParams: {idcampana: this.selectedCampana.id, idsituacion: this.selectedCampana.idSituacion}});
       }
     });
     }

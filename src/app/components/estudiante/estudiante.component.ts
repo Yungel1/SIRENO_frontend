@@ -56,6 +56,7 @@ export class EstudianteComponent implements OnInit {
     },
     error: (e) => {
       alert(e.error.message);
+      this.router.navigate(['/']);
     }
     });
   }
