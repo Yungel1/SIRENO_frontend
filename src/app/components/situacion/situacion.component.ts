@@ -194,36 +194,56 @@ export class SituacionComponent implements OnInit {
 
   onEliminarGrupo() {
     
-    this.situacionService.eliminarGrupo(this.grupoID).subscribe( data => {
+    this.situacionService.eliminarGrupo(this.grupoID).subscribe({next: data => {
       console.log(data);
+    },
+    error: (e) => {
+      alert(e.error.message);
+    }
     });
   }
 
   onEliminarGrado() {
   
-    this.situacionService.eliminarGrado(this.gradoDeleteID).subscribe( data => {
+    this.situacionService.eliminarGrado(this.gradoDeleteID).subscribe({next: data => {
       console.log(data);
+    },
+    error: (e) => {
+      alert(e.error.message);
+    }
     });
   }
 
   onEliminarDepartamento() {
   
-    this.situacionService.eliminarDepartamento(this.departamentoID).subscribe( data => {
+    this.situacionService.eliminarDepartamento(this.departamentoID).subscribe({next: data => {
       console.log(data);
+    },
+    error: (e) => {
+      alert(e.error.message);
+    }
     });
   }
 
   onEliminarAsignatura() {
   
-    this.situacionService.eliminarAsignatura(this.asignaturaDeleteID).subscribe( data => {
+    this.situacionService.eliminarAsignatura(this.asignaturaDeleteID).subscribe({next: data => {
       console.log(data);
+    },
+    error: (e) => {
+      alert(e.error.message);
+    }
     });
   }
 
   onEliminarCentro() {
   
-    this.situacionService.eliminarCentro(this.centroID).subscribe( data => {
+    this.situacionService.eliminarCentro(this.centroID).subscribe({next: data => {
       console.log(data);
+    },
+    error: (e) => {
+      alert(e.error.message);
+    }
     });
   }
 
