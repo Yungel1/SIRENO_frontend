@@ -41,7 +41,7 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
 
     if(this.idEncuesta!=null){
 
-      this.preguntaRespuestaOpcionService.getPreguntasEncuesta(this.idEncuesta).subscribe(preguntasId => {
+      this.preguntaRespuestaOpcionService.getPreguntasEncuesta(this.idEncuesta).subscribe({next:preguntasId => {
         let preguntasIdJSON = JSON.parse(JSON.stringify(preguntasId));
 
         if(preguntasIdJSON.length==0){
@@ -104,7 +104,11 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
             });
           });
         });
-      });
+      },
+      error: (e) => {
+        alert(e.error.message);
+      }
+    });
     }
     
   }

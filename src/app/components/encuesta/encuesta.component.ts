@@ -33,7 +33,7 @@ export class EncuestaComponent implements OnInit {
 
     if(this.idCampaña!=null){
 
-      this.encuestaService.getEncuestaCampaña(this.idCampaña).subscribe(encuestaId => {
+      this.encuestaService.getEncuestaCampaña(this.idCampaña).subscribe({next: encuestaId => {
         let encuestaIdJSON = JSON.parse(JSON.stringify(encuestaId));
 
         if(encuestaIdJSON.length==0){
@@ -60,6 +60,10 @@ export class EncuestaComponent implements OnInit {
             });
 
         });
+      },
+      error: (e) => {
+        alert(e.error.message);
+      }
       });
     }
 
