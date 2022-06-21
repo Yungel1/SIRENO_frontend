@@ -129,6 +129,13 @@ export class PreguntaRespuestaOpcionService {
     return this.http.delete(environment.apiUrl+"/pregunta/delete?id="+id, {headers});
   }
 
+  eliminarPreguntaEncuesta(idPregunta:string,idEncuesta: string): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());
+
+    return this.http.delete(environment.apiUrl+"/encuestapregunta/delete?idPregunta="+idPregunta+"&idEncuesta="+idEncuesta, {headers});
+  }
+
   eliminarOpcion(id:string): Observable<any> {
 
     const headers = new HttpHeaders().set('Authorization',  'Bearer '+this.usuarioService.getToken());

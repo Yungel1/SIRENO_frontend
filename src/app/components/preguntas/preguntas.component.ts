@@ -172,6 +172,15 @@ export class PreguntasComponent implements OnInit {
     });
   }
 
+  onEliminarPreguntaEncuesta(pregunta:PreguntaOpcion) {
+    if (this.idEncuesta!=null){
+      this.preguntaRespuestaOpcionService.eliminarPreguntaEncuesta(pregunta.idPregunta,this.idEncuesta).subscribe( data => {
+        console.log(data);
+        this.ngOnInit();
+      });
+    }
+  }
+
   onEliminarOpcion(opcion:OpcionPregunta) {
     this.preguntaRespuestaOpcionService.eliminarOpcion(opcion.id).subscribe( data => {
       console.log(data);
