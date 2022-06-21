@@ -63,7 +63,7 @@ export class PreguntasComponent implements OnInit {
   onCrearPregunta(){
 
     if(this.idEncuesta!=null){
-      this.preguntaRespuestaOpcionService.checkNumPreg(this.idEncuesta,this.num_preg).subscribe(data => {
+      this.preguntaRespuestaOpcionService.checkNumPreg(this.idEncuesta,this.num_preg).subscribe({next: data => {
         this.preguntaRespuestaOpcionService.insertarPregunta(this.tipoPreg).subscribe(preguntaId => {
           if(this.idEncuesta!=null){
             this.preguntaRespuestaOpcionService.relacionarEncuestaPregunta(this.idEncuesta,preguntaId,this.num_preg).subscribe(dataPregunta => {
@@ -74,7 +74,11 @@ export class PreguntasComponent implements OnInit {
             });
           }
         });
-      })
+      },
+      error: (e) => {
+        alert(e.error.message);
+      }
+      });
     }
     
   }
@@ -169,6 +173,7 @@ export class PreguntasComponent implements OnInit {
     this.preguntaRespuestaOpcionService.eliminarPregunta(this.pregId).subscribe( data => {
       console.log(data);
       this.ngOnInit();
+      this.hidden = true;
     });
   }
 
@@ -177,6 +182,7 @@ export class PreguntasComponent implements OnInit {
       this.preguntaRespuestaOpcionService.eliminarPreguntaEncuesta(pregunta.idPregunta,this.idEncuesta).subscribe( data => {
         console.log(data);
         this.ngOnInit();
+        this.hidden = true;
       });
     }
   }
@@ -190,14 +196,18 @@ export class PreguntasComponent implements OnInit {
 
   onCrearOpcion(){
 
-    this.preguntaRespuestaOpcionService.checkNumOpc(this.selectedPregunta.idPregunta,this.num_opc).subscribe(data => {
+    this.preguntaRespuestaOpcionService.checkNumOpc(this.selectedPregunta.idPregunta,this.num_opc).subscribe({next: data => {
       this.preguntaRespuestaOpcionService.insertarOpcion(this.selectedPregunta.idPregunta,this.num_opc).subscribe(opcionId => {
         this.preguntaRespuestaOpcionService.añadirTextoOpcion(this.selectedPregunta.idPregunta,opcionId,this.textoOpc,"1").subscribe(dataTexto => {
           console.log(dataTexto);
           this.ngOnInit();
         })
       })
-    })
+    },
+    error: (e) => {
+      alert(e.error.message);
+    }
+    });
     
   }
 
@@ -235,13 +245,21 @@ export class PreguntasComponent implements OnInit {
 
   onInsertarPreguntaEncuesta(){
     if(this.idEncuesta!=null){
-      this.preguntaRespuestaOpcionService.checkNumPreg(this.idEncuesta,this.numPreg).subscribe(data => {
+      this.preguntaRespuestaOpcionService.checkNumPreg(this.idEncuesta,this.numPreg).subscribe({next:data => {
         if(this.idEncuesta!=null){
-          this.preguntaRespuestaOpcionService.relacionarEncuestaPregunta(this.idEncuesta,this.pregId,this.numPreg).subscribe(dataPregunta => {
+          this.preguntaRespuestaOpcionService.relacionarEncuestaPregunta(this.idEncuesta,this.pregId,this.numPreg).subscribe({next:dataPregunta => {
             console.log(dataPregunta);
             this.ngOnInit();
+          },
+          error: (e) => {
+            alert(e.error.message);
+          }
           });
         }
+      },
+      error: (e) => {
+        alert(e.error.message);
+      }
       });
     } 
   }
