@@ -35,6 +35,12 @@ export class EncuestaComponent implements OnInit {
 
       this.encuestaService.getEncuestaCampaña(this.idCampaña).subscribe(encuestaId => {
         let encuestaIdJSON = JSON.parse(JSON.stringify(encuestaId));
+
+        if(encuestaIdJSON.length==0){
+          alert("No tienes ninguna encuesta asociada a la campaña");
+          this.router.navigate(['/estudiante']);
+          console.log("owo")
+        }
   
         let encuestaJSON;
         let encuestaInfo: Encuesta;
@@ -54,10 +60,6 @@ export class EncuestaComponent implements OnInit {
             });
 
         });
-        if(this.encuestas.length==0){
-          alert("No tienes ninguna encuesta asociada a la campaña");
-          this.router.navigate(['/estudiante']);
-        }
       });
     }
 

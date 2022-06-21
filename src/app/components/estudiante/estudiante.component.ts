@@ -23,6 +23,11 @@ export class EstudianteComponent implements OnInit {
 
     this.campañaService.getSituacionesUsuario().subscribe(situacionesID => {
       let situacionIdJSON = JSON.parse(JSON.stringify(situacionesID));
+
+      if(situacionIdJSON.length==0){
+        alert("No tienes ninguna campaña asociada");
+        this.router.navigate(['/']);
+      }
      
       let campañaJSON;
       let campañaInfo: Campaña;
@@ -48,10 +53,6 @@ export class EstudianteComponent implements OnInit {
           });
         });
       });
-      if(this.campanas.length==0){
-        alert("No tienes ninguna campaña asociada");
-        this.router.navigate(['/']);
-      }
     });
   }
 
