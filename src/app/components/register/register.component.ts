@@ -48,15 +48,32 @@ export class RegisterComponent implements OnInit {
     administrador = this.convertir0o1(this.administrador);
     docente = this.convertir0o1(this.docente);
 
-    this.usuarioService.register(this.email,this.usuario,this.contrasena,estudiante,docente,administrador,this.idDepartamento).subscribe( data => {
+    this.usuarioService.register(this.email,this.usuario,this.contrasena,estudiante,docente,administrador,this.idDepartamento).subscribe({next: data => {
       console.log(data);
+    },
+    error: (e) => {
+      if(e.error.message){
+        alert(e.error.message);
+      } else{
+        let mensajeFinal = "";
+        let error = e.error.errors;
+        for (var i = 0; i < error.length; i++) {
+          mensajeFinal = mensajeFinal.concat(i+": "+error[i].msg+"\n")
+        }
+        alert(mensajeFinal);
+      }
+    }
     });
   }
 
   borrarUsuario(): void {
 
-    this.usuarioService.borrarUsuario(this.usuarioDelete).subscribe( data => {
+    this.usuarioService.borrarUsuario(this.usuarioDelete).subscribe({next: data => {
       console.log(data);
+    },
+    error: (e) => {
+      alert(e.error.message);
+    }
     });
   }
 

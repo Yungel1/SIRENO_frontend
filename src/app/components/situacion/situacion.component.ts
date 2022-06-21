@@ -53,10 +53,18 @@ export class SituacionComponent implements OnInit {
         this.fileUploadService.onFileSelected(this.file).subscribe({
           next: () => {
             this.ngOnInit();
+            alert("Se han ejecutado correctamente todas las entradas del CSV");
           },
-          error: (error) => {
-            if(error.error instanceof ProgressEvent){
+          error: (e) => {
+            if(e.error instanceof ProgressEvent){
               alert("Se ha editado el archivo, bórrelo e insértelo de nuevo");
+            } else if(e.error.linea){
+              let error = e.error.message+". Línea: "+e.error.linea
+              alert(error);
+            } else if(e.error.message){
+              alert(e.error.message);
+            } else{
+              alert("Problemas de permisos con el archivo, inténtelo con otro")
             }
           }
         })
@@ -78,13 +86,18 @@ export class SituacionComponent implements OnInit {
 
   onInsertarCampana(situacion: Situacion,idCampana: string) {
 
-    this.situacionService.insertarActualizarActivacion(situacion.idDocente,situacion.idGrupo,situacion.idGrado,situacion.idAsignatura,situacion.idCampana,idCampana).subscribe(dataAct => {
+    this.situacionService.insertarActualizarActivacion(situacion.idDocente,situacion.idGrupo,situacion.idGrado,situacion.idAsignatura,situacion.idCampana,idCampana).subscribe({next:dataAct => {
       console.log(dataAct);
-      this.situacionService.insertarCampañaSituacion(situacion.id,idCampana).subscribe( data => {
+      this.situacionService.insertarCampañaSituacion(situacion.id,idCampana).subscribe({ next: data => {
         console.log(data);
         this.ngOnInit();
+      },
       });
-    })
+    },
+    error: (e) => {
+      alert(e.error.message);
+    }
+    });
   }
 
   getSituacionInfo(){
@@ -126,36 +139,56 @@ export class SituacionComponent implements OnInit {
 
   onCrearGrupo() {
     
-    this.situacionService.insertarGrupo(this.grupoID).subscribe( data => {
+    this.situacionService.insertarGrupo(this.grupoID).subscribe({next: data => {
       console.log(data);
+    },
+    error: (e) => {
+      alert(e.error.message);
+    }
     });
   }
 
   onCrearGrado() {
   
-    this.situacionService.insertarGrado(this.gradoID,this.centroGradoID).subscribe( data => {
+    this.situacionService.insertarGrado(this.gradoID,this.centroGradoID).subscribe({ next: data => {
       console.log(data);
+    },
+    error: (e) => {
+      alert(e.error.message);
+    }
     });
   }
 
   onCrearDepartamento() {
   
-    this.situacionService.insertarDepartamento(this.departamentoID).subscribe( data => {
+    this.situacionService.insertarDepartamento(this.departamentoID).subscribe({next: data => {
       console.log(data);
+    },
+    error: (e) => {
+      alert(e.error.message);
+    }
     });
   }
 
   onCrearAsignatura() {
   
-    this.situacionService.insertarAsignatura(this.asignaturaID,this.departamentoAsignaturaID).subscribe( data => {
+    this.situacionService.insertarAsignatura(this.asignaturaID,this.departamentoAsignaturaID).subscribe({next: data => {
       console.log(data);
+    },
+    error: (e) => {
+      alert(e.error.message);
+    }
     });
   }
 
   onCrearCentro() {
   
-    this.situacionService.insertarCentro(this.centroID).subscribe( data => {
+    this.situacionService.insertarCentro(this.centroID).subscribe({next: data => {
       console.log(data);
+    },
+    error: (e) => {
+      alert(e.error.message);
+    }
     });
   }
 

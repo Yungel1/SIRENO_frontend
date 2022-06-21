@@ -69,24 +69,28 @@ export class CampanaComponent implements OnInit {
   }
 
   onInsertarEncuestaCampana(campana: CampañaInfo,idEncuesta: string) {
-    this.campanaService.getEncuestaCampaña(campana.id).subscribe({next:idEncuestaJson => {
+    this.campanaService.getEncuestaCampaña(campana.id).subscribe(idEncuestaJson => {
       let idEncuestaJSON  = JSON.parse(JSON.stringify(idEncuestaJson));
       if (idEncuestaJSON.length==0){
-        this.campanaService.insertarEncuestaCampaña(campana.id,idEncuesta).subscribe( data => {
+        this.campanaService.insertarEncuestaCampaña(campana.id,idEncuesta).subscribe({next: data => {
           console.log(data);
           this.ngOnInit();
+        },
+        error: (e) => {
+          alert(e.error.message);
+        }
         });
       }
       else{
-        this.campanaService.actualizarEncuestaCampaña(campana.id,idEncuesta).subscribe( data => {
+        this.campanaService.actualizarEncuestaCampaña(campana.id,idEncuesta).subscribe({next: data => {
           console.log(data);
           this.ngOnInit();
+        },
+        error: (e) => {
+          alert(e.error.message);
+        }
         });
       }
-    },
-    error: (e) => {
-      alert(e.error.message);
-    }
     });
   }
 
