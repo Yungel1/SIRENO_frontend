@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit {
       }
       if(this.roles.length==0){
         alert("No tienes ningún rol asignado, contacte con un administrador")
+        this.router.navigate(['/login']);
       }
     });
   }
