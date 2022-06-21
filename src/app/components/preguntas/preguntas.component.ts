@@ -15,11 +15,14 @@ export class PreguntasComponent implements OnInit {
   idEncuesta: string | null = "";
 
   num_preg: string = "";
+  numPreg: string = "";
   texto: string = "";
   num_opc: string = "";
   textoOpc: string = "";
   tipoPreg : string = "";
+  pregId :  string = "";
   preguntasO: PreguntaOpcion[] = [];
+  allPreguntas: PreguntaOpcion[] = [];
   selectedOpcion?: OpcionPregunta;
   selectedPregunta: PreguntaOpcion = {
     idPregunta: "",
@@ -37,6 +40,7 @@ export class PreguntasComponent implements OnInit {
     this.getQueryParam();
     this.setNombreEncuesta();
     this.getPreguntaO();
+    this.getAllPreguntas();
   }
 
   getQueryParam(){
@@ -63,8 +67,6 @@ export class PreguntasComponent implements OnInit {
         this.preguntaRespuestaOpcionService.insertarPregunta(this.tipoPreg).subscribe(preguntaId => {
           if(this.idEncuesta!=null){
             this.preguntaRespuestaOpcionService.relacionarEncuestaPregunta(this.idEncuesta,preguntaId,this.num_preg).subscribe(dataPregunta => {
-              console.log(preguntaId,this.texto)
-              console.log(dataPregunta);
               this.preguntaRespuestaOpcionService.añadirTextoPregunta(preguntaId,this.texto,"1").subscribe(dataTexto => {
                 console.log(dataTexto);
                 this.ngOnInit();
@@ -190,4 +192,54 @@ export class PreguntasComponent implements OnInit {
     
   }
 
+  getAllPreguntas(): void{
+    this.preguntaRespuestaOpcionService.getPreguntasAll().subscribe(preguntas=> {
+
+      let preguntasJSON = JSON.parse(JSON.stringify(preguntas));
+      this.allPreguntas = [];
+
+      preguntasJSON["preguntas"].forEach((pregunta: { id: string; num_preg: string; }) => {
+ 
+        this.preguntaRespuestaOpcionService.getPreguntaInfoInforme(pregunta.id).subscribe(preguntaInfo => {
+
+          let preguntaJSON = JSON.parse(JSON.stringify(preguntaInfo));
+         
+          this.preguntaRespuestaOpcionService.getTextoAdmin("1",pregunta.id,undefined).subscribe(textoP => {
+
+            let textoPreguntaJSON = JSON.parse(JSON.stringify(textoP));
+
+            let preguntaInfo = {
+              idPregunta: pregunta.id,
+              tipoPreg:preguntaJSON.tipoPreg,
+              numPreg:pregunta.num_preg,
+              textoPreg: textoPreguntaJSON.texto,
+              opcionespregunta: [] 
+            }
+
+            this.allPreguntas.push(preguntaInfo);
+
+          });
+        });
+      });    
+    });
+  }
+
+  onInsertarPreguntaEncuesta(){
+    if(this.idEncuesta!=null){
+      this.preguntaRespuestaOpcionService.checkNumPreg(this.idEncuesta,this.numPreg).subscribe(data => {
+        if(this.idEncuesta!=null){
+          this.preguntaRespuestaOpcionService.relacionarEncuestaPregunta(this.idEncuesta,this.pregId,this.numPreg).subscribe(dataPregunta => {
+            console.log(dataPregunta);
+            this.ngOnInit();
+          });
+        }
+      });
+    } 
+  }
+
+  sortAllPreg(){
+    
+    return this.allPreguntas = this.allPreguntas.sort((a, b) => a.textoPreg > b.textoPreg ? 1 : -1);
+
+  }
 }
