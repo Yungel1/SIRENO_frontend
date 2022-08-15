@@ -75,9 +75,5 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  onLogout(): void {
-    this.usuarioService.deleteToken();
-    this.router.navigate(['/login']);
-  }
 
 }

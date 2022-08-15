@@ -24,6 +24,8 @@ import { CampanaComponent } from './components/campana/campana.component';
 import { SituacionComponent } from './components/situacion/situacion.component';
 import { PreguntasComponent } from './components/preguntas/preguntas.component';
 import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import {MatToolbarModule} from '@angular/material/toolbar'; 
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt';
     PreguntaRespuestaOpcionInformeComponent,
     CampanaComponent,
     SituacionComponent,
-    PreguntasComponent
+    PreguntasComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,7 @@ import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt';
     HttpClientModule,
     MatIconModule,
     BrowserAnimationsModule,
+    MatToolbarModule
   ],
   providers: [CookieService,AuthGuard,DatePipe,{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },JwtHelperService],
   bootstrap: [AppComponent]
