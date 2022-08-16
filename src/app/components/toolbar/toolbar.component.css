@@ -4,3 +4,17 @@
 .spacer_little {
     padding-left: 1%;
 }
+
+.mat-toolbar h1{ color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
+
+.mat-toolbar {
+    background-color:black;
+    border-bottom: 10px;
+    border-color: #fff;
+}
+
+button{
+    cursor:pointer
+}
+
+p.solid {border-style: solid;border-color: #fff;border-top: 0cm;border-left: 0cm;border-right: 0cm;}

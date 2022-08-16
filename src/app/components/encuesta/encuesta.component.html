@@ -1,9 +1,13 @@
 <app-toolbar></app-toolbar>
 <h2>{{campanaNombre}}</h2>
+<h1>Seleccione la encuesta que desea responder</h1>
 <ul class="list-group-campaña">
     <li *ngFor="let encuesta of sort()" class="lista-campañas">
-        <button [class.selected]="encuesta === selectedEncuesta" type="button" (click)="onSelect(encuesta)">
+        <button class="button btn btn-primary btn-large btn-big-block" [class.selected]="encuesta === selectedEncuesta" type="button" (click)="onSelect(encuesta)">
             <span class="nombreEncuesta">{{encuesta.nombre}}</span>
         </button>
     </li>
 </ul>
+<button class="atras" type="button" aria-label="Atrás" (click)="atras()">
+    <mat-icon>arrow_back</mat-icon>
+</button>

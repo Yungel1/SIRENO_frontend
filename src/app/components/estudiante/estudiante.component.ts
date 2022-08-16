@@ -17,6 +17,7 @@ export class EstudianteComponent implements OnInit {
 
   ngOnInit() {
     this.getCampañaInfo();
+    
   }
 
   getCampañaInfo(): void {
@@ -78,5 +79,10 @@ export class EstudianteComponent implements OnInit {
    
       this.router.navigate(['/encuestas'],{ queryParams: {idcampana: this.selectedCampana.id, idsituacion: this.selectedCampana.idSituacion}});
     }
+  }
+
+  atras(): void {
+    
+    this.router.navigate(['/']);
   }
 }

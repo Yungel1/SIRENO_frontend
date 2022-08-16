@@ -1,8 +1,8 @@
 <app-toolbar></app-toolbar>
-
+<h1>Seleccione el rol</h1>
 <ul class="list-group">
     <li *ngFor="let rol of roles" class="lista-roles">
-        <button [class.selected]="rol === selectedRol" type="button" (click)="onSelect(rol)">
+        <button class="btn btn-primary btn-large btn-big-block" [class.selected]="rol === selectedRol" type="button" (click)="onSelect(rol)">
             {{ rol.nombre }}
         </button>
     </li>

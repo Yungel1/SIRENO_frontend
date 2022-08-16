@@ -1,11 +1,15 @@
 <app-toolbar></app-toolbar>
 <h2>Estudiante</h2>
+<h1>Seleccione la campaña que desea responder</h1>
 <ul class="list-group-campaña">
     <li *ngFor="let campana of sort()" class="lista-campañas">
-        <button [class.selected]="campana === selectedCampana" type="button" (click)="onSelect(campana)">
+        <button class="button btn btn-primary btn-large btn-big-block" [class.selected]="campana === selectedCampana" type="button" (click)="onSelect(campana)">
             <span class="nombreCampaña">{{campana.nombre}}</span>
             <br>
             <span class="descripcionCampaña">{{campana.descripcion}}</span>
         </button>
     </li>
 </ul>
+<button class="atras" type="button" aria-label="Atrás" (click)="atras()">
+    <mat-icon>arrow_back</mat-icon>
+</button>

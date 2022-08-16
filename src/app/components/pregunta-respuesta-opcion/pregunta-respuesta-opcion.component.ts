@@ -190,4 +190,9 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
     }
     return arr;
   }
+
+  atras(): void {
+    
+    this.router.navigate(['/encuestas'],{ queryParams: {idcampana: this.idCampaña,idsituacion: this.idSituacion}});
+  }
 }

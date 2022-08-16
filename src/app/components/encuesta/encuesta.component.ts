@@ -91,4 +91,9 @@ export class EncuestaComponent implements OnInit {
       this.router.navigate(['/preguntas'],{ queryParams: {idencuesta: this.selectedEncuesta.id,idcampana: this.idCampaña, idsituacion: this.idSituacion}});
     }
   }
+  atras(): void {
+    
+    this.router.navigate(['/estudiante']);
+  }
 }
+

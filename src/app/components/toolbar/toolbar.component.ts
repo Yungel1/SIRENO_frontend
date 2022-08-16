@@ -9,9 +9,12 @@ import { Router } from '@angular/router';
 })
 export class ToolbarComponent implements OnInit {
 
+  usuario: string = "";
+
   constructor(private usuarioService: UsuarioService,private router: Router) { }
 
   ngOnInit(): void {
+    this.setUsuario();
   }
 
   onLogout(): void {
@@ -22,5 +25,16 @@ export class ToolbarComponent implements OnInit {
   onHome(): void {
     this.router.navigate(['/']);
   }
+
+  setUsuario(){
+    
+    this.usuarioService.getUsuarioInfo().subscribe(usuario => {
+      let usuarioJSON = JSON.parse(JSON.stringify(usuario));
+
+      this.usuario = usuarioJSON["usuario"];
+
+    });
+  }
+  
 
 }
