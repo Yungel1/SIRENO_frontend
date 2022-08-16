@@ -8,6 +8,8 @@
 }
 .login h1 { color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
 
+.sireno{ font-weight: bold;color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:left; margin: 1%}
+
 input { 
 	width: 100%; 
 	margin-bottom: 10px; 
