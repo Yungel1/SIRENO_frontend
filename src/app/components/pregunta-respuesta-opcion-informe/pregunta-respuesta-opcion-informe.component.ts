@@ -22,6 +22,7 @@ export class PreguntaRespuestaOpcionInformeComponent implements OnInit {
   idEncuesta?: string | null;
   listaRespuestas: Respuesta[] = [];
   encuestaNombre: string = "";
+  hidden: boolean = true;
 
   constructor(private encuestaService: EncuestaService,private campañaService: CampañaService,private preguntaRespuestaOpcionService: PreguntaRespuestaOpcionService,private router: Router) { }
 
@@ -155,6 +156,10 @@ export class PreguntaRespuestaOpcionInformeComponent implements OnInit {
       arr.splice(index, 1);
     }
     return arr;
+  }
+
+  show() {
+    this.hidden = false;
   }
 
 }

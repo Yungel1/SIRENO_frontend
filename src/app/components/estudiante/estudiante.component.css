@@ -4,10 +4,6 @@ ul {
     text-align:center;
     
 }
-.logout {
-    cursor:pointer;
-    float:right;
-}
 h1 { font-weight: bold;padding-top: 2%;color: #fff; text-shadow: 0 0 14px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; margin-left: 2%; font-size:xx-large;}
 
 li {

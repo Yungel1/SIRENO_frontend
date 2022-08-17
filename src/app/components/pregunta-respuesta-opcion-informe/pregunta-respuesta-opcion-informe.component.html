@@ -1,15 +1,19 @@
 <app-toolbar></app-toolbar>
 <h2>{{encuestaNombre}}</h2>
-<ul class="list-group-preguntas">
-    <li *ngFor="let preguntaO of sortPreg()" class="lista-preguntas">
-        <p>{{preguntaO.textoPreg}}</p>
-        <ul>
-            <li *ngFor="let opcion of sortOpc(preguntaO.opcionespregunta)">
-                <p>{{opcion.texto}} = {{opcion.veces_respondida}}</p>
+<h1>Informe</h1>
+<div class="div-global">
+<ul class="ul-preguntas">
+    <li *ngFor="let preguntaO of sortPreg(); let last = last" class="lista-preguntas">
+        <h2>{{preguntaO.textoPreg}}</h2>
+        <ul class="ul-opciones">
+            <li *ngFor="let opcion of sortOpc(preguntaO.opcionespregunta); let lastOpc = last">
+                <h3>{{opcion.texto}} = {{opcion.veces_respondida}}</h3>
+                <span *ngIf="last && lastOpc">{{show()}}</span>
             </li>
         </ul>
     </li>
 </ul>
-<button type="button" (click)="atras()">
-    <span class="atras">Atras</span>
+</div>
+<button [hidden]=hidden class="atras" type="button" aria-label="Atrás" (click)="atras()">
+    <mat-icon>arrow_back</mat-icon>
 </button>

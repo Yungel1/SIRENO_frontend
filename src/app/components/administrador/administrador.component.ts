@@ -10,7 +10,7 @@ export class AdministradorComponent implements OnInit {
 
   hiddenRegister: boolean = true;
   hiddenSituacion: boolean = true;
-  hiddenCampana: boolean = false;
+  hiddenCampana: boolean = true;
 
   constructor(private router: Router) { }
 
@@ -20,7 +20,7 @@ export class AdministradorComponent implements OnInit {
   onRegister(){
 
     this.hiddenRegister = false;
-    this.hiddenSituacion = true
+    this.hiddenSituacion = true;
     this.hiddenCampana = true;
   }
   onSituacion(){

@@ -1,12 +1,14 @@
 <app-toolbar></app-toolbar>
 <h2>{{campanaNombre}}</h2>
+<h1>Seleccione la encuesta sobre la que desea ver el informe</h1>
 <ul class="list-group-campaña">
-    <li *ngFor="let encuesta of sort()" class="lista-campañas">
-        <button [class.selected]="encuesta === selectedEncuesta" type="button" (click)="onSelect(encuesta)">
+    <li *ngFor="let encuesta of sort(); let last = last" class="lista-campañas">
+        <button class="button btn btn-primary btn-large btn-big-block" [class.selected]="encuesta === selectedEncuesta" type="button" (click)="onSelect(encuesta)">
             <span class="nombreEncuesta">{{encuesta.nombre}}</span>
         </button>
+        <span *ngIf="last">{{show()}}</span>
     </li>
 </ul>
-<button type="button" (click)="atras()">
-    <span class="atras">Atras</span>
+<button [hidden]=hidden class="atras" type="button" aria-label="Atrás" (click)="atras()">
+    <mat-icon>arrow_back</mat-icon>
 </button>

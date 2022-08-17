@@ -12,6 +12,7 @@ export class EstudianteComponent implements OnInit {
 
   campanas: Campaña[] = [];
   selectedCampana?: Campaña;
+  hidden: boolean = true;
 
   constructor(private campañaService: CampañaService,private router: Router) { }
 
@@ -84,5 +85,9 @@ export class EstudianteComponent implements OnInit {
   atras(): void {
     
     this.router.navigate(['/']);
+  }
+
+  show() {
+    this.hidden = false;
   }
 }

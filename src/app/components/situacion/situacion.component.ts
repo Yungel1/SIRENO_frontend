@@ -53,7 +53,7 @@ export class SituacionComponent implements OnInit {
         this.fileUploadService.onFileSelected(this.file).subscribe({
           next: () => {
             this.ngOnInit();
-            alert("Se han ejecutado correctamente todas las entradas del CSV");
+            alert("Se han cargado correctamente todas las entradas del CSV");
           },
           error: (e) => {
             if(e.error instanceof ProgressEvent){
@@ -127,20 +127,26 @@ export class SituacionComponent implements OnInit {
   }
 
   onDeleteSituacion(situacion: Situacion) {
-    this.situacionService.eliminarActivacion(situacion.idDocente,situacion.idGrupo,situacion.idGrado,situacion.idAsignatura,situacion.idCampana).subscribe( dataAct => {
-      console.log(dataAct);
+    if(situacion.idCampana==null){
       this.situacionService.eliminarSituacion(situacion.id).subscribe( data => {
         console.log(data);
         this.ngOnInit();
       });
-    })
-
+    } else{
+      this.situacionService.eliminarActivacion(situacion.idDocente,situacion.idGrupo,situacion.idGrado,situacion.idAsignatura,situacion.idCampana).subscribe( dataAct => {
+        console.log(dataAct);
+        this.situacionService.eliminarSituacion(situacion.id).subscribe( data => {
+          console.log(data);
+          this.ngOnInit();
+        });
+      })
+    }
   }
 
   onCrearGrupo() {
     
     this.situacionService.insertarGrupo(this.grupoID).subscribe({next: data => {
-      console.log(data);
+      alert("El grupo con el identificador \""+this.grupoID+"\" ha sido creado correctamente");
     },
     error: (e) => {
       alert(e.error.message);
@@ -151,7 +157,7 @@ export class SituacionComponent implements OnInit {
   onCrearGrado() {
   
     this.situacionService.insertarGrado(this.gradoID,this.centroGradoID).subscribe({ next: data => {
-      console.log(data);
+      alert("El grado con el identificador \""+this.gradoID+"\" ha sido creado correctamente");
     },
     error: (e) => {
       alert(e.error.message);
@@ -162,7 +168,7 @@ export class SituacionComponent implements OnInit {
   onCrearDepartamento() {
   
     this.situacionService.insertarDepartamento(this.departamentoID).subscribe({next: data => {
-      console.log(data);
+      alert("El departamento con el identificador \""+this.departamentoID+"\" ha sido creado correctamente");
     },
     error: (e) => {
       alert(e.error.message);
@@ -173,7 +179,7 @@ export class SituacionComponent implements OnInit {
   onCrearAsignatura() {
   
     this.situacionService.insertarAsignatura(this.asignaturaID,this.departamentoAsignaturaID).subscribe({next: data => {
-      console.log(data);
+      alert("La asignatura con el identificador \""+this.asignaturaID+"\" ha sido creada correctamente");
     },
     error: (e) => {
       alert(e.error.message);
@@ -184,7 +190,7 @@ export class SituacionComponent implements OnInit {
   onCrearCentro() {
   
     this.situacionService.insertarCentro(this.centroID).subscribe({next: data => {
-      console.log(data);
+      alert("El centro con el identificador \""+this.centroID+"\" ha sido creado correctamente");
     },
     error: (e) => {
       alert(e.error.message);
@@ -195,7 +201,7 @@ export class SituacionComponent implements OnInit {
   onEliminarGrupo() {
     
     this.situacionService.eliminarGrupo(this.grupoID).subscribe({next: data => {
-      console.log(data);
+      alert("El grupo con el identificador \""+this.grupoID+"\" ha sido eliminado correctamente");
     },
     error: (e) => {
       alert(e.error.message);
@@ -206,7 +212,7 @@ export class SituacionComponent implements OnInit {
   onEliminarGrado() {
   
     this.situacionService.eliminarGrado(this.gradoDeleteID).subscribe({next: data => {
-      console.log(data);
+      alert("El grado con el identificador \""+this.gradoDeleteID+"\" ha sido eliminado correctamente");
     },
     error: (e) => {
       alert(e.error.message);
@@ -217,7 +223,7 @@ export class SituacionComponent implements OnInit {
   onEliminarDepartamento() {
   
     this.situacionService.eliminarDepartamento(this.departamentoID).subscribe({next: data => {
-      console.log(data);
+      alert("El departamento con el identificador \""+this.departamentoID+"\" ha sido eliminado correctamente");
     },
     error: (e) => {
       alert(e.error.message);
@@ -228,7 +234,7 @@ export class SituacionComponent implements OnInit {
   onEliminarAsignatura() {
   
     this.situacionService.eliminarAsignatura(this.asignaturaDeleteID).subscribe({next: data => {
-      console.log(data);
+      alert("La asignatura con el identificador \""+this.asignaturaDeleteID+"\" ha sido eliminada correctamente");
     },
     error: (e) => {
       alert(e.error.message);
@@ -239,7 +245,7 @@ export class SituacionComponent implements OnInit {
   onEliminarCentro() {
   
     this.situacionService.eliminarCentro(this.centroID).subscribe({next: data => {
-      console.log(data);
+      alert("El centro con el identificador \""+this.centroID+"\" ha sido eliminado correctamente");
     },
     error: (e) => {
       alert(e.error.message);

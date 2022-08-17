@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
     docente = this.convertir0o1(this.docente);
 
     this.usuarioService.register(this.email,this.usuario,this.contrasena,estudiante,docente,administrador,this.idDepartamento).subscribe({next: data => {
-      console.log(data);
+      alert("El usuario \""+this.usuario+"\" ha sido registrado correctamente");
     },
     error: (e) => {
       if(e.error.message){
@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit {
   borrarUsuario(): void {
 
     this.usuarioService.borrarUsuario(this.usuarioDelete).subscribe({next: data => {
-      console.log(data);
+      alert("El usuario \""+this.usuarioDelete+"\" ha sido eliminado correctamente");
     },
     error: (e) => {
       alert(e.error.message);

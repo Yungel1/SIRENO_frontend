@@ -13,11 +13,16 @@ export class DocenteComponent implements OnInit {
 
   campanas: Campaña[] = [];
   selectedCampana?: Campaña;
+  hidden: boolean = true;
 
   constructor(private campañaService: CampañaService,private router: Router) { }
 
   ngOnInit() {
     this.getCampañaInfo();
+  }
+
+  show() {
+    this.hidden = false;
   }
 
   getCampañaInfo(): void {

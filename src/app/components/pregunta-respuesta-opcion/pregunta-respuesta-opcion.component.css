@@ -33,7 +33,7 @@ li {
 .atras{width: 4%; height: 50px; font-size:medium;margin-top: 2%;margin-left: 1%;background-color: lightgray;color:black; cursor:pointer;margin-bottom: 3%;}
 
 .btn-guardar{
-    width: 100%; height: 60px;
+    width: 100%; height: 60px; 
 }
 
 h2{ color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:left; padding-left: 1%;}

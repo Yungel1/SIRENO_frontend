@@ -1,0 +1,25 @@
+ul {
+    list-style-type: none;
+    padding-top: 3%;
+    text-align:center;
+    
+}
+.logout {
+    cursor:pointer;
+    float:right;
+}
+h1 { font-weight: bold;padding-top: 2%;color: #fff; text-shadow: 0 0 14px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; margin-left: 2%; font-size:xx-large;}
+
+li {
+    margin-bottom: 2%;
+}
+
+.descripcionCampaña{
+    font-size:medium;font-weight:normal;
+}
+
+.button{ width: 30%; height: 140px;font-weight: bold; font-size:x-large}
+
+.atras{width: 4%; height: 50px; font-size:medium;margin-top: 2%;margin-left: 1%;background-color: lightgray;color:black; cursor:pointer;margin-bottom: 3%;}
+
+h2{ color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:left; padding-left: 1%;}

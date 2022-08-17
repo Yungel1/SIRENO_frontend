@@ -1,14 +1,16 @@
 <app-toolbar></app-toolbar>
 <h2>Docente</h2>
+<h1>Seleccione la campaña que desea analizar</h1>
 <ul class="list-group-campaña">
-    <li *ngFor="let campana of sort()" class="lista-campañas">
-        <button [class.selected]="campana === selectedCampana" type="button" (click)="onSelect(campana)">
+    <li *ngFor="let campana of sort(); let last = last" class="lista-campañas">
+        <button class="button btn btn-primary btn-large btn-big-block" [class.selected]="campana === selectedCampana" type="button" (click)="onSelect(campana)">
             <span class="nombreCampaña">{{campana.nombre}}</span>
             <br>
             <span class="descripcionCampaña">{{campana.descripcion}}</span>
         </button>
+        <span *ngIf="last">{{show()}}</span>
     </li>
 </ul>
-<button type="button" (click)="atras()">
-    <span class="atras">Atras</span>
+<button [hidden]=hidden class="atras" type="button" aria-label="Atrás" (click)="atras()">
+    <mat-icon>arrow_back</mat-icon>
 </button>

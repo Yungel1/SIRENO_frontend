@@ -23,6 +23,8 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
   idSituacion?: string | null;
   listaRespuestas: Respuesta[] = [];
   encuestaNombre: string = "";
+  hidden: boolean = true;
+  hiddenGuardar: boolean = true;
 
   constructor(private encuestaService: EncuestaService,private campañaService: CampañaService,private preguntaRespuestaOpcionService: PreguntaRespuestaOpcionService,private router: Router) { }
 
@@ -166,13 +168,13 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
   guardar(): void {
     
     if(this.listaRespuestas.length==this.preguntasO.length){
-      this.listaRespuestas.forEach(respuesta => {
+      this.listaRespuestas.forEach((respuesta,key) => {
         this.preguntaRespuestaOpcionService
         .insertarRespuesta(respuesta.idCampaña,respuesta.idEncuesta,respuesta.idPregunta,respuesta.idOpcionesPregunta,respuesta.texto)
         .subscribe(respuesta => {
-          console.log(respuesta);
-          if (this.idSituacion!=null && this.idSituacion!=undefined){
+          if (this.idSituacion!=null && this.idSituacion!=undefined && this.listaRespuestas.length-1==key){
             this.preguntaRespuestaOpcionService.ponerRespondida(this.idSituacion, true).subscribe(dataRespondida => {
+              alert("Las respuestas a la encuesta \""+ this.encuestaNombre +"\" han sido guardadas con éxito");
               this.router.navigate(['/estudiante']);
             });
           };   
@@ -194,5 +196,10 @@ export class PreguntaRespuestaOpcionComponent implements OnInit {
   atras(): void {
     
     this.router.navigate(['/encuestas'],{ queryParams: {idcampana: this.idCampaña,idsituacion: this.idSituacion}});
+  }
+
+  show() {
+    this.hiddenGuardar = false;
+    this.hidden = false;
   }
 }

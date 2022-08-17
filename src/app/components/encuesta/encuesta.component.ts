@@ -16,6 +16,7 @@ export class EncuestaComponent implements OnInit {
   idCampaña?: string | null;
   idSituacion?: string | null;
   campanaNombre: string = "";
+  hidden: boolean = true;
 
   constructor(private campañaService: CampañaService,private encuestaService: EncuestaService,private router: Router) { }
 
@@ -94,6 +95,10 @@ export class EncuestaComponent implements OnInit {
   atras(): void {
     
     this.router.navigate(['/estudiante']);
+  }
+
+  show() {
+    this.hidden = false;
   }
 }
 
