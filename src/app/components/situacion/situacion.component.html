@@ -32,7 +32,7 @@
 </div>
 <div class="div-situaciones">
     <h1>Lista de situaciones</h1>
-    <table style="width:100%">
+    <table>
         <tr>
             <th>ID Grado</th>
             <th>ID Docente</th>
@@ -50,9 +50,10 @@
             <td>{{situacion.idAsignatura}}</td>
             <td>{{situacion.idCampana}}</td> 
             
-            <td>
+            <td class="añadir-campaña-td">
                 <form class="situacion-form" method="post" ngNativeValidate #form>
                     <input
+                    class="input-tabla"
                     type="text"
                     [(ngModel)]="campanas[index]"
                     name="campaña"
@@ -86,7 +87,7 @@
         required
         />
         <button class="btn btn-primary btn-block btn-large" type="submit" (click)="formgrupo.checkValidity() ? onCrearGrupo() : null">Insertar</button>
-        <button class="btn btn-primary btn-block btn-large" type="submit" (click)="formgrupo.checkValidity() ? onEliminarGrupo() : null">Eliminar</button>
+        <button class="btn btn-primary btn-block btn-large btn-eliminar" type="submit" (click)="formgrupo.checkValidity() ? onEliminarGrupo() : null">Eliminar</button>
     </form>
 </div>
 
@@ -101,7 +102,7 @@
         required
         />
         <button class="btn btn-primary btn-block btn-large" type="submit" (click)="formcentro.checkValidity() ? onCrearCentro() : null">Insertar</button>
-        <button class="btn btn-primary btn-block btn-large" type="submit" (click)="formcentro.checkValidity() ? onEliminarCentro() : null">Eliminar</button>
+        <button class="btn btn-primary btn-block btn-large btn-eliminar" type="submit" (click)="formcentro.checkValidity() ? onEliminarCentro() : null">Eliminar</button>
     </form>
 </div>
 
@@ -116,7 +117,7 @@
         required="required"
         />
         <button class="btn btn-primary btn-block btn-large" type="submit" (click)="formdepartamento.checkValidity() ? onCrearDepartamento() : null">Insertar</button>
-        <button class="btn btn-primary btn-block btn-large" type="submit" (click)="formdepartamento.checkValidity() ? onEliminarDepartamento() : null">Eliminar</button>
+        <button class="btn btn-primary btn-block btn-large btn-eliminar" type="submit" (click)="formdepartamento.checkValidity() ? onEliminarDepartamento() : null">Eliminar</button>
     </form>
 </div>
 </div>

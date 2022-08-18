@@ -1,16 +1,9 @@
 <app-toolbar></app-toolbar>
 <h2>{{encuestaNombre}}</h2>
-<br>
-<div class="pregunta">
+<div class="div-masivo-2">
+<div class="div">
     <form class="pregunta-form" method="post" ngNativeValidate #formpregunta>
-        <h1>Crear pregunta</h1>
-        <input
-        type="text"
-        [(ngModel)]="num_preg"
-        name="num_preg"
-        placeholder="Posición de la pregunta"
-        required="required"
-        />
+        <h1>Crear e insertar pregunta</h1>
         <input
         type="text"
         [(ngModel)]="texto"
@@ -18,22 +11,34 @@
         placeholder="Texto"
         required="required"
         />
-        <br>
-        <label for="tipoPreg">Tipo de pregunta: </label>
-        <select id="tipoPreg" name="tipoPreg" [(ngModel)]="tipoPreg" required="required">
+        <input
+        type="text"
+        [(ngModel)]="num_preg"
+        name="num_preg"
+        placeholder="Posición de la pregunta"
+        required="required"
+        />
+        <div class="div-select">
+        <h3 class="h3-lista-crear" for="tipoPreg">Tipo de pregunta: </h3>
+        <select class="select-crear" id="tipoPreg" name="tipoPreg" [(ngModel)]="tipoPreg" required="required">
             <option value="eleccion_unica">Elección única</option>
         </select>
-        <button type="submit" (click)="formpregunta.checkValidity() ? onCrearPregunta() : null">Insertar</button>
+        <button class="btn btn-primary btn-block btn-large btn-corto" type="submit" (click)="formpregunta.checkValidity() ? onCrearPregunta() : null">Insertar</button>
+        </div>
     </form>
 </div>
-<br>
+
+<div class="div">
 <form class="preguntalista-form" method="post" ngNativeValidate #formlistapregunta>
-    <label for="listPreg">Listado de todas las preguntas: </label>
+    <h1>Insertar pregunta existente</h1>
+    <div class="div-select">
+    <h3 class="h3-lista" for="listPreg">Listado de todas las preguntas: </h3>
     <select id="listPreg" name="listPreg" [(ngModel)]="pregId" required="required">
         <option *ngFor="let pregunta of sortAllPreg()" class="lista-preguntasAll"
                 value={{pregunta.idPregunta}}> {{pregunta.textoPreg}}
         </option>
     </select>
+    </div>
     <input
     type="text"
     [(ngModel)]="numPreg"
@@ -41,35 +46,35 @@
     placeholder="Posición de la pregunta"
     required="required"
     />
-    <button type="submit" (click)="formlistapregunta.checkValidity() ? onInsertarPreguntaEncuesta() : null">Insertar</button>
-    <button type="button" (click)="onEliminarPregunta()"><span class="borrarOpcion">Borrar</span>
+    <button class="btn btn-primary btn-block btn-large" type="submit" (click)="formlistapregunta.checkValidity() ? onInsertarPreguntaEncuesta() : null">Insertar</button>
+    <button class="btn btn-primary btn-block btn-large" type="button" (click)="onEliminarPregunta()"><span class="borrarOpcion">Borrar</span>
     </button>
 </form>
-<br>
-<br>
+</div>
+</div>
 <div class="div-lista-encuestas">
     <h1>Lista de preguntas</h1>
-    <table style="width:100%">
+    <table>
         <tr>
             <th>Texto</th>
             <th>Posición pregunta</th>
             <th>Tipo pregunta</th>
             <th>Mostrar opciones</th>
-            <th>Eliminar pregunta</th>
+            <th>Borrar pregunta</th>
         </tr>
         <tr *ngFor="let pregunta of sortPreg()" class="lista-preguntas">
 
-            <td>{{pregunta.textoPreg}}</td>
-            <td>{{pregunta.numPreg}}</td>
-            <td>{{pregunta.tipoPreg}}</td>
+            <td class="td-pequeña">{{pregunta.textoPreg}}</td>
+            <td class="td-pequeña">{{pregunta.numPreg}}</td>
+            <td class="td-pequeña">{{pregunta.tipoPreg}}</td>
             
-            <td>
-                <button [class.selected]="pregunta === selectedPregunta" type="button" (click)="onMostrarOpciones(pregunta)">
+            <td class="pregunta-td">
+                <button class="btn btn-primary btn-block btn-large" [class.selected]="pregunta === selectedPregunta" type="button" (click)="onMostrarOpciones(pregunta)">
                     <span class="crearPreguntas">Mostrar Opciones</span>
                 </button>
             </td>
-            <td>
-                <button [class.selected]="pregunta === selectedPregunta" type="button" (click)="onEliminarPreguntaEncuesta(pregunta)">
+            <td class="pregunta-td">
+                <button class="btn btn-primary btn-block btn-large" [class.selected]="pregunta === selectedPregunta" type="button" (click)="onEliminarPreguntaEncuesta(pregunta)">
                     <span class="borrarPregunta">Borrar</span>
                 </button>
             </td>
@@ -78,36 +83,29 @@
 </div>
 <br>
 <div [hidden]=hidden>
-    <h1>{{selectedPregunta.textoPreg}}</h1>
-    <table style="width:100%">
+    <h1 class="texto-pregunta">{{selectedPregunta.textoPreg}}</h1>
+    <table class="table-opciones">
         <tr>
             <th>Texto</th>
             <th>Posición opción</th>
-            <th>Eliminar opción</th>
+            <th>Borrar opción</th>
         </tr>
         <tr *ngFor="let opcion of sortOpc(selectedPregunta.opcionespregunta)" class="lista-opciones">
 
-            <td>{{opcion.texto}}</td>
-            <td>{{opcion.num_opc}}</td>
+            <td class="td-pequeña">{{opcion.texto}}</td>
+            <td class="td-pequeña">{{opcion.num_opc}}</td>
             
-            <td>
-                <button [class.selected]="opcion === selectedOpcion" type="button" (click)="onEliminarOpcion(opcion)">
+            <td class="pregunta-td">
+                <button class="btn btn-primary btn-block btn-large" [class.selected]="opcion === selectedOpcion" type="button" (click)="onEliminarOpcion(opcion)">
                     <span class="borrarOpcion">Borrar</span>
                 </button>
             </td>
         </tr>
     </table>
-    <br>
-    <div class="opciones">
+    <div class="div-masivo">
+    <div class="div">
         <form class="opcion-form" method="post" ngNativeValidate #formopcion>
-            <h1>Crear opción</h1>
-            <input
-            type="text"
-            [(ngModel)]="num_opc"
-            name="num_opc"
-            placeholder="Posición de la opción"
-            required="required"
-            />
+            <h1 class="crear-opcion">Insertar opción</h1>
             <input
             type="text"
             [(ngModel)]="textoOpc"
@@ -115,7 +113,19 @@
             placeholder="Texto"
             required="required"
             />
-            <button type="submit" (click)="formopcion.checkValidity() ? onCrearOpcion() : null">Insertar</button>
+            <input
+            type="text"
+            [(ngModel)]="num_opc"
+            name="num_opc"
+            placeholder="Posición de la opción"
+            required="required"
+            />
+            <button class="btn btn-primary btn-block btn-large" type="submit" (click)="formopcion.checkValidity() ? onCrearOpcion() : null">Insertar</button>
         </form>
     </div>
+    </div>
 </div>
+<button class="atras" type="button" aria-label="Atrás" (click)="atras()">
+    <mat-icon>arrow_back</mat-icon>
+</button>
+

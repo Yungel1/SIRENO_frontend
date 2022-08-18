@@ -3,6 +3,7 @@ import { EncuestaService } from 'src/app/services/encuesta.service';
 import {PreguntaOpcion} from "../../models/pregunta-opcion.model";
 import {OpcionPregunta} from "../../models/opcion-pregunta.model";
 import { PreguntaRespuestaOpcionService } from 'src/app/services/pregunta-respuesta-opcion.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-preguntas',
@@ -33,8 +34,9 @@ export class PreguntasComponent implements OnInit {
   };
 
   hidden: boolean = true;
+  hiddenBack: boolean = true;
 
-  constructor(private encuestaService: EncuestaService,private preguntaRespuestaOpcionService: PreguntaRespuestaOpcionService) { }
+  constructor(private encuestaService: EncuestaService,private preguntaRespuestaOpcionService: PreguntaRespuestaOpcionService,private router: Router) { }
 
   ngOnInit(): void {
     this.getQueryParam();
@@ -272,5 +274,10 @@ export class PreguntasComponent implements OnInit {
     
     return this.allPreguntas = this.allPreguntas.sort((a, b) => a.textoPreg > b.textoPreg ? 1 : -1);
 
+  }
+
+  atras(): void {
+    
+    this.router.navigate(['/administrador'],{ queryParams: {campana: true}});
   }
 }
