@@ -1,47 +1,56 @@
 <!-- register.component.html -->
 <div class="register">
-  <form class="custom-form" method="post" ngNativeValidate #formregistro>
-    <h1>Registro</h1>
+  <form class="register-form" method="post" ngNativeValidate #formregistro>
+    <h1>Registrar usuario</h1>
     <input
       type="email"
       [(ngModel)]="email"
-      name="email"
+      name="email-r"
       placeholder="Email"
       required="required"
     />
     <input
       type="text"
       [(ngModel)]="usuario"
-      name="usuario"
+      name="usuario-r"
       placeholder="Usuario"
       required="required"
     />
     <input
       type="password"
       [(ngModel)]="contrasena"
-      name="contraseña"
+      name="contraseña-r"
       placeholder="Contraseña"
       required="required"
     />
-    <br>
+    <h3>
+    Estudiante 
     <input
     type="checkbox"
+    class="checkbox"
     [(ngModel)]="estudiante"
     name="estudiante"
-    >Estudiante
-    <br>
+    >
+    </h3>
+    <h3>
+    Administrador
     <input
     type="checkbox"
+    class="checkbox"
     [(ngModel)]="administrador"
     name="estudiante"
-    />Administrador
-    <br>
+    />
+    </h3>
+    <h3>
+    Docente
     <input
     type="checkbox"
+    class="checkbox"
     [(ngModel)]="docente"
     name="estudiante"
     (change)="cambioCheckBox()"
-    />Docente
+    />
+    </h3>
     <input
     type="text"
     [(ngModel)]="idDepartamento"
@@ -50,12 +59,9 @@
     required="required"
     [disabled]="isDisabled"
     />
-    <button type="submit" (click)="formregistro.checkValidity() ? register() : null">Registrar</button>
+    <button class="btn btn-primary btn-block btn-large" type="submit" (click)="formregistro.checkValidity() ? register() : null">Registrar</button>
   </form>
-</div>
-<br>
-<div class="delete-user">
-  <form class="delete-user-form" method="post">
+  <form class="register-delete-form" method="post">
     <h1>Eliminar usuario</h1>
     <input
       type="text"
@@ -64,6 +70,6 @@
       placeholder="Usuario"
       required="required"
     />
-    <button type="submit" (click)="borrarUsuario()">Borrar</button>
+    <button class="btn btn-primary btn-block btn-large" type="submit" (click)="borrarUsuario()">Eliminar</button>
   </form>
 </div>

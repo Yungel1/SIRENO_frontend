@@ -18,20 +18,32 @@ export class AdministradorComponent implements OnInit {
   }
 
   onRegister(){
+    if(!this.hiddenRegister){
+      this.hiddenRegister = true;
+    } else{
+      this.hiddenRegister = false;
+      this.hiddenSituacion = true;
+      this.hiddenCampana = true;
+    }
 
-    this.hiddenRegister = false;
-    this.hiddenSituacion = true;
-    this.hiddenCampana = true;
   }
   onSituacion(){
-    this.hiddenRegister = true;
-    this.hiddenSituacion = false
-    this.hiddenCampana = true;
+    if(!this.hiddenSituacion){
+      this.hiddenSituacion = true;
+    } else{
+      this.hiddenRegister = true;
+      this.hiddenSituacion = false
+      this.hiddenCampana = true;
+    }
   }
   onCampana(){
-    this.hiddenRegister = true;
-    this.hiddenSituacion = true
-    this.hiddenCampana = false;
+    if(!this.hiddenCampana){
+      this.hiddenCampana = true;
+    } else{
+      this.hiddenRegister = true;
+      this.hiddenSituacion = true;
+      this.hiddenCampana = false;
+    }
   }
   
 
